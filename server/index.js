@@ -4,6 +4,7 @@ const express = require("express");
 
 const userRoute = require("./server/api/user");
 const houseRoute = require("./server/api/house");
+const favoriteRoute = require("./server/api/favorite");
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", userRoute);
 app.use("/api/house", houseRoute);
+app.use("/api/favorite", favoriteRoute);
 
 app.get("/api", (req, res) => {
   res.send("Hello!");

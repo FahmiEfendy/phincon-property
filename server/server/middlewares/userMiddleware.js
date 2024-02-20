@@ -25,6 +25,7 @@ const tokenValidation = (req, res, next) => {
 
     req.body = {
       ...req.body,
+      user_id: verifiedUser.id,
       role: verifiedUser.role,
     };
 
