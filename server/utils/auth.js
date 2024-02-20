@@ -1,9 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const salt = bcrypt.genSaltSync(10);
 const jwtExpiresIn = process.env.JWT_EXPIRES_IN || "24h";
 const jwtSecretToken =
-  process.env.JWT_SECRET_TOKEN || "PHINCON_ESTATE_STRONG_KEY";
+  process.env.JWT_SECRET_TOKEN || "PHINCON_PROPERTY_STRONG_KEY";
 
 const __hashPassword = (password) => {
   return bcrypt.hashSync(password, salt);

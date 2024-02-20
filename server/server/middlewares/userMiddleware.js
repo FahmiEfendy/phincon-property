@@ -25,16 +25,21 @@ const tokenValidation = (req, res, next) => {
 
     req.body = {
       ...req.body,
-      id: verifiedUser.id,
-      username: verifiedUser.username,
+      role: verifiedUser.role,
     };
 
     return next();
   } catch (err) {
     console.log(fileName, "Token Validation", "ERROR", { info: err });
-    return res
-      .status(err.output.statusCode)
-      .send(generalHelper.errorResponse(err).output.payload);
+
+    if (Boom.isBoom(err) && err.output.statusCode === 401) {
+      return res.status(err.output.statusCode).send(err.output.payload);
+    } else {
+      const unauthorizedError = Boom.unauthorized("Unauthorized");
+      return res
+        .status(unauthorizedError.output.statusCode)
+        .send(unauthorizedError.output.payload);
+    }
   }
 };
 

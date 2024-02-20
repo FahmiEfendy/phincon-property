@@ -1,0 +1,35 @@
+[
+    {
+        "id": "3798d83b-a9b5-4822-9fea-c32f97a36e09",
+        "email": "fahmi_seller@gmail.com",
+        "fullName": "Fahmi Seller",
+        "password": "$2a$10$vTXUrriDB6kHeRz1oMISgePHdSqVV6.IkcSD6Wz9s8vGe74R7NP3a",
+        "role": "seller",
+        "image_url": "",
+        "image_id": "",
+        "createdAt": "2024-02-20T02:09:27.000Z",
+        "updatedAt": "2024-02-20T02:09:27.000Z"
+    },
+    {
+        "id": "9bfea02b-26df-458c-b383-8b76be623bb0",
+        "email": "fahmi_admin@gmail.com",
+        "fullName": "Fahmi Admin",
+        "password": "$2a$10$vTXUrriDB6kHeRz1oMISgePHdSqVV6.IkcSD6Wz9s8vGe74R7NP3a",
+        "role": "admin",
+        "image_url": "",
+        "image_id": "",
+        "createdAt": "2024-02-20T02:09:51.000Z",
+        "updatedAt": "2024-02-20T02:09:51.000Z"
+    },
+    {
+        "id": "ca9ff788-cdbe-4d9a-8139-5e5308748758",
+        "email": "fahmi_customer@gmail.com",
+        "fullName": "Fahmi Customer",
+        "password": "$2a$10$vTXUrriDB6kHeRz1oMISgePHdSqVV6.IkcSD6Wz9s8vGe74R7NP3a",
+        "role": "customer",
+        "image_url": "",
+        "image_id": "",
+        "createdAt": "2024-02-20T02:08:34.000Z",
+        "updatedAt": "2024-02-20T02:08:34.000Z"
+    }
+]

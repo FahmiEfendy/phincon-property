@@ -8,10 +8,11 @@ const fileFilter = (req, file, cb) => {
     file.mimetype !== "image/jpg" &&
     file.mimetype !== "image/png"
   ) {
-    req.fileValidationError = new Error(
+    const error = new Error(
       "Unsupported file type! Please upload only JPG, JPEG, or PNG images."
     );
-    return cb(null, false);
+    req.fileValidationError = error;
+    return cb(error, false);
   }
   cb(null, true);
 };

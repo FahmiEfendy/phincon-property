@@ -8,11 +8,11 @@ const encryptPayload = (data) => {
     if (typeof data === "object") {
       return AES.encrypt(
         JSON.stringify(data),
-        process.env.SECRET_KEY
+        process.env.CRYPTO_SECRET
       ).toString();
     }
     if (typeof data === "string") {
-      return AES.encrypt(data, process.env.SECRET_KEY).toString();
+      return AES.encrypt(data, process.env.CRYPTO_SECRET).toString();
     }
   } catch (error) {
     Promise.reject(error);
