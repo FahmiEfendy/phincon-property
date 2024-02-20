@@ -29,6 +29,14 @@ module.exports = {
       images: {
         type: Sequelize.JSON,
       },
+      seller_id: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -16,7 +16,8 @@ const tokenValidation = (req, res, next) => {
 
     const token = authorization.split(" ")[1];
     const verifiedUser = jwt.verify(token, jwtSecretToken);
-    if (_.isEmpty(verifiedUser) || !_.has(verifiedUser, "exp")) {
+
+    if (_.isEmpty(verifiedUser)) {
       throw Boom.unauthorized();
     }
 

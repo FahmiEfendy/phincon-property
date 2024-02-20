@@ -37,11 +37,26 @@ const postAddHouseToFavorite = async (user_id, house_id) => {
 
 const getMyFavorite = async (user_id) => {
   try {
-    const myFavorite = await db.Favorites.findAll({ where: { user_id } });
+    const myFavorite = await db.Favorites.findAll({
+      where: { user_id },
+      include: [
+        {
+          model: db.Houses,
+          as: "house",
+          attributes: ["id", "title", "description"],
+        },
+      ],
+    });
+
+    const formattedMyFavorite = myFavorite.map((data) => ({
+      id: data.dataValues.house.id,
+      title: data.dataValues.house.title,
+      description: data.dataValues.house.description,
+    }));
 
     console.log([fileName, "GET My Favorite", "INFO"]);
 
-    return Promise.resolve(myFavorite);
+    return Promise.resolve(formattedMyFavorite);
   } catch (err) {
     console.log([fileName, "GET My Favorite", "ERROR"], {
       message: { info: `${err}` },

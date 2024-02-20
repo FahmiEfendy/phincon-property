@@ -27,6 +27,7 @@ const createHouse = async (req, res) => {
       ...validateData,
       images: req.files.images,
       role: req.body.role,
+      user_id: req.body.user_id,
     };
 
     const response = await houseHelper.postCreateHouse(objectData);

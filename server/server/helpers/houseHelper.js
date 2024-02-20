@@ -26,6 +26,7 @@ const postCreateHouse = async (objectData) => {
     bathrooms,
     role,
     images,
+    user_id,
   } = objectData;
 
   let id;
@@ -71,6 +72,7 @@ const postCreateHouse = async (objectData) => {
       bedrooms,
       bathrooms,
       images: imageList,
+      seller_id: user_id,
     });
 
     console.log([fileName, "POST Create House", "INFO"]);
@@ -111,7 +113,20 @@ const getHouseDetail = async (params) => {
   const { id } = params;
 
   try {
-    const selectedHouse = await db.Houses.findOne({ where: { id } });
+    const selectedHouse = await db.Houses.findOne({
+      where: { id },
+      include: [
+        {
+          model: db.Users,
+          as: "seller",
+          attributes: ["id", "fullName"],
+        },
+        {
+          model: db.Favorites,
+          as: "favorites",
+        },
+      ],
+    });
 
     if (_.isEmpty(selectedHouse)) {
       throw Boom.notFound(`Cannot find house with id of ${id}`);
@@ -121,6 +136,7 @@ const getHouseDetail = async (params) => {
       ...selectedHouse.dataValues,
       location: JSON.parse(selectedHouse.dataValues.location),
       images: JSON.parse(selectedHouse.dataValues.images),
+      countFavorites: selectedHouse.dataValues.favorites.length,
     };
 
     console.log([fileName, "GET House Detail", "INFO"]);

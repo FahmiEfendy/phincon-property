@@ -113,14 +113,45 @@ const getUserList = async (query) => {
 const getUserDetail = async (params) => {
   const { id } = params;
 
+  let selectedUser;
+
   try {
-    const selectedUser = await db.Users.findOne({
+    selectedUser = await db.Users.findOne({
       where: { id },
+      include: [
+        {
+          model: db.Favorites,
+          as: "favorites",
+          attributes: {
+            exclude: ["user_id", "house_id", "createdAt", "updatedAt"],
+          },
+          include: [
+            {
+              model: db.Houses,
+              as: "House",
+            },
+          ],
+        },
+        {
+          model: db.Houses,
+          as: "houses",
+          attributes: ["id", "title", "description"],
+        },
+      ],
     });
 
     if (_.isEmpty(selectedUser)) {
       throw Boom.notFound(`Cannot find user with id of ${id}!`);
     }
+
+    selectedUser = {
+      ...selectedUser.dataValues,
+      favorites: selectedUser.dataValues.favorites.map((favorite) => ({
+        ...favorite.dataValues.House.dataValues,
+        location: JSON.parse(favorite.dataValues.House.dataValues.location),
+        images: JSON.parse(favorite.dataValues.House.dataValues.images),
+      })),
+    };
 
     console.log([fileName, "GET User Detail", "INFO"]);
 
