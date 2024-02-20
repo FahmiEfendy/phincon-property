@@ -51,7 +51,19 @@ const cloudinaryDeleteImg = async (publicId, resourceType) => {
     return false;
   }
 };
+
+const cloudinaryDeleteFolder = async (folderId) => {
+  try {
+    const response = await cloudinary.api.delete_folder(folderId);
+
+    return response.result === "ok";
+  } catch (error) {
+    return false;
+  }
+};
+
 module.exports = {
   uploadToCloudinary,
   cloudinaryDeleteImg,
+  cloudinaryDeleteFolder,
 };

@@ -95,10 +95,44 @@ const changePasswordValidation = (data) => {
   }
 };
 
+const houseRequestValidation = (data) => {
+  const schema = Joi.object({
+    title: Joi.string()
+      .required()
+      .description("House's title, i.e. Spacious Family Home"),
+    description: Joi.string()
+      .required()
+      .description(
+        "House's description, i.e. A perfect home for your family with ample space and a beautiful backyard."
+      ),
+    price: Joi.number().required().description("House's price, i.e. 2500"),
+    address: Joi.string()
+      .required()
+      .description("House's address, i.e. 789 Oak Avenue"),
+    city: Joi.string().required().description("House's city, i.e. Suburbia"),
+    state: Joi.string().required().description("House's state, i.e. CA"),
+    zipCode: Joi.number()
+      .required()
+      .description("House's zip code, i.e. 56789"),
+    bedrooms: Joi.number()
+      .required()
+      .description("House's bedroom's count, i.e. 4"),
+    bathrooms: Joi.number()
+      .required()
+      .description("House's bathroom's count, i.e. 2"),
+    images: Joi.any(),
+  });
+
+  if (schema.validate(data).error) {
+    throw Boom.badRequest(schema.validate(data).error);
+  }
+};
+
 module.exports = {
   registerValidation,
   loginValidation,
   userIdValidation,
   updateUserValidation,
   changePasswordValidation,
+  houseRequestValidation,
 };

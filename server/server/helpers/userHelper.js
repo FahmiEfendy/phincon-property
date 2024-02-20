@@ -22,7 +22,6 @@ const postRegister = async (objectData) => {
       throw Boom.badRequest(`User with email ${email} already exist!`);
     }
 
-    const userList = await db.Users.findAll({ where: { role } });
     const hashedPassword = auth.__hashPassword(password);
 
     const newUser = await db.Users.create({

@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 
 const userRoute = require("./server/api/user");
+const houseRoute = require("./server/api/house");
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", userRoute);
+app.use("/api/house", houseRoute);
 
 app.get("/api", (req, res) => {
   res.send("Hello!");
