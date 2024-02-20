@@ -57,7 +57,7 @@ const houseList = async (req, res) => {
 
 const houseDetail = async (req, res) => {
   try {
-    validationHelper.userIdValidation(req.params);
+    validationHelper.idValidation(req.params);
 
     const response = await houseHelper.getHouseDetail(req.params);
 
@@ -112,8 +112,8 @@ const deleteHouseImage = async (req, res) => {
       id: req.body.image_id,
     };
 
-    validationHelper.userIdValidation(req.params);
-    validationHelper.userIdValidation(validateData);
+    validationHelper.idValidation(req.params);
+    validationHelper.idValidation(validateData);
 
     await houseHelper.deleteHouseImage(req.params, req.body);
 
@@ -127,7 +127,7 @@ const deleteHouseImage = async (req, res) => {
 
 const deleteHouse = async (req, res) => {
   try {
-    validationHelper.userIdValidation(req.params);
+    validationHelper.idValidation(req.params);
 
     await houseHelper.deleteHouse(req.params, req.body);
 

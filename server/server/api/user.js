@@ -79,7 +79,7 @@ const userList = async (req, res) => {
 
 const userDetail = async (req, res) => {
   try {
-    validationHelper.userIdValidation(req.params);
+    validationHelper.idValidation(req.params);
 
     const response = await userHelper.getUserDetail(req.params);
 
@@ -100,7 +100,7 @@ const updateUser = async (req, res) => {
       image: req?.files?.image,
     };
 
-    validationHelper.userIdValidation(req.params);
+    validationHelper.idValidation(req.params);
     validationHelper.updateUserValidation(objectData);
 
     const response = await userHelper.patchUpdateUser(req.params, objectData);
@@ -125,7 +125,7 @@ const changePassword = async (req, res) => {
   };
 
   try {
-    validationHelper.userIdValidation(req.params);
+    validationHelper.idValidation(req.params);
     validationHelper.changePasswordValidation(objectData);
 
     await userHelper.patchChangePassword(req.params, objectData);
@@ -140,7 +140,7 @@ const changePassword = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    validationHelper.userIdValidation(req.params);
+    validationHelper.idValidation(req.params);
 
     await userHelper.deleteUser(req.params, req.body);
 

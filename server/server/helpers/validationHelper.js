@@ -47,7 +47,7 @@ const loginValidation = (data) => {
   }
 };
 
-const userIdValidation = (data) => {
+const idValidation = (data) => {
   const schema = Joi.object({
     id: Joi.string().required().description("User id, generated from uuid"),
   });
@@ -95,31 +95,51 @@ const changePasswordValidation = (data) => {
   }
 };
 
-const houseRequestValidation = (data) => {
+const houseRequestValidation = (data, isUpdate = false) => {
   const schema = Joi.object({
-    title: Joi.string()
-      .required()
-      .description("House's title, i.e. Spacious Family Home"),
-    description: Joi.string()
-      .required()
-      .description(
-        "House's description, i.e. A perfect home for your family with ample space and a beautiful backyard."
-      ),
-    price: Joi.number().required().description("House's price, i.e. 2500"),
-    address: Joi.string()
-      .required()
-      .description("House's address, i.e. 789 Oak Avenue"),
-    city: Joi.string().required().description("House's city, i.e. Suburbia"),
-    state: Joi.string().required().description("House's state, i.e. CA"),
-    zipCode: Joi.number()
-      .required()
-      .description("House's zip code, i.e. 56789"),
-    bedrooms: Joi.number()
-      .required()
-      .description("House's bedroom's count, i.e. 4"),
-    bathrooms: Joi.number()
-      .required()
-      .description("House's bathroom's count, i.e. 2"),
+    title: isUpdate
+      ? Joi.string()
+          .optional()
+          .description("House's title, i.e. Spacious Family Home")
+      : Joi.string()
+          .required()
+          .description("House's title, i.e. Spacious Family Home"),
+    description: isUpdate
+      ? Joi.string()
+          .optional()
+          .description(
+            "House's description, i.e. A perfect home for your family with ample space and a beautiful backyard."
+          )
+      : Joi.string()
+          .required()
+          .description(
+            "House's description, i.e. A perfect home for your family with ample space and a beautiful backyard."
+          ),
+    price: isUpdate
+      ? Joi.number().optional().description("House's price, i.e. 2500")
+      : Joi.number().required().description("House's price, i.e. 2500"),
+    address: isUpdate
+      ? Joi.string()
+          .optional()
+          .description("House's address, i.e. 789 Oak Avenue")
+      : Joi.string()
+          .required()
+          .description("House's address, i.e. 789 Oak Avenue"),
+    city: isUpdate
+      ? Joi.string().optional().description("House's city, i.e. Suburbia")
+      : Joi.string().required().description("House's city, i.e. Suburbia"),
+    state: isUpdate
+      ? Joi.string().optional().description("House's state, i.e. CA")
+      : Joi.string().required().description("House's state, i.e. CA"),
+    zipCode: isUpdate
+      ? Joi.number().optional().description("House's zip code, i.e. 56789")
+      : Joi.number().required().description("House's zip code, i.e. 56789"),
+    bedrooms: isUpdate
+      ? Joi.number().optional().description("House's bedroom's count, i.e. 4")
+      : Joi.number().required().description("House's bedroom's count, i.e. 4"),
+    bathrooms: isUpdate
+      ? Joi.number().optional().description("House's bathroom's count, i.e. 2")
+      : Joi.number().required().description("House's bathroom's count, i.e. 2"),
     images: Joi.any(),
   });
 
@@ -131,7 +151,7 @@ const houseRequestValidation = (data) => {
 module.exports = {
   registerValidation,
   loginValidation,
-  userIdValidation,
+  idValidation,
   updateUserValidation,
   changePasswordValidation,
   houseRequestValidation,
