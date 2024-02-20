@@ -148,6 +148,35 @@ const houseRequestValidation = (data, isUpdate = false) => {
   }
 };
 
+const appointmentRequestValidation = (data, isUpdate = false) => {
+  const schema = Joi.object({
+    house_id:
+      !isUpdate &&
+      Joi.string().required().description("House id, generated from uuid"),
+    seller_id:
+      !isUpdate &&
+      Joi.string().required().description("Seller id, generated from uuid"),
+    date:
+      !isUpdate &&
+      Joi.date().required().description("Appointment's date, i.e. 2/20/2024"),
+    message:
+      !isUpdate &&
+      Joi.string()
+        .required()
+        .description("Appointment's message, i.e. I'll arrive at 9am"),
+    status:
+      isUpdate &&
+      Joi.string()
+        .required()
+        .valid("accepted", "rejected")
+        .description("Appointment's updated status, i.e. rejected or accepted"),
+  });
+
+  if (schema.validate(data).error) {
+    throw Boom.badRequest(schema.validate(data).error);
+  }
+};
+
 module.exports = {
   registerValidation,
   loginValidation,
@@ -155,4 +184,5 @@ module.exports = {
   updateUserValidation,
   changePasswordValidation,
   houseRequestValidation,
+  appointmentRequestValidation,
 };

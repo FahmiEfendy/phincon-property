@@ -87,6 +87,7 @@ const updateHouse = async (req, res) => {
   };
 
   try {
+    validationHelper.idValidation(req.params);
     validationHelper.houseRequestValidation(validateData, true);
 
     const objectData = {

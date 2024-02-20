@@ -48,6 +48,10 @@ const getMyFavorite = async (user_id) => {
       ],
     });
 
+    if (_.isEmpty(myFavorite)) {
+      throw Boom.notFound("No favorite found!");
+    }
+
     const formattedMyFavorite = myFavorite.map((data) => ({
       id: data.dataValues.house.id,
       title: data.dataValues.house.title,

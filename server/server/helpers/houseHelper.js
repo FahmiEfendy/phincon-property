@@ -91,6 +91,10 @@ const getHouseList = async () => {
   try {
     const houseList = await db.Houses.findAll({});
 
+    if (_.isEmpty(houseList)) {
+      throw Boom.notFound("No house found!");
+    }
+
     const parsedHouseList = houseList.map((house) => ({
       ...house.dataValues,
       location: JSON.parse(house.dataValues.location),
