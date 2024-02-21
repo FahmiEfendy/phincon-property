@@ -1,0 +1,78 @@
+@startuml Diagram
+
+entity Users {
+    id: String [PK]
+    email: String
+    fullName: String
+    password: String
+    role: String
+    favorited_listings: Array
+}
+
+entity Houses {
+    id: String [PK]
+    title: String
+    description: String
+    price: Number
+    location: String
+    ' location: {
+    '     address: String
+    '     city: String
+    '     state: String
+    '     zipCode: string
+    '     coordinates: {
+    '         latitude: Number
+    '         longitude: Number
+    '     }
+    ' }
+    bedrooms: Number
+    bathrooms: Number
+    images: [String]
+    --
+    user_id: String [FK]
+}
+
+entity Favorites {
+    id: String [PK]
+    --
+    user_id: String [FK]
+    house_id: String [FK]
+}
+
+entity Appointments {
+    id: String [PK]
+    status: String
+    date: Date
+    message: String
+    --
+    house_id: String [FK]
+    customer_id: String [FK]
+}
+
+entity Conversations {
+    id: String [PK]
+    --
+    sender_id: String [FK]
+    receiver_id: String [FK]
+}
+
+entity Messages {
+    id: String [PK]
+    content: String
+    timeStamp: Date
+    --
+    conversation_id: String [FK]
+    sender_id: String [FK]
+    receover_id: String [FK]
+}
+
+Users --o{ Favorites
+Favorites --|{ Houses
+
+Users --o{ Appointments
+Appointments --|| Houses
+
+Users --o{ Conversations
+Conversations --|{ Messages
+
+@enduml
