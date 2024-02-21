@@ -120,9 +120,20 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
                 horizontal: 'right',
               }}
             >
-              <MenuItem onClick={() => {}}>
+              <MenuItem
+                onClick={() => {
+                  navigate(`/user/detail/${userData?.id}`);
+                }}
+              >
                 <div className={classes.menu}>
-                  <div className={classes.menuLang} onClick={logoutHandler}>
+                  <div className={classes.menuLang}>
+                    <FormattedMessage id="app_my_profile" />
+                  </div>
+                </div>
+              </MenuItem>
+              <MenuItem onClick={logoutHandler}>
+                <div className={classes.menu}>
+                  <div className={classes.menuLang}>
                     <FormattedMessage id="global_logout" />
                   </div>
                 </div>

@@ -65,7 +65,9 @@ const Login = ({ loginError }) => {
             <FormattedMessage id="app_login" />
           </Typography>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>Email</FormLabel>
+            <FormLabel className={classes.form_label}>
+              <FormattedMessage id="form_email" />
+            </FormLabel>
             <TextField
               type="text"
               value={email.value}
@@ -78,7 +80,9 @@ const Login = ({ loginError }) => {
             )}
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>Password</FormLabel>
+            <FormLabel className={classes.form_label}>
+              <FormattedMessage id="form_password" />
+            </FormLabel>
             <Box className={classes.input_wrapper_password}>
               <TextField
                 fullWidth

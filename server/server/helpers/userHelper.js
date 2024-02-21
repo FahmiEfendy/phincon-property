@@ -128,7 +128,7 @@ const getUserDetail = async (params) => {
           include: [
             {
               model: db.Houses,
-              as: "House",
+              as: "house",
             },
           ],
         },

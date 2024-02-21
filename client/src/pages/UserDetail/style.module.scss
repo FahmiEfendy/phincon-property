@@ -1,0 +1,10 @@
+@import "../../styles/base.scss";
+
+.container {
+    @include directionY;
+    margin-bottom: 3rem;
+
+    .container_inner {
+        margin-top: 3rem;
+    }
+}

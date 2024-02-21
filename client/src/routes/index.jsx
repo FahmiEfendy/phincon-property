@@ -6,6 +6,7 @@ import NotFound from '@pages/NotFound';
 import Register from '@pages/Register';
 import UserList from '@pages/UserList';
 import Forbidden from '@pages/Forbidden';
+import UserDetail from '@pages/UserDetail';
 
 const routes = [
   {
@@ -38,6 +39,13 @@ const routes = [
         component: UserList,
         layout: MainLayout,
         isAdmin: true,
+      },
+      {
+        path: '/detail/:id',
+        name: 'User Detail',
+        protected: false,
+        component: UserDetail,
+        layout: MainLayout,
       },
     ],
   },

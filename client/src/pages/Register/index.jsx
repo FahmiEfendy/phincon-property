@@ -5,8 +5,6 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, Button, Container, FormLabel, TextField, Typography } from '@mui/material';
 
 import encryptPayload from '@utils/encryptPayload';
@@ -27,7 +25,6 @@ const Register = ({ register }) => {
   const [fullName, setFullName] = useState({ value: 'Fahmi Customer', isValid: true });
   const [password, setPassword] = useState({ value: 'fahmi123', isValid: true });
   const [confirmPassword, setConfirmPassword] = useState({ value: 'fahmi123', isValid: true });
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const formValidation = () => {
     let isFormValid = true;
@@ -118,13 +115,10 @@ const Register = ({ register }) => {
             <Box className={classes.input_wrapper_password}>
               <TextField
                 fullWidth
-                type={isPasswordVisible ? 'text' : 'password'}
+                type="password"
                 value={password.value}
                 onChange={(e) => setPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
               />
-              <Box className={classes.icon} onClick={() => setIsPasswordVisible((prevState) => !prevState)}>
-                {isPasswordVisible ? <VisibilityIcon fontSize="small" /> : <VisibilityOffIcon fontSize="small" />}
-              </Box>
             </Box>
             {!password.isValid && (
               <FormLabel className={classes.form_label_error}>
@@ -139,13 +133,10 @@ const Register = ({ register }) => {
             <Box className={classes.input_wrapper_password}>
               <TextField
                 fullWidth
-                type={isPasswordVisible ? 'text' : 'password'}
+                type="password"
                 value={confirmPassword.value}
                 onChange={(e) => setConfirmPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
               />
-              <Box className={classes.icon} onClick={() => setIsPasswordVisible((prevState) => !prevState)}>
-                {isPasswordVisible ? <VisibilityIcon fontSize="small" /> : <VisibilityOffIcon fontSize="small" />}
-              </Box>
             </Box>
             {!confirmPassword.isValid && (
               <FormLabel className={classes.form_label_error}>
