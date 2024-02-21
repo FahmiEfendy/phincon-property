@@ -1,24 +1,33 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
+import { connect, useDispatch } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
 import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Button, Typography } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 
+import { resetLogin } from '@containers/Client/actions';
 import { setLocale, setTheme } from '@containers/App/actions';
+import { selectLogin, selectuserData } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
 
-const Navbar = ({ title, locale, theme }) => {
+const Navbar = ({ title, locale, theme, isLogin, userData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [menuPosition, setMenuPosition] = useState(null);
+  const [profilePosition, setProfilePosition] = useState(null);
+
   const open = Boolean(menuPosition);
+  const isProfileOpen = Boolean(profilePosition);
 
   const handleClick = (event) => {
     setMenuPosition(event.currentTarget);
@@ -26,6 +35,14 @@ const Navbar = ({ title, locale, theme }) => {
 
   const handleClose = () => {
     setMenuPosition(null);
+  };
+
+  const openProfileHandler = (event) => {
+    setProfilePosition(event.currentTarget);
+  };
+
+  const closeProfileHandler = () => {
+    setProfilePosition(null);
   };
 
   const handleTheme = () => {
@@ -43,7 +60,12 @@ const Navbar = ({ title, locale, theme }) => {
     navigate('/');
   };
 
+  const logoutHandler = () => {
+    dispatch(resetLogin());
+  };
+
   return (
+    // TODO: Navbar Responsiveness
     <div className={classes.headerWrapper} data-testid="navbar">
       <div className={classes.contentWrapper}>
         <div className={classes.logoImage} onClick={goHome}>
@@ -78,6 +100,45 @@ const Navbar = ({ title, locale, theme }) => {
             </div>
           </MenuItem>
         </Menu>
+        {isLogin ? (
+          <>
+            <Box className={classes.profile_wrapper} onClick={openProfileHandler}>
+              <Avatar className={classes.avatar} src="" />
+              <Typography variant="body1">{userData?.fullName}</Typography>
+              <ExpandMoreIcon />
+            </Box>
+            <Menu
+              open={isProfileOpen}
+              anchorEl={profilePosition}
+              onClose={closeProfileHandler}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <MenuItem onClick={() => {}}>
+                <div className={classes.menu}>
+                  <div className={classes.menuLang} onClick={logoutHandler}>
+                    <FormattedMessage id="global_logout" />
+                  </div>
+                </div>
+              </MenuItem>
+            </Menu>
+          </>
+        ) : (
+          <Box className={classes.btn_wrapper}>
+            <Button variant="outlined" onClick={() => navigate('/register/user')}>
+              <FormattedMessage id="app_register" />
+            </Button>
+            <Button variant="contained" onClick={() => navigate('/login')}>
+              <FormattedMessage id="app_login" />
+            </Button>
+          </Box>
+        )}
       </div>
     </div>
   );
@@ -87,6 +148,13 @@ Navbar.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
   theme: PropTypes.string,
+  isLogin: PropTypes.bool,
+  userData: PropTypes.object,
 };
 
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+  isLogin: selectLogin,
+  userData: selectuserData,
+});
+
+export default connect(mapStateToProps)(Navbar);

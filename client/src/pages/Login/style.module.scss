@@ -1,0 +1,115 @@
+@import "../../styles/base.scss";
+
+.container {
+    @include directionY;
+    justify-content: center;
+    height: 100vh;
+    
+    .container_inner {
+        @include directionY;
+        height: 70%;
+        border-radius: 10px;
+        padding: 0;
+        box-shadow: 5px 5px 30px gray;
+        
+        @include apply-at-lg-size{
+            @include directionX;
+        }
+        
+        .wrapper_left {
+            background-image: url("../../../asset/house.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            height: 100%;
+
+            @include apply-at-lg-size{
+                width: 60%;
+            }
+        }
+        
+        .wrapper_right {
+            padding: 2rem;
+            height: 100%;
+
+            @include apply-at-lg-size{
+                @include directionY;
+                padding: 0rem 2rem;
+                width: 40%;
+                justify-content: center
+            }
+            
+            h5 {
+                @include font(24px, $font-weight-medium, "");
+                text-align: center;
+                
+                @include apply-at-lg-size{
+                    @include font(30px, $font-weight-medium, "");
+                }
+            }
+
+            .input_wrapper{
+                @include directionY;
+                position: relative;
+
+                .form_label{
+                    @include font(14px, $font-weight-light, "");
+                    margin: .8rem 0 .3rem;
+                    
+                    @include apply-at-lg-size{
+                        @include font(18px, $font-weight-light, "");
+                    }
+                }
+
+                .form_label_error{
+                    @extend .form_label;
+                    color: var(--color-button);
+                    margin: .3rem 0rem;
+                    text-align: right;
+                }
+
+                .input_wrapper_password{
+                    position: relative;
+
+                    input {
+                        width: 100% !important;
+                    }
+                    
+                    .icon {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        margin: 1rem;
+                    }
+                }
+
+            }
+
+            .btn_wrapper{
+                @include directionY;
+                margin-top: 1rem;
+
+                button {
+                    text-transform: capitalize;
+                    @include font(16px, $font-weight-regular, "");
+                    
+                    @include apply-at-lg-size{
+                        @include font(20px, $font-weight-regular, "");
+                    }
+
+                }
+
+                p {
+                    margin-top: .5rem;
+                    @include font(12px, $font-weight-light, "");
+                    text-align: center;
+
+                    @include apply-at-lg-size{
+                        @include font(16px, $font-weight-light, "");
+                    }
+                }
+            }
+        }
+    }
+}

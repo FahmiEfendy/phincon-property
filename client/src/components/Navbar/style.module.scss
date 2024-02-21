@@ -11,7 +11,6 @@
     color: var(--color-text);
     padding: 1rem;
     align-items: center;
-    justify-content: space-between;
     font-size: 1rem;
 
     .logoImage {
@@ -31,6 +30,8 @@
 
     .toolbar {
       @include directionX;
+      margin-left: auto;
+
       .theme {
         @include directionX;
         align-items: center;
@@ -59,6 +60,29 @@
         .arrow {
           font-size: 1rem;
         }
+      }
+    }
+
+    .profile_wrapper{
+      @include directionX; 
+      align-items: center;
+
+      .avatar {
+        @extend .avatar
+      }
+
+      p {
+        @include font(20px, $font-weight-medium, "");
+        margin-left: .3rem;
+      }
+    }
+
+    .btn_wrapper {
+      button {
+        text-transform: capitalize;
+        padding: 0.2rem 1rem;
+        @include font(18px, $font-weight-regular, "");
+        margin-left: 1rem
       }
     }
   }
