@@ -4,15 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectLogin } from '@containers/Client/selectors';
+import { selectLogin, selectuserData } from '@containers/Client/selectors';
 
-const Client = ({ login, children }) => {
+const Client = ({ login, children, isAdmin, userData }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!login) {
       navigate('/login');
+    } else if (isAdmin && userData.role !== 'admin') {
+      navigate('/forbidden');
     }
-  }, [login, navigate]);
+  }, [isAdmin, login, navigate, userData.role]);
 
   return children;
 };
@@ -20,10 +22,12 @@ const Client = ({ login, children }) => {
 Client.propTypes = {
   login: PropTypes.bool,
   children: PropTypes.element,
+  userData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   login: selectLogin,
+  userData: selectuserData,
 });
 
 export default connect(mapStateToProps)(Client);

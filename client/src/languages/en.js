@@ -1,6 +1,10 @@
 export default {
   global_error: 'Something went wrong!',
+  global_success: 'Succeed',
   global_logout: 'Logout',
+  global_action: 'Action',
+  global_proceed: 'Proceed',
+  global_delete: 'Delete',
 
   form_email: 'Email Address',
   form_email_error_required: 'Email cannot be empty!',
@@ -22,6 +26,8 @@ export default {
   app_login: 'Login',
   app_register: 'Register',
 
+  forbidden_text: 'You have no right to access this page!',
+
   login_to_register: "Don't have account? ",
   login_to_register_action: 'Register instead',
   login_invalid: 'Check your email or password',
@@ -29,4 +35,11 @@ export default {
   register_seller: 'Register as Seller',
   register_customer: 'Register as Customer',
   register_to_login: 'Already have an account? ',
+
+  user_list: 'User list',
+  user_picture: 'Picture',
+  user_role: 'Role',
+  user_delete_title: 'Confirmation',
+  user_delete_desc: 'Are you sure want to delete this user?',
+  user_delete_success: 'Delete user success',
 };

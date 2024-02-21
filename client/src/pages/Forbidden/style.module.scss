@@ -1,0 +1,33 @@
+@import "../../styles/base.scss";
+
+.container{
+    @include directionY;
+    align-items: center;
+    margin-top: 2rem;
+
+    .icon {
+        width: 250px;
+        height: 250px;
+        
+        @include apply-at-lg-size{
+            width: 300px;
+            height: 300px;
+        }
+        
+        @include apply-at-xxl-size{
+            width: 350px;
+            height: 350px;
+        }
+    }
+
+    h5{
+        @include font(20px, $font-weight-medium, "");
+        margin-top: 2rem;
+        text-align: center;
+        
+        @include apply-at-lg-size{
+            margin-top: 3rem;
+            @include font(28px, $font-weight-medium, "");
+        }
+    }
+}

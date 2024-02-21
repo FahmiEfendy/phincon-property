@@ -6,7 +6,7 @@ axios.interceptors.request.use((reqConfig) => {
   const state = store.getState();
   const { token } = state.client;
   if (token) {
-    reqConfig.headers.Authorization = `Bearer ${token}`;
+    reqConfig.headers.Authorization = `Bearer ${token.token}`;
   }
   return reqConfig;
 });

@@ -1,0 +1,64 @@
+@import "../../styles/base.scss";
+
+.container{
+    @include directionY;
+    align-items: center;
+
+    .table_container{
+        margin: 2rem 0rem 5rem;
+        padding: 1.5rem .5rem;
+        
+        @include apply-at-lg-size{
+            width: 90%;
+            padding: 1.5rem 1rem;
+        }
+
+        @include apply-at-xxl-size{
+            padding: 2rem 1.5rem;
+        }
+    
+        .header {
+            @include font(20px, $font-weight-medium, "");
+            margin-bottom: .5rem;
+            
+            @include apply-at-lg-size{
+                @include font(24px, $font-weight-medium, "");
+                margin-bottom: 1rem;
+            }
+            
+            @include apply-at-xxl-size{
+                @include font(30px, $font-weight-medium, "");
+            }
+        }
+    
+        .table_column {
+            @include font(8px, $font-weight-regular, "");
+            padding: .3rem 0rem;
+            
+            @include apply-at-sm-size{
+                @include font(12px, $font-weight-regular, "");
+                padding: .3rem .5rem;
+            }
+            
+            @include apply-at-xxl-size{
+                @include font(18px, $font-weight-regular, "");
+                padding: 1rem;
+            }
+        
+            .avatar{
+                width: 20px;
+                height: 20px;
+                
+                @include apply-at-sm-size{
+                    width: 30px;
+                    height: 30px;
+                }
+                
+                @include apply-at-xl-size{
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+}

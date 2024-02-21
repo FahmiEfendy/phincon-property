@@ -9,6 +9,8 @@ export const initialState = {
     open: false,
     title: '',
     message: '',
+    btnText: null,
+    btnFunc: null,
   },
   loading: false,
 };

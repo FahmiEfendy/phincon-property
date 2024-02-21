@@ -1,8 +1,12 @@
 export default {
   global_error: 'Terjadi kesalahan!',
+  global_success: 'Berhasil',
   global_logout: 'Keluar',
+  global_action: 'Aksi',
+  global_proceed: 'Proses',
+  global_delete: 'Hapus',
 
-  form_email: 'Alamat Email',
+  form_email: 'Alamat Surel',
   form_email_error_required: 'Email tidak boleh kosong!',
   form_full_name: 'Nama Lengkap',
   form_full_name_error_required: 'Nama Lengkap tidak boleh kosong!',
@@ -22,6 +26,8 @@ export default {
   app_login: 'Masuk',
   app_register: 'Daftar',
 
+  forbidden_text: 'Kamu tidak mempunyai akses untuk membuka halaman ini!',
+
   login_to_register: 'Tidak punya akun? ',
   login_to_register_action: 'Daftar sekarang',
   login_invalid: 'Periksa email atau password kamu',
@@ -29,4 +35,11 @@ export default {
   register_seller: 'Daftar sebagai Penjual',
   register_customer: 'Daftar sebagai Pembeli',
   register_to_login: 'Sudah punya akun? ',
+
+  user_list: 'Daftar pengguna',
+  user_picture: 'Gambar',
+  user_role: 'Peran',
+  user_delete_title: 'Konfirmasi',
+  user_delete_desc: 'Apakah kamu yakin ingin menghapus pengguna ini?',
+  user_delete_success: 'Berhasil menghapus user',
 };
