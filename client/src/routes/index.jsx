@@ -7,6 +7,9 @@ import Register from '@pages/Register';
 import UserList from '@pages/UserList';
 import Forbidden from '@pages/Forbidden';
 import UserDetail from '@pages/UserDetail';
+import HouseList from '@pages/HouseList';
+import HouseDetail from '@pages/HouseDetail';
+import HouseForm from '@pages/HouseForm';
 
 const routes = [
   {
@@ -38,7 +41,7 @@ const routes = [
         protected: true,
         component: UserList,
         layout: MainLayout,
-        isAdmin: true,
+        adminOnly: true,
       },
       {
         path: '/detail/:id',
@@ -46,6 +49,42 @@ const routes = [
         protected: false,
         component: UserDetail,
         layout: MainLayout,
+      },
+    ],
+  },
+  {
+    path: '/house',
+    name: 'House',
+    subRoutes: [
+      {
+        path: '/list',
+        name: 'House List',
+        protected: false,
+        component: HouseList,
+        layout: MainLayout,
+      },
+      {
+        path: '/detail/:id',
+        name: 'House Detail',
+        protected: false,
+        component: HouseDetail,
+        layout: MainLayout,
+      },
+      {
+        path: '/create',
+        name: 'Create House',
+        protected: true,
+        component: HouseForm,
+        layout: MainLayout,
+        sellerOnly: true,
+      },
+      {
+        path: '/update/:id',
+        name: 'Update House',
+        protected: true,
+        component: HouseForm,
+        layout: MainLayout,
+        sellerOnly: true,
       },
     ],
   },

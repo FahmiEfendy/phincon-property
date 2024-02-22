@@ -31,7 +31,7 @@ const UserList = ({ userList, deleteUser }) => {
 
   const deleteUserHandler = (id) => {
     dispatch(
-      showPopup('user_delete_title', 'user_delete_desc', 'global_delete', () => {
+      showPopup('global_confirmation', 'user_delete_desc', 'global_delete', () => {
         dispatch(
           deleteUserRequest(id, () => {
             dispatch(showPopup('global_success', 'user_delete_success'));

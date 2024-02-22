@@ -6,15 +6,17 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectLogin, selectuserData } from '@containers/Client/selectors';
 
-const Client = ({ login, children, isAdmin, userData }) => {
+const Client = ({ login, children, adminOnly, sellerOnly, userData }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!login) {
       navigate('/login');
-    } else if (isAdmin && userData.role !== 'admin') {
+    } else if (adminOnly && userData.role !== 'admin') {
+      navigate('/forbidden');
+    } else if (sellerOnly && userData.role !== 'seller' && userData.role !== 'admin') {
       navigate('/forbidden');
     }
-  }, [isAdmin, login, navigate, userData.role]);
+  }, [adminOnly, login, navigate, sellerOnly, userData.role]);
 
   return children;
 };

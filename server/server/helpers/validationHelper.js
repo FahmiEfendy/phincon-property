@@ -140,7 +140,7 @@ const houseRequestValidation = (data, isUpdate = false) => {
     bathrooms: isUpdate
       ? Joi.number().optional().description("House's bathroom's count, i.e. 2")
       : Joi.number().required().description("House's bathroom's count, i.e. 2"),
-    images: Joi.any(),
+    images: Joi.any().required(),
   });
 
   if (schema.validate(data).error) {

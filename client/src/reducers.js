@@ -8,6 +8,10 @@ import registerReducer, { storedKey as storedRegisterState } from '@pages/Regist
 import userListReducer, { storedKey as storeduserListState } from '@pages/UserList/reducer';
 import userDetailReducer, { storedKey as storedUserDetailState } from '@pages/UserDetail/reducer';
 
+import houseFormReducer, { storedKey as storedHouseFormState } from '@pages/HouseForm/reducer';
+import houseListReducer, { storedKey as storedHouseListState } from '@pages/HouseList/reducer';
+import houseDetailReducer, { storedKey as storedHouseDetailState } from '@pages/HouseDetail/reducer';
+
 import { mapWithPersistor } from './persistence';
 
 const storedReducers = {
@@ -16,6 +20,9 @@ const storedReducers = {
   register: { reducer: registerReducer, whitelist: storedRegisterState },
   userList: { reducer: userListReducer, whitelist: storeduserListState },
   userDetail: { reducer: userDetailReducer, whitelist: storedUserDetailState },
+  houseForm: { reducer: houseFormReducer, whitelist: storedHouseFormState },
+  houseList: { reducer: houseListReducer, whitelist: storedHouseListState },
+  houseDetail: { reducer: houseDetailReducer, whitelist: storedHouseDetailState },
 };
 
 const temporaryReducers = {

@@ -1,12 +1,15 @@
 export default {
   global_error: 'Something went wrong!',
-  global_success: 'Succeess',
+  global_success: 'Success',
   global_logout: 'Logout',
   global_action: 'Action',
   global_proceed: 'Proceed',
   global_delete: 'Delete',
   global_cancel: 'Cancel',
   global_save: 'Save changes',
+  global_confirmation: 'Confirmation',
+  global_create: 'Create',
+  global_edit: 'Edit',
 
   form_email: 'Email Address',
   form_email_error_required: 'Email cannot be empty!',
@@ -49,7 +52,6 @@ export default {
   user_list: 'User list',
   user_picture: 'Picture',
   user_role: 'Role',
-  user_delete_title: 'Confirmation',
   user_delete_desc: 'Are you sure want to delete this user?',
   user_delete_success: 'Delete user success',
   user_information: 'Information',
@@ -58,4 +60,12 @@ export default {
   user_edit_profile: 'Edit profile',
   user_change_password: 'Change password',
   user_change_password_success: 'Successfully change password',
+
+  house_delete_desc: 'Are you sure want to delete this house?',
+  house_delete_success: 'Delete house success',
+  house_create: 'Add house',
+  house_create_success: 'Success add new house',
+  house_update_success: 'Success update a house',
+  house_image_delete_desc: 'Are you sure want to delete this house image?',
+  house_image_delete_success: 'Delete house image success',
 };

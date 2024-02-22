@@ -7,6 +7,9 @@ export default {
   global_delete: 'Hapus',
   global_cancel: 'Batal',
   global_save: 'Simpan perubahan',
+  global_confirmation: 'Konfirmasi',
+  global_create: 'Tambah',
+  global_edit: 'Ubah',
 
   form_email: 'Alamat Surel',
   form_email_error_required: 'Email tidak boleh kosong!',
@@ -49,7 +52,6 @@ export default {
   user_list: 'Daftar pengguna',
   user_picture: 'Gambar',
   user_role: 'Peran',
-  user_delete_title: 'Konfirmasi',
   user_delete_desc: 'Apakah kamu yakin ingin menghapus pengguna ini?',
   user_delete_success: 'Berhasil menghapus user',
   user_information: 'Informasi',
@@ -58,4 +60,12 @@ export default {
   user_edit_profile: 'Ubah profil',
   user_change_password: 'Ganti kata sandi',
   user_change_password_success: 'Berhasil mengganti kata sandi',
+
+  house_delete_desc: 'Apakah kamu yakin ingin menghapus rumah ini?',
+  house_delete_success: 'Berhasil menghapus rumah',
+  house_create: 'Tambah rumah',
+  house_create_success: 'Berhasil menambahkan rumah',
+  house_update_success: 'Berhasil memperbarui rumah',
+  house_image_delete_desc: 'Apakah kamu yakin ingin menghapus gambar rumah ini?',
+  house_image_delete_success: 'Berhasil menghapus gambar rumah',
 };
