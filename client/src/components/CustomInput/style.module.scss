@@ -1,0 +1,21 @@
+@import '@styles/base';
+
+.input_wrapper{
+    @include directionY;
+
+    .form_label{
+        @include font(14px, $font-weight-light, "");
+        margin: .8rem 0 .3rem;
+        
+        @include apply-at-lg-size{
+            @include font(18px, $font-weight-light, "");
+        }
+    }
+
+    .form_label_error{
+        @extend .form_label;
+        color: var(--color-button);
+        margin: .3rem 0rem;
+        text-align: right;
+    }
+}

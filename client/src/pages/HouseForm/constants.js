@@ -6,3 +6,6 @@ export const PATCH_UPDATE_HOUSE_FAILED = 'HouseForm/PATCH_UPDATE_HOUSE_FAILED';
 
 export const DELETE_HOUSE_IMAGE_REQUEST = 'HouseForm/DELETE_HOUSE_IMAGE_REQUEST';
 export const DELETE_HOUSE_IMAGE_FAILED = 'HouseForm/DELETE_HOUSE_IMAGE_FAILED';
+
+export const SET_STEP = 'HouseForm/SET_STEP';
+export const SET_FORM_DATA = 'HouseForm/SET_FORM_DATA';

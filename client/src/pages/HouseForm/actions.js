@@ -5,6 +5,8 @@ import {
   PATCH_UPDATE_HOUSE_REQUEST,
   POST_CREATE_HOUSE_FAILED,
   POST_CREATE_HOUSE_REQUEST,
+  SET_FORM_DATA,
+  SET_STEP,
 } from './constants';
 
 export const postCreateHouseRequest = (payload, callback) => ({
@@ -38,4 +40,14 @@ export const deleteHouseImageRequest = (object, callback) => ({
 export const deleteHouseImageFailed = (error) => ({
   type: DELETE_HOUSE_IMAGE_FAILED,
   error,
+});
+
+export const setStep = (step) => ({
+  type: SET_STEP,
+  step,
+});
+
+export const setFormData = (formData) => ({
+  type: SET_FORM_DATA,
+  formData,
 });

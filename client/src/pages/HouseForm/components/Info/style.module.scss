@@ -1,0 +1,21 @@
+@import "@styles/base";
+
+.container{
+    width: 100%;
+
+    h5 {
+        @include font(24px, $font-weight-medium, var(--color-text));
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .btn_wrapper{
+        @include directionX;
+
+        .btn{
+            text-transform: capitalize;
+            margin: 1rem 0 0 auto;
+            padding: .3rem 1.5rem;
+        }
+    }
+}

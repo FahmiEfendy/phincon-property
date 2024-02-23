@@ -1,1 +1,219 @@
 @import "../../styles/base.scss";
+
+.container {
+    margin: 2rem 0 4rem;
+
+    .container_inner{
+        background-color: var(--color-bg);
+        padding: 1rem;
+        box-shadow: 0px 0px 10px gray;
+        border-radius: 5px;
+
+        .title{
+            @include font(20px, $font-weight-medium, "");
+            
+            @include apply-at-md-size{
+                @include font(26px, $font-weight-medium, "");
+            }
+            
+            @include apply-at-lg-size{
+                @include font(30px, $font-weight-medium, "");
+            }
+        }
+    
+        .location_wrapper{
+            @include directionX;
+            align-items: center;
+        
+            .icon{
+                font-size: 1rem;
+            }
+        
+            .location {
+                @include font(10px, $font-weight-light, "");
+                margin-left: .1rem;
+                
+                @include apply-at-md-size{
+                    @include font(14px, $font-weight-light, "");
+                }
+                
+                @include apply-at-lg-size{
+                    @include font(18px, $font-weight-light, "");
+                }
+            }
+        }
+    
+        .info_wrapper{
+            @include directionX;
+            align-items: center;
+            margin-top: .3rem;
+            
+            .price_wrapper{
+                border-left: 5px solid var(--color-primary);
+                padding-left: .3rem;
+
+                .price{
+                    @include font(18px, $font-weight-medium, "");
+                    
+                    @include apply-at-md-size{
+                        @include font(24px, $font-weight-medium, "");
+                    }
+                    
+                    @include apply-at-lg-size{
+                        @include font(26px, $font-weight-medium, "");
+                    }
+                }
+            }
+
+            .seller_wrapper{
+                @include directionX;
+                align-items: center;
+                margin-left: auto;
+
+                .contact_wrapper{
+                    @include directionY;
+
+                    p {
+                        @include font(10px, $font-weight-medium, "");
+                        text-align: right;
+                        
+                        @include apply-at-md-size{
+                            @include font(14px, $font-weight-medium, "");
+                        }
+                        
+                        @include apply-at-xl-size{
+                            @include font(16px, $font-weight-medium, "");
+                        }
+                    }
+                    
+                    button {
+                        margin-left: auto;
+                        padding: .2rem .5rem;
+                        text-transform: capitalize;
+                        @include font(8px, $font-weight-regular, "");
+                        
+                        @include apply-at-md-size{
+                            padding: .3rem .7rem;
+                            @include font(10px, $font-weight-regular, "");
+                        }
+                        
+                        @include apply-at-xl-size{
+                            @include font(12px, $font-weight-regular, "");
+                        }
+
+                        span svg{
+                            font-size: .5rem;
+                            
+                            @include apply-at-md-size{
+                                font-size: .8rem;
+                            }
+                            
+                            @include apply-at-xl-size{
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                }
+
+                .profile_image{
+                    margin-left: .5rem;
+
+                    @include apply-at-md-size{
+                        width: 50px;
+                        height: 50px;
+                    }
+
+                    @include apply-at-xl-size{
+                        width: 70px;
+                        height: 70px;
+                    }
+                }
+            }
+        }
+    
+        .image_wrapper{
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-gap: 10px;
+            
+            @include apply-at-md-size{
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            
+            @include apply-at-xl-size{
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            .image{
+                width: 100%;
+                margin: 0 auto;
+                height: 6rem;
+                
+                @include apply-at-sm-size{
+                    height: 9rem;
+                }
+            }
+        }
+    
+        .list_header{
+            margin: 1rem 0 0.2rem;
+            @include font(18px, $font-weight-medium, "");
+            
+            @include apply-at-md-size{
+                @include font(26px, $font-weight-medium, "");
+            }
+            
+            @include apply-at-lg-size{
+                @include font(28px, $font-weight-medium, "");
+            }
+        }
+
+        .description{
+            @include font(14px, $font-weight-regular, "");
+            
+            @include apply-at-md-size{
+                @include font(18px, $font-weight-regular, "");
+            }
+
+            @include apply-at-lg-size{
+                @include font(22px, $font-weight-regular, "");
+            }
+        }
+    
+        .facility_wrapper{
+            @include directionY;
+
+            .facility_wrapper_inner{
+                @include directionX;
+                
+                p {
+                    margin-left: .3rem;
+                    @include font(18px, $font-weight-regular, "");
+
+                    @include apply-at-lg-size{
+                        @include font(22px, $font-weight-regular, "");
+                    }
+                }
+            }
+        }
+    
+        .address{
+            margin: .2rem 0 .4rem;
+            @include font(14px, $font-weight-regular, "");
+            
+            @include apply-at-md-size{
+                @include font(18px, $font-weight-regular, "");
+            }
+
+            @include apply-at-lg-size{
+                @include font(22px, $font-weight-regular, "");
+            }
+        }
+    
+        .maps{
+            width: 100%;
+            height: 18rem;
+        }
+    }
+}

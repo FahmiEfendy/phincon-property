@@ -5,6 +5,8 @@
   --color-bg-secondary: #e8eef1;
   --color-text: #001a41;
   --color-button: #ed0226;
+  --color-primary:#1976D2;
+  --color-gray: #696969;
 }
 
 @mixin dark-theme {
@@ -12,4 +14,6 @@
   --color-bg-secondary: #393646;
   --color-text: #f4eee0;
   --color-button: #ed0226;
+  --color-primary: #90CAF9;
+  --color-gray: #808080;
 }

@@ -1,0 +1,136 @@
+@import "@styles/base";
+
+.container {
+    @include directionY;
+
+    .dropzone_wrapper{
+        margin-top: 1rem;
+        padding: .5rem;
+        border: 2px dashed var(--color-gray);
+        border-radius: 10px;
+
+        h5 {
+            @include font(24px, $font-weight-medium, var(--color-text));
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .dropzone_wrapper_inner{
+            background-color: var(--color-gray);
+            padding: 1rem;
+            border-radius: 10px;
+
+            .dropzone_text{
+                @include font(14px, $font-weight-regular, var(--color-bg));
+                text-align: center;
+            }
+        }
+
+        .image_wrapper{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-gap: 10px;
+
+            @include apply-at-md-size{
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            @include apply-at-xl-size{
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            .height{
+                height: 100px;
+                
+                @include apply-at-sm-size{
+                    height: 150px;
+                }
+                
+                @include apply-at-lg-size{
+                    height: 120px;
+                }
+            }
+
+            .img {
+                @extend .height;
+                width: 100%;
+                position: relative;
+
+                img {
+                    border-radius: 10px;
+                    height: 100%;
+                    width: 100%;
+                }
+
+                .delete_img{
+                    position: absolute;
+                    right: 0;
+                    background-color: var(--color-bg);
+                    padding: .2rem;
+                    margin: .5rem;
+
+                    svg{
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+
+            .extra_dropzone{
+                @extend .height;
+                width: 100%;
+
+                .extra_dropzone_inner{
+                    @include directionY;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 10px;
+                    background-color: var(--color-gray);
+                    height: 100%;
+                    width: 100%;
+                    color: var(--color-bg);
+
+                    svg {
+                        width: 25px;
+                        height: 25px;
+                        
+                        @include apply-at-sm-size{
+                            width: 40px;
+                            height: 40px;
+                        }
+                    }
+
+                    .extra_dropzone_text{
+                        @include font(12px, $font-weight-regular, var(--color-bg));
+                        text-align: center;
+                        margin-top: .5rem;
+                        
+                        @include apply-at-sm-size{
+                            @include font(14px, $font-weight-regular, var(--color-bg));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .btn_wrapper{
+        @include directionX;
+        margin-top: 1rem;
+
+        .btn {
+            text-transform: capitalize;
+            padding: .3rem 1.5rem;
+        }
+
+        .btn_back{
+            @extend .btn;
+            margin-left: auto;
+        }
+        
+        .btn_next{
+            @extend .btn;
+            margin-left: 1rem;
+        }
+    }
+}

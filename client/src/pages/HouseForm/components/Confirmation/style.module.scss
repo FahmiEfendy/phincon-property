@@ -1,0 +1,115 @@
+@import "@styles/base";
+
+.container{
+    margin-top: 1rem;
+
+    .header{
+        text-align: center;
+        @include font(24px, $font-weight-medium, var(--color-text));
+    }
+
+    .list_header{
+        margin: 1.5rem 0 0.3rem;
+        @include font(22px, $font-weight-medium, var(--color-text));
+    }
+
+    .list_wrapper{
+        @include directionX;
+        min-width: 100%;
+        margin-top: .5rem;
+
+        .list{
+            width: 50%;
+
+            .text{
+                @include font(14px, $font-weight-light, "");
+            }
+
+            .sub_text{
+                @include font(18px, $font-weight-regular, "");
+            }
+            
+            .info_wrapper{
+                @include directionX;
+                align-items: center;
+                @extend .list;
+                margin-top: .1rem;
+
+                .sub_text{
+                    margin-left: .2rem;
+                }
+            }
+        }
+    }
+
+    .image_wrapper{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-gap: 10px;
+
+        @include apply-at-md-size{
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        @include apply-at-xl-size{
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .height{
+            height: 100px;
+            
+            @include apply-at-sm-size{
+                height: 150px;
+            }
+            
+            @include apply-at-lg-size{
+                height: 120px;
+            }
+        }
+
+        .img {
+            @extend .height;
+            width: 100%;
+            position: relative;
+
+            img {
+                border-radius: 10px;
+                height: 100%;
+                width: 100%;
+            }
+
+            .delete_img{
+                position: absolute;
+                right: 0;
+                background-color: var(--color-bg);
+                padding: .2rem;
+                margin: .5rem;
+
+                svg{
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+        }
+    }
+
+    .btn_wrapper{
+        @include directionX;
+        margin-top: 1rem;
+
+        .btn {
+            text-transform: capitalize;
+            padding: .3rem 1.5rem;
+        }
+
+        .btn_back{
+            @extend .btn;
+            margin-left: auto;
+        }
+        
+        .btn_next{
+            @extend .btn;
+            margin-left: 1rem;
+        }
+    }
+}

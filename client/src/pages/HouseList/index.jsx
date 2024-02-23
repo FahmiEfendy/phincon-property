@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,28 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Button } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 
 import { hidePopup, showPopup } from '@containers/App/actions';
+import HouseItem from './HouseItem';
+import { getHouseListRequest } from './actions';
 import { selectDeleteHouse, selectHouseList } from './selectors';
-import { deleteHouseRequest, getHouseListRequest } from './actions';
+
+import classes from './style.module.scss';
 
 const HouseList = ({ houseList, deleteHouse }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const deleteHouseHandler = (id) => {
-    dispatch(
-      showPopup('global_confirmation', 'house_delete_desc', 'global_delete', () => {
-        dispatch(
-          deleteHouseRequest(id, () => {
-            dispatch(showPopup('global_success', 'house_delete_success'));
-            dispatch(getHouseListRequest());
-          })
-        );
-      })
-    );
-  };
 
   useEffect(() => {
     dispatch(getHouseListRequest());
@@ -41,18 +30,19 @@ const HouseList = ({ houseList, deleteHouse }) => {
   }, [deleteHouse.error, dispatch]);
 
   return (
-    <>
-      <Button variant="contained" onClick={() => navigate('/house/create')}>
+    <Container maxWidth="xl" className={classes.container}>
+      <Button variant="contained" onClick={() => navigate('/house/create')} className={classes.btn}>
         <FormattedMessage id="house_create" />
       </Button>
-      {houseList?.data?.map((data) => (
-        <>
-          <p onClick={() => navigate(`/house/detail/${data.id}`)}>{data.title}</p>
-          <Button onClick={() => navigate(`/house/update/${data.id}`)}>Edit</Button>
-          <Button onClick={() => deleteHouseHandler(data.id)}>Delete</Button>
-        </>
-      ))}
-    </>
+      <Box className={classes.list}>
+        {houseList?.data?.map((data) => (
+          <>
+            {/* TODO: Pagination */}
+            <HouseItem data={data} />
+          </>
+        ))}
+      </Box>
+    </Container>
   );
 };
 

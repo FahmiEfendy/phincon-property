@@ -1,0 +1,169 @@
+@import "../../../styles/base.scss";
+
+.container{
+    margin: 1rem;
+
+    .container_inner{
+        @include directionX;
+        border-radius: 10px;
+        background-color: var(--color-bg);
+        box-shadow: 0 0.25rem 0.75rem rgba(25, 49, 83, 0.2) !important;
+        padding: .5rem;
+        height: 6.5rem;
+        position: relative;
+        
+        @include apply-at-xl-size{
+            height: 7rem;
+        }
+        
+        @include apply-at-xxl-size{
+            height: 8rem;
+        }
+
+        .wrapper_left{
+            border-radius: 10px;
+            width: 40%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .wrapper_right{
+            padding: .2rem .5rem;
+            width: 60%;
+            @include directionY;
+
+            .title{
+                @include font(14px, $font-weight-regular, "");
+                
+                @include apply-at-md-size{
+                    @include font(18px, $font-weight-regular, "");
+                }
+                
+                @include apply-at-xl-size{
+                    @include font(22px, $font-weight-regular, "");
+                }
+                
+                @include apply-at-xxl-size{
+                    @include font(26px, $font-weight-regular, "");
+                }
+            }
+
+            .location_wrapper{
+                @include directionX;
+                align-items: center;
+
+
+                .icon{
+                    font-size: 1rem;
+                }
+
+                .location {
+                    @include font(10px, $font-weight-light, "");
+                    margin-left: .1rem;
+                    
+                    @include apply-at-md-size{
+                        @include font(12px, $font-weight-light, "");
+                    }
+                    
+                    @include apply-at-xl-size{
+                        @include font(14px, $font-weight-light, "");
+                    }
+                    
+                    @include apply-at-xxl-size{
+                        @include font(16px, $font-weight-light, "");
+                    }
+                }
+            }
+
+            .info_wrapper{
+                @include directionX;
+                margin-top: auto;
+                
+                
+                div{
+                    margin-top: .2rem;
+                }
+                
+                .info_wrapper_inner{
+                    @include directionX;
+                    align-items: center;
+
+                    .info_icon{
+                        font-size: 1.2rem;
+                    }
+
+                    p{
+                        margin-left: .1rem;
+                        @include font(10px, $font-weight-light, "");
+                        
+                        @include apply-at-md-size{
+                            @include font(12px, $font-weight-light, "");
+                        }
+                        
+                        @include apply-at-xl-size{
+                            @include font(14px, $font-weight-light, "");
+                        }
+                        
+                        @include apply-at-xxl-size{
+                            @include font(16px, $font-weight-light, "");
+                        }
+                    }
+                }
+
+                .action{
+                    margin-left: auto;
+                    margin-top: auto;
+                    @include directionX;
+                    align-items: center;
+
+                    .price{
+                        @include font(12px, $font-weight-medium, "");
+                        
+                        @include apply-at-md-size{
+                            @include font(18px, $font-weight-medium, "");
+                        }
+                        
+                        @include apply-at-xl-size{
+                            @include font(24px, $font-weight-medium, "");
+                        }
+                        
+                        @include apply-at-xxl-size{
+                            @include font(26px, $font-weight-medium, "");
+                        }
+                    }
+
+                    .action_btn_wrapper{
+                        margin-left: .3rem;
+                        border-radius: 10px;
+                        background-color: var(--color-primary);
+                        color: var(--color-bg);
+                        width: 25px;
+                        height: 25px;
+                        
+                        @include apply-at-xl-size{
+                            width: 35px;
+                            height: 35px;
+                        }
+
+                        .btn{
+                            font-size: .8rem;
+                            
+                            @include apply-at-xl-size{
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .option{
+            position: absolute;
+            right: 0;
+            margin-right: .5rem;
+            cursor: pointer;
+        }
+    }
+}
