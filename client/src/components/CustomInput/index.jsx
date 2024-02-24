@@ -22,7 +22,7 @@ const CustomInput = ({ label, value, onChange, errorLabel, type = 'text' }) => (
 
 CustomInput.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.any,
   onChange: PropTypes.func,
   errorLabel: PropTypes.string,
   type: PropTypes.string,

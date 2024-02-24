@@ -35,7 +35,9 @@ const Confirmation = ({ step, formData }) => {
     payload.append('bedrooms', formData.info.bedrooms);
 
     for (let i = 0; i < formData.images.length; i++) {
-      payload.append('images', formData.images[i]);
+      if (!formData.images[i].image_url) {
+        payload.append('images', formData.images[i]);
+      }
     }
 
     if (id) {
@@ -43,6 +45,7 @@ const Confirmation = ({ step, formData }) => {
         patchUpdateHouseRequest({ id, payload }, () => {
           dispatch(showPopup('global_success', 'house_update_success'));
           dispatch(getHouseDetailRequest(id));
+          navigate(`/house/detail/${id}`);
         })
       );
     } else {
@@ -154,7 +157,7 @@ const Confirmation = ({ step, formData }) => {
         {formData.images.map((file) => (
           <Box className={classes.img}>
             <img
-              src={URL.createObjectURL(file)}
+              src={file?.image_url ? file.image_url : URL.createObjectURL(file)}
               // Revoke data uri after image is loaded
               onLoad={() => {
                 URL.revokeObjectURL(file.preview);
@@ -175,7 +178,7 @@ const Confirmation = ({ step, formData }) => {
           <FormattedMessage id="global_back" />
         </Button>
         <Button variant="contained" className={classes.btn_next} onClick={nextStepHandler}>
-          <FormattedMessage id="global_create" />
+          {id ? <FormattedMessage id="global_save" /> : <FormattedMessage id="global_create" />}
         </Button>
       </Box>
     </Container>

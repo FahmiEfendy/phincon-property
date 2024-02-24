@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,18 +9,21 @@ import { Box, Button, Typography } from '@mui/material';
 
 import CustomInput from '@components/CustomInput';
 import { setFormData, setStep } from '@pages/HouseForm/actions';
+import { selectHouseDetail } from '@pages/HouseDetail/selectors';
 import { selectFormData, selectStep } from '@pages/HouseForm/selectors';
 
 import classes from './style.module.scss';
 
-const Location = ({ step, formData }) => {
+const Location = ({ step, formData, houseDetail }) => {
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
   const [locationData, setLocationData] = useState({
-    address: { value: '', isValid: true },
-    city: { value: '', isValid: true },
-    state: { value: '', isValid: true },
-    zipCode: { value: 0, isValid: true },
+    address: { value: formData.location.address, isValid: true },
+    city: { value: formData.location.city, isValid: true },
+    state: { value: formData.location.state, isValid: true },
+    zipCode: { value: formData.location.zipCode, isValid: true },
   });
 
   const formValidation = () => {
@@ -90,6 +94,17 @@ const Location = ({ step, formData }) => {
     dispatch(setStep(step + 1));
   };
 
+  useEffect(() => {
+    if (id && houseDetail?.data) {
+      setLocationData(() => ({
+        address: { value: houseDetail.data.location.address, isValid: true },
+        city: { value: houseDetail.data.location.city, isValid: true },
+        state: { value: houseDetail.data.location.state, isValid: true },
+        zipCode: { value: houseDetail.data.location.zipCode, isValid: true },
+      }));
+    }
+  }, [houseDetail.data, id]);
+
   return (
     <Box className={classes.container}>
       <Typography variant="h5">
@@ -141,11 +156,13 @@ const Location = ({ step, formData }) => {
 Location.propTypes = {
   step: PropTypes.number,
   formData: PropTypes.object,
+  houseDetail: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   step: selectStep,
   formData: selectFormData,
+  houseDetail: selectHouseDetail,
 });
 
 export default connect(mapStateToProps)(Location);

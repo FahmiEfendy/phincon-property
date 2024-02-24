@@ -7,8 +7,8 @@ import { createStructuredSelector } from 'reselect';
 
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import { Avatar, Box, Button, Container, Typography } from '@mui/material';
 import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
+import { Avatar, Box, Button, Container, Typography } from '@mui/material';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 import priceFormatter from '@utils/priceFormatter';

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -10,15 +11,20 @@ import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { setFormData, setStep } from '@pages/HouseForm/actions';
+import { showPopup } from '@containers/App/actions';
+import { selectHouseDetail } from '@pages/HouseDetail/selectors';
+import { getHouseDetailRequest } from '@pages/HouseDetail/actions';
 import { selectFormData, selectStep } from '@pages/HouseForm/selectors';
+import { deleteHouseImageRequest, setFormData, setStep } from '@pages/HouseForm/actions';
 
 import classes from './style.module.scss';
 
-const Image = ({ step, formData }) => {
+const Image = ({ step, formData, houseDetail }) => {
+  const { id } = useParams();
+
   const dispatch = useDispatch();
 
-  const [files, setFiles] = useState({ value: [], isValid: true });
+  const [files, setFiles] = useState({ value: formData.images, isValid: true });
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -26,10 +32,26 @@ const Image = ({ step, formData }) => {
     },
   });
 
-  const deleteImageHandler = (name) => {
-    const filteredImage = files.value.filter((file) => file.name !== name);
+  const deleteImageHandler = (selectedFile) => {
+    let filteredImage;
 
-    setFiles(filteredImage);
+    if (selectedFile.image_url) {
+      dispatch(
+        showPopup('global_confirmation', 'house_image_delete_desc', 'global_delete', () => {
+          dispatch(
+            deleteHouseImageRequest({ id, payload: { image_id: selectedFile.image_id } }, () => {
+              dispatch(showPopup('global_success', 'house_image_delete_success'));
+              dispatch(getHouseDetailRequest(id));
+              filteredImage = [...formData.images, houseDetail?.data?.images];
+              setFiles((prevState) => ({ ...prevState, value: filteredImage }));
+            })
+          );
+        })
+      );
+    } else {
+      filteredImage = files.value.filter((file) => file.name !== selectedFile.name);
+      setFiles((prevState) => ({ ...prevState, value: filteredImage }));
+    }
   };
 
   const formValidation = () => {
@@ -55,8 +77,14 @@ const Image = ({ step, formData }) => {
     dispatch(setStep(step + 1));
   };
 
-  // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-  useEffect(() => files.value.forEach((file) => URL.revokeObjectURL(file.preview)), [files]);
+  useEffect(() => {
+    if (id && houseDetail?.data) {
+      setFiles(() => ({
+        value: _.isEmpty(formData?.images) ? houseDetail?.data?.images : formData?.images,
+        isValid: true,
+      }));
+    }
+  }, [formData?.images, houseDetail?.data, id]);
 
   return (
     <Box className={classes.container}>
@@ -76,14 +104,14 @@ const Image = ({ step, formData }) => {
             {files.value.map((file) => (
               <Box className={classes.img}>
                 <img
-                  src={URL.createObjectURL(file)}
+                  src={file.image_url ? file.image_url : URL.createObjectURL(file)}
                   // Revoke data uri after image is loaded
                   onLoad={() => {
                     URL.revokeObjectURL(file.preview);
                   }}
                   alt={file.name}
                 />
-                <IconButton onClick={() => deleteImageHandler(file.name)} className={classes.delete_img}>
+                <IconButton onClick={() => deleteImageHandler(file)} className={classes.delete_img}>
                   <ClearOutlinedIcon />
                 </IconButton>
               </Box>
@@ -122,11 +150,13 @@ const Image = ({ step, formData }) => {
 Image.propTypes = {
   step: PropTypes.number,
   formData: PropTypes.object,
+  houseDetail: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   step: selectStep,
   formData: selectFormData,
+  houseDetail: selectHouseDetail,
 });
 
 export default connect(mapStateToProps)(Image);
