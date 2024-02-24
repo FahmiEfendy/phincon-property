@@ -41,6 +41,7 @@ export default {
   app_popup_close_button_label: 'Close',
   app_login: 'Login',
   app_register: 'Register',
+  app_favorite: 'My Favorite',
 
   forbidden_text: 'You have no right to access this page!',
 
@@ -65,6 +66,7 @@ export default {
   user_change_password_success: 'Successfully change password',
   user_send_message: 'Send message',
 
+  house_browse: 'Browse house',
   house_delete_desc: 'Are you sure want to delete this house?',
   house_delete_success: 'Delete house success',
   house_create: 'Add house',
@@ -99,4 +101,8 @@ export default {
 
   dropzone_text: `Drag 'n' drop some image here, or click to select image`,
   dropzone_extra_text: 'Add other images',
+
+  add_favorite_success: 'Successfully add house to favorite list',
+  delete_favorite_success: 'Successfully delete house from favorite list',
+  favorite_empty: 'You have no favorited house',
 };

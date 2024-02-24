@@ -41,6 +41,7 @@ export default {
   app_popup_close_button_label: 'Tutup',
   app_login: 'Masuk',
   app_register: 'Daftar',
+  app_favorite: 'Favorit Saya',
 
   forbidden_text: 'Kamu tidak mempunyai akses untuk membuka halaman ini!',
 
@@ -65,6 +66,7 @@ export default {
   user_change_password_success: 'Berhasil mengganti kata sandi',
   user_send_message: 'Kirim pesan',
 
+  house_browse: 'Cari rumah',
   house_delete_desc: 'Apakah kamu yakin ingin menghapus rumah ini?',
   house_delete_success: 'Berhasil menghapus rumah',
   house_create: 'Tambah rumah',
@@ -99,4 +101,8 @@ export default {
 
   dropzone_text: 'Seret dan lepas gambar disini, atau klik untuk memasukkan gambar',
   dropzone_extra_text: 'Tambahkan gambar lainnya',
+
+  add_favorite_success: 'Berhasil memasukkan rumah ke daftar kesukaan',
+  delete_favorite_success: 'Berhasil menghapus rumah dari daftar kesukaan',
+  favorite_empty: 'Kamu belum memiliki rumah favorit',
 };

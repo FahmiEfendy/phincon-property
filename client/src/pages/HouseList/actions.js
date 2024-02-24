@@ -1,13 +1,18 @@
 import {
+  DELETE_FROM_FAVORITE_FAILED,
+  DELETE_FROM_FAVORITE_REQUEST,
   DELETE_HOUSE_FAILED,
   DELETE_HOUSE_REQUEST,
   GET_HOUSE_LIST_FAILED,
   GET_HOUSE_LIST_REQUEST,
   GET_HOUSE_LIST_SUCCESS,
+  POST_ADD_TO_FAVORITE_FAILED,
+  POST_ADD_TO_FAVORITE_REQUEST,
 } from './constants';
 
-export const getHouseListRequest = () => ({
+export const getHouseListRequest = (id) => ({
   type: GET_HOUSE_LIST_REQUEST,
+  id,
 });
 
 export const getHouseListSuccess = (data) => ({
@@ -28,5 +33,27 @@ export const deleteHouseRequest = (id, callback) => ({
 
 export const deleteHouseFailed = (error) => ({
   type: DELETE_HOUSE_FAILED,
+  error,
+});
+
+export const postAddToFavoriteRequest = (id, callback) => ({
+  type: POST_ADD_TO_FAVORITE_REQUEST,
+  id,
+  callback,
+});
+
+export const postAddToFavoriteFailed = (error) => ({
+  type: POST_ADD_TO_FAVORITE_FAILED,
+  error,
+});
+
+export const deleteFromFavoriteRequest = (id, callback) => ({
+  type: DELETE_FROM_FAVORITE_REQUEST,
+  id,
+  callback,
+});
+
+export const deleteFromFavoriteFailed = (error) => ({
+  type: DELETE_FROM_FAVORITE_FAILED,
   error,
 });

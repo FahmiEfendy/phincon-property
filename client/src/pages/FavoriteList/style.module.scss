@@ -1,0 +1,47 @@
+@import "@styles/base";
+
+.container {
+    margin: 4rem 0;
+    @include directionY;
+
+    .list_wrapper{
+        .list{
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            justify-content: center;
+
+    
+            @include apply-at-lg-size{
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        .list_empty_wrapper{
+            @include directionY;
+            align-items: center;
+            
+            .list_empty{
+                @include font(20px, $font-weight-medium, "");
+                
+                @include apply-at-lg-size{
+                    @include font(28px, $font-weight-medium, "");
+                }
+            }
+            
+            button {
+                @include font(14px, $font-weight-regular, "");
+                margin-top: .5rem;
+                text-transform: capitalize;
+                padding: 0.3rem 1rem;
+                
+                @include apply-at-lg-size{
+                    @include font(18px, $font-weight-regular, "");
+                }
+            }
+        }
+    }
+}
+
+
+    
+

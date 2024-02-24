@@ -44,7 +44,7 @@ const createHouse = async (req, res) => {
 
 const houseList = async (req, res) => {
   try {
-    const response = await houseHelper.getHouseList();
+    const response = await houseHelper.getHouseList(req.query);
 
     res
       .status(200)

@@ -1,11 +1,14 @@
-/* eslint-disable camelcase */
-import { useState } from 'react';
+/* eslint-disable no-nested-ternary */
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -13,13 +16,21 @@ import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { Box, Container, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 
 import priceFormatter from '@utils/priceFormatter';
-import { showPopup } from '@containers/App/actions';
-import { deleteHouseRequest, getHouseListRequest } from '../actions';
+import { selectuserData } from '@containers/Client/selectors';
+import { hidePopup, showPopup } from '@containers/App/actions';
+import { getFavoriteListRequest } from '@pages/FavoriteList/actions';
+import { selectAddToFavorite, selectDeleteFromFavorite } from '../../pages/HouseList/selectors';
+import {
+  deleteFromFavoriteRequest,
+  deleteHouseRequest,
+  getHouseListRequest,
+  postAddToFavoriteRequest,
+} from '../../pages/HouseList/actions';
 
 import classes from './style.module.scss';
 
-const HouseItem = ({ data }) => {
-  const { id, title, location, price, bathrooms, bedrooms, images } = data;
+const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFromFavorite }) => {
+  const { id, title, location, price, bathrooms, bedrooms, images, isFavorited } = data;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +46,29 @@ const HouseItem = ({ data }) => {
   const closeMenuHandler = () => {
     setMenuPosition(null);
   };
+
+  const addHouseToFavoriteHandler = () => {
+    dispatch(
+      postAddToFavoriteRequest(id, () => {
+        dispatch(showPopup('global_success', 'add_favorite_success'));
+        dispatch(getHouseListRequest(userData?.id));
+      })
+    );
+  };
+
+  const deleteHouseFromFavoriteHandler = () => {
+    dispatch(
+      deleteFromFavoriteRequest(id, () => {
+        dispatch(showPopup('global_success', 'delete_favorite_success'));
+        if (onFavorite) {
+          dispatch(getFavoriteListRequest());
+        } else {
+          dispatch(getHouseListRequest(userData?.id));
+        }
+      })
+    );
+  };
+
   const deleteHouseHandler = () => {
     dispatch(
       showPopup('global_confirmation', 'house_delete_desc', 'global_delete', () => {
@@ -47,6 +81,13 @@ const HouseItem = ({ data }) => {
       })
     );
   };
+
+  useEffect(() => {
+    if (addToFavorite?.error !== null || deleteFromFavorite?.error !== null) {
+      dispatch(hidePopup());
+      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+    }
+  }, [addToFavorite?.error, deleteFromFavorite?.error, dispatch]);
 
   return (
     <Container className={classes.container}>
@@ -89,9 +130,19 @@ const HouseItem = ({ data }) => {
           </Box>
         </Box>
         <Box className={classes.option}>
-          <IconButton onClick={openMenuHandler}>
-            <MoreVertOutlinedIcon />
-          </IconButton>
+          {userData.role === 'seller' ? (
+            <IconButton onClick={openMenuHandler}>
+              <MoreVertOutlinedIcon />
+            </IconButton>
+          ) : isFavorited ? (
+            <IconButton onClick={deleteHouseFromFavoriteHandler}>
+              <FavoriteIcon color="error" />
+            </IconButton>
+          ) : (
+            <IconButton onClick={addHouseToFavoriteHandler}>
+              <FavoriteBorderIcon />
+            </IconButton>
+          )}
           <Menu
             open={isOpen}
             anchorEl={menuPosition}
@@ -121,6 +172,16 @@ const HouseItem = ({ data }) => {
 
 HouseItem.propTypes = {
   data: PropTypes.object,
+  onFavorite: PropTypes.bool,
+  userData: PropTypes.object,
+  addToFavorite: PropTypes.object,
+  deleteFromFavorite: PropTypes.object,
 };
 
-export default HouseItem;
+const mapStateToProps = createStructuredSelector({
+  userData: selectuserData,
+  addToFavorite: selectAddToFavorite,
+  deleteFromFavorite: selectDeleteFromFavorite,
+});
+
+export default connect(mapStateToProps)(HouseItem);

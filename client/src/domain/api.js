@@ -20,6 +20,10 @@ const urls = {
   updateHouse: '/house/update',
   deleteHouseImage: '/house/delete-image',
   deleteHouse: '/house/delete',
+
+  favoriteList: '/favorite/list',
+  addToFavorite: '/favorite/add',
+  deleteFromFavorite: '/favorite/delete',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -54,10 +58,13 @@ export const patchChangePassword = (object) =>
 export const deleteUser = (id) => callAPI(`${urls.deleteUser}/${id}`, 'DELETE');
 export const postCreateHouse = (payload) =>
   callAPI(urls.createHouse, 'POST', { 'Content-Type': 'multipart/form-data' }, {}, payload);
-export const getHouseList = () => callAPI(urls.houseList, 'GET');
+export const getHouseList = (id) => callAPI(urls.houseList, 'GET', {}, { id });
 export const getHouseDetail = (id) => callAPI(`${urls.houseDetail}/${id}`, 'GET');
 export const patchUpdateHouse = (object) =>
   callAPI(`${urls.updateHouse}/${object.id}`, 'PATCH', { 'Content-Type': 'multipart/form-data' }, {}, object.payload);
 export const deleteHouseImage = (object) =>
   callAPI(`${urls.deleteHouseImage}/${object.id}`, 'DELETE', {}, {}, object.payload);
 export const deleteHouse = (id) => callAPI(`${urls.deleteHouse}/${id}`, 'DELETE');
+export const postAddToFavorite = (id) => callAPI(`${urls.addToFavorite}/${id}`, 'POST');
+export const getFavoriteList = () => callAPI(urls.favoriteList, 'GET');
+export const deleteFromFavorite = (id) => callAPI(`${urls.deleteFromFavorite}/${id}`, 'DELETE');

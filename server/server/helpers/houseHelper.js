@@ -87,19 +87,39 @@ const postCreateHouse = async (objectData) => {
   }
 };
 
-const getHouseList = async () => {
+const getHouseList = async (query) => {
   try {
-    const houseList = await db.Houses.findAll({});
+    let houseList = [];
+
+    if (query.id) {
+      houseList = await db.Houses.findAll({
+        include: [
+          {
+            model: db.Favorites,
+            as: "favorites",
+          },
+        ],
+      });
+    } else {
+      houseList = await db.Houses.findAll({});
+    }
 
     if (_.isEmpty(houseList)) {
       throw Boom.notFound("No house found!");
     }
 
-    const parsedHouseList = houseList.map((house) => ({
-      ...house.dataValues,
-      location: JSON.parse(house.dataValues.location),
-      images: JSON.parse(house.dataValues.images),
-    }));
+    const parsedHouseList = houseList.map((house) => {
+      return {
+        ...house.dataValues,
+        location: JSON.parse(house.dataValues.location),
+        images: JSON.parse(house.dataValues.images),
+        isFavorited: !_.isEmpty(
+          house.dataValues.favorites.find(
+            (data) => data.dataValues.user_id === query.id
+          )
+        ),
+      };
+    });
 
     console.log([fileName, "GET House List", "INFO"]);
 

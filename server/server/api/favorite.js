@@ -51,7 +51,7 @@ const deleteHouseFromFavorite = async (req, res) => {
 };
 
 router.post("/add/:id", userMiddleware.tokenValidation, addHouseToFavorite);
-router.get("/my-favorite", userMiddleware.tokenValidation, myFavorite);
+router.get("/list", userMiddleware.tokenValidation, myFavorite);
 router.delete(
   "/delete/:id",
   userMiddleware.tokenValidation,

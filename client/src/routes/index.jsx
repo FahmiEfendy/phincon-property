@@ -10,6 +10,7 @@ import UserDetail from '@pages/UserDetail';
 import HouseList from '@pages/HouseList';
 import HouseDetail from '@pages/HouseDetail';
 import HouseForm from '@pages/HouseForm';
+import FavoriteList from '@pages/FavoriteList';
 
 const routes = [
   {
@@ -85,6 +86,19 @@ const routes = [
         component: HouseForm,
         layout: MainLayout,
         sellerOnly: true,
+      },
+    ],
+  },
+  {
+    path: '/favorite',
+    name: 'Favorite',
+    subRoutes: [
+      {
+        path: '/list',
+        name: 'Favorite List',
+        protected: true,
+        component: FavoriteList,
+        layout: MainLayout,
       },
     ],
   },

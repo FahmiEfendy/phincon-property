@@ -43,7 +43,7 @@ const getMyFavorite = async (user_id) => {
         {
           model: db.Houses,
           as: "house",
-          attributes: ["id", "title", "description"],
+          // attributes: ["id", "title", "description"],
         },
       ],
     });
@@ -52,15 +52,16 @@ const getMyFavorite = async (user_id) => {
       throw Boom.notFound("No favorite found!");
     }
 
-    const formattedMyFavorite = myFavorite.map((data) => ({
-      id: data.dataValues.house.id,
-      title: data.dataValues.house.title,
-      description: data.dataValues.house.description,
+    const formattedFavorite = myFavorite.map((data) => ({
+      ...data.dataValues.house.dataValues,
+      images: JSON.parse(data.dataValues.house.dataValues.images),
+      location: JSON.parse(data.dataValues.house.dataValues.location),
+      isFavorited: true,
     }));
 
     console.log([fileName, "GET My Favorite", "INFO"]);
 
-    return Promise.resolve(formattedMyFavorite);
+    return Promise.resolve(formattedFavorite);
   } catch (err) {
     console.log([fileName, "GET My Favorite", "ERROR"], {
       message: { info: `${err}` },

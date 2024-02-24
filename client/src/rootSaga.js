@@ -8,6 +8,7 @@ import userDetailSaga from '@pages/UserDetail/saga';
 import houseListSaga from '@pages/HouseList/saga';
 import houseDetailSaga from '@pages/HouseDetail/saga';
 import houseFormSaga from '@pages/HouseForm/saga';
+import favoriteListSaga from '@pages/FavoriteList/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -19,5 +20,6 @@ export default function* rootSaga() {
     houseFormSaga(),
     houseListSaga(),
     houseDetailSaga(),
+    favoriteListSaga(),
   ]);
 }
