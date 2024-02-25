@@ -24,6 +24,11 @@ const urls = {
   favoriteList: '/favorite/list',
   addToFavorite: '/favorite/add',
   deleteFromFavorite: '/favorite/delete',
+
+  createConversation: '/conversation/create',
+  conversationList: '/conversation/list',
+  conversationDetail: '/conversation/detail',
+  sendMessage: '/message/send',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -68,3 +73,7 @@ export const deleteHouse = (id) => callAPI(`${urls.deleteHouse}/${id}`, 'DELETE'
 export const postAddToFavorite = (id) => callAPI(`${urls.addToFavorite}/${id}`, 'POST');
 export const getFavoriteList = () => callAPI(urls.favoriteList, 'GET');
 export const deleteFromFavorite = (id) => callAPI(`${urls.deleteFromFavorite}/${id}`, 'DELETE');
+export const postCreateConversation = (payload) => callAPI(urls.createConversation, 'POST', {}, {}, payload);
+export const getConversationList = () => callAPI(urls.conversationList, 'GET');
+export const getConversationDetail = (id) => callAPI(`${urls.conversationDetail}/${id}`, 'GET');
+export const postSendMessage = (payload) => callAPI(urls.sendMessage, 'POST', {}, {}, payload);

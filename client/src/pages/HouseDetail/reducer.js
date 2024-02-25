@@ -1,9 +1,20 @@
 import { produce } from 'immer';
 
-import { GET_HOUSE_DETAIL_FAILED, GET_HOUSE_DETAIL_REQUEST, GET_HOUSE_DETAIL_SUCCESS } from './constants';
+import {
+  GET_HOUSE_DETAIL_FAILED,
+  GET_HOUSE_DETAIL_REQUEST,
+  GET_HOUSE_DETAIL_SUCCESS,
+  POST_CREATE_CONVERSATION_FAILED,
+  POST_CREATE_CONVERSATION_REQUEST,
+  POST_CREATE_CONVERSATION_SUCCESS,
+} from './constants';
 
 export const initialState = {
   houseDetail: {
+    data: [],
+    error: null,
+  },
+  createConversation: {
     data: [],
     error: null,
   },
@@ -27,6 +38,21 @@ const houseDetailReducer = (state = initialState, action) =>
       case GET_HOUSE_DETAIL_FAILED:
         draft.houseDetail.data = [];
         draft.houseDetail.error = action.error;
+        break;
+
+      case POST_CREATE_CONVERSATION_REQUEST:
+        draft.createConversation.data = [];
+        draft.createConversation.error = null;
+        break;
+
+      case POST_CREATE_CONVERSATION_SUCCESS:
+        draft.createConversation.data = action.data;
+        draft.createConversation.error = null;
+        break;
+
+      case POST_CREATE_CONVERSATION_FAILED:
+        draft.createConversation.data = [];
+        draft.createConversation.error = action.error;
         break;
 
       default:

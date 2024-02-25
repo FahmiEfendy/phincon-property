@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
@@ -14,21 +14,30 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import priceFormatter from '@utils/priceFormatter';
 import { selectUserDetail } from '@pages/UserDetail/selectors';
 import { getUserDetailRequest } from '@pages/UserDetail/actions';
-import { selectHouseDetail } from './selectors';
-import { getHouseDetailRequest } from './actions';
+import { selectCreateConversation, selectHouseDetail } from './selectors';
+import { getHouseDetailRequest, postCreateConversationRequest } from './actions';
 
 import classes from './style.module.scss';
 
-const HouseDetail = ({ houseDetail, userDetail }) => {
+const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
   const { id } = useParams();
 
   const mapRef = useRef();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const goToChatHandler = () => {
+    dispatch(postCreateConversationRequest({ target_id: houseDetail?.data?.seller_id }));
+  };
 
   useEffect(() => {
     dispatch(getHouseDetailRequest(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (createConversation?.data?.id) navigate(`/conversation/detail/${createConversation?.data?.id}`);
+  }, [createConversation?.data?.id, navigate]);
 
   useEffect(() => {
     const map = new window.google.maps.Map(mapRef.current, {
@@ -69,7 +78,7 @@ const HouseDetail = ({ houseDetail, userDetail }) => {
           <Box className={classes.seller_wrapper}>
             <Box className={classes.contact_wrapper}>
               <Typography variant="body1">{userDetail?.data?.fullName}</Typography>
-              <Button variant="outlined" startIcon={<EmailOutlinedIcon />}>
+              <Button variant="outlined" startIcon={<EmailOutlinedIcon />} onClick={goToChatHandler}>
                 <FormattedMessage id="user_send_message" />
               </Button>
             </Box>
@@ -123,11 +132,13 @@ const HouseDetail = ({ houseDetail, userDetail }) => {
 HouseDetail.propTypes = {
   houseDetail: PropTypes.object,
   userDetail: PropTypes.object,
+  createConversation: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   houseDetail: selectHouseDetail,
   userDetail: selectUserDetail,
+  createConversation: selectCreateConversation,
 });
 
 export default connect(mapStateToProps)(HouseDetail);

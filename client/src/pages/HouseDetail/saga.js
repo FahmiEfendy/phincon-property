@@ -1,9 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { getHouseDetail } from '@domain/api';
 import { setLoading } from '@containers/App/actions';
-import { GET_HOUSE_DETAIL_REQUEST } from './constants';
-import { getHouseDetailFailed, getHouseDetailSuccess } from './actions';
+import { getHouseDetail, postCreateConversation } from '@domain/api';
+import { GET_HOUSE_DETAIL_REQUEST, POST_CREATE_CONVERSATION_REQUEST } from './constants';
+import {
+  getHouseDetailFailed,
+  getHouseDetailSuccess,
+  postCreateConversationFailed,
+  postCreateConversationSuccess,
+} from './actions';
 
 function* doGetHouseDetail(action) {
   yield put(setLoading(true));
@@ -19,6 +24,21 @@ function* doGetHouseDetail(action) {
   yield put(setLoading(false));
 }
 
+function* doPostCreateConversation(action) {
+  yield put(setLoading(true));
+
+  try {
+    const response = yield call(postCreateConversation, action.payload);
+
+    yield put(postCreateConversationSuccess(response.data));
+  } catch (err) {
+    yield put(postCreateConversationFailed(err.message));
+  }
+
+  yield put(setLoading(false));
+}
+
 export default function* houseDetailSaga() {
   yield takeLatest(GET_HOUSE_DETAIL_REQUEST, doGetHouseDetail);
+  yield takeLatest(POST_CREATE_CONVERSATION_REQUEST, doPostCreateConversation);
 }

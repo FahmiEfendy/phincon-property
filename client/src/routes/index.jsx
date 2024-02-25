@@ -11,6 +11,7 @@ import HouseList from '@pages/HouseList';
 import HouseDetail from '@pages/HouseDetail';
 import HouseForm from '@pages/HouseForm';
 import FavoriteList from '@pages/FavoriteList';
+import ConversationList from '@pages/ConversationList';
 
 const routes = [
   {
@@ -98,6 +99,26 @@ const routes = [
         name: 'Favorite List',
         protected: true,
         component: FavoriteList,
+        layout: MainLayout,
+      },
+    ],
+  },
+  {
+    path: '/conversation',
+    name: 'Conversation',
+    subRoutes: [
+      {
+        path: '/list',
+        name: 'Conversation List',
+        protected: true,
+        component: ConversationList,
+        layout: MainLayout,
+      },
+      {
+        path: '/detail/:conversationId',
+        name: 'Conversation List',
+        protected: true,
+        component: ConversationList,
         layout: MainLayout,
       },
     ],

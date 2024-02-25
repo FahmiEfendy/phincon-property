@@ -14,6 +14,8 @@ import houseDetailReducer, { storedKey as storedHouseDetailState } from '@pages/
 
 import favoriteListReducer, { storedKey as storedfavoriteListState } from '@pages/FavoriteList/reducer';
 
+import conversationListReducer, { storedKey as storedconversationListState } from '@pages/ConversationList/reducer';
+
 import { mapWithPersistor } from './persistence';
 
 const storedReducers = {
@@ -26,6 +28,7 @@ const storedReducers = {
   houseList: { reducer: houseListReducer, whitelist: storedHouseListState },
   houseDetail: { reducer: houseDetailReducer, whitelist: storedHouseDetailState },
   favoriteList: { reducer: favoriteListReducer, whitelist: storedfavoriteListState },
+  conversationList: { reducer: conversationListReducer, whitelist: storedconversationListState },
 };
 
 const temporaryReducers = {
