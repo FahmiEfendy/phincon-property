@@ -49,7 +49,7 @@ const loginValidation = (data) => {
 
 const idValidation = (data) => {
   const schema = Joi.object({
-    id: Joi.string().required().description("User id, generated from uuid"),
+    id: Joi.string().required().description("Any id, generated from uuid"),
   });
 
   if (schema.validate(data).error) {
@@ -177,6 +177,21 @@ const appointmentRequestValidation = (data, isUpdate = false) => {
   }
 };
 
+const messageValidation = (data) => {
+  const schema = Joi.object({
+    message: Joi.string()
+      .required()
+      .description("User's message, i.e. 'Hello!'"),
+    conversation_id: Joi.string()
+      .required()
+      .description("Conversation's id generated from UUID"),
+  });
+
+  if (schema.validate(data).error) {
+    throw Boom.badRequest(schema.validate(data).error);
+  }
+};
+
 module.exports = {
   registerValidation,
   loginValidation,
@@ -185,4 +200,5 @@ module.exports = {
   changePasswordValidation,
   houseRequestValidation,
   appointmentRequestValidation,
+  messageValidation,
 };

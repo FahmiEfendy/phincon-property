@@ -17,6 +17,17 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "seller_id",
         as: "houses",
       });
+      Users.hasMany(models.Messages, {
+        foreignKey: "user_id",
+      });
+      Users.hasMany(models.Conversations, {
+        foreignKey: "user_id",
+        as: "UserConversations",
+      });
+      Users.hasMany(models.Conversations, {
+        foreignKey: "target_id",
+        as: "TargetUserConversations",
+      });
     }
   }
   Users.init(
