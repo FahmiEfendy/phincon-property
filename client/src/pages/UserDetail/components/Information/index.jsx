@@ -83,8 +83,6 @@ const Information = ({ userDetail, updateUser }) => {
     }
   }, [dispatch, updateUser.error]);
 
-  // TODO: Fix Validation Styling
-
   return (
     <TableContainer className={classes.table_container}>
       <Table

@@ -23,9 +23,9 @@ export const getConversationListFailed = (error) => ({
   error,
 });
 
-export const getConversationDetailRequest = (id) => ({
+export const getConversationDetailRequest = (payload) => ({
   type: GET_CONVERSATION_DETAIL_REQUEST,
-  id,
+  payload,
 });
 
 export const getConversationDetailSuccess = (data) => ({

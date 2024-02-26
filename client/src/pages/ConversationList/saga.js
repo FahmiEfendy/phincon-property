@@ -29,7 +29,7 @@ function* doGetConversationDetail(action) {
   yield put(setLoading(true));
 
   try {
-    const response = yield call(getConversationDetail, action.id);
+    const response = yield call(getConversationDetail, action.payload);
 
     yield put(getConversationDetailSuccess(response.data));
   } catch (err) {

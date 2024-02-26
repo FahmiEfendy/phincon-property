@@ -1,3 +1,5 @@
+/* eslint-disable no-unsafe-optional-chaining */
+import _ from 'lodash';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,8 +30,22 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
 
   const [enteredMessage, setEnteredMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const [page, setPage] = useState(1);
 
   const chatRoomRef = useRef(null);
+
+  const getInitials = (name) => {
+    const words = name.split(' ');
+    let initials = '';
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const word of words) {
+      initials += word[0].toUpperCase();
+      if (initials.length === 2) break;
+    }
+
+    return initials;
+  };
 
   const conversationDetailHandler = (id) => {
     navigate(`/conversation/detail/${id}`);
@@ -65,6 +81,34 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
   };
 
   useEffect(() => {
+    if (conversationId) {
+      // Scroll to last message
+      // TODO: Don't Scroll to Bottom When Fetch Pagination
+      chatRoomRef.current.scrollTop = chatRoomRef.current.scrollHeight;
+    }
+  }, [conversationId, messageList]);
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      const chatRoom = chatRoomRef.current;
+
+      // Check if scroll is on top
+      if (chatRoom.scrollTop === 0) {
+        setPage((prevState) => prevState + 1);
+      }
+    };
+
+    // Assign scroll event to chatRoomRef
+    const chatRoom = chatRoomRef.current;
+    if (chatRoom) chatRoom.addEventListener('scroll', scrollHandler);
+
+    // Clean up the event listener
+    return () => {
+      chatRoom.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  useEffect(() => {
     dispatch(getConversationListRequest());
   }, [dispatch]);
 
@@ -72,9 +116,24 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
     if (conversationId) {
       // Join room if convId exist on params
       socket.emit('join_room', conversationId);
-      dispatch(getConversationDetailRequest(conversationId));
+      dispatch(getConversationDetailRequest({ id: conversationId, query: { page, pageSize: 10 } }));
     }
-  }, [conversationId, dispatch]);
+  }, [conversationId, dispatch, page]);
+
+  useEffect(() => {
+    if (conversationDetail?.data?.Messages) {
+      setMessageList((prevState) => {
+        const lastPrevId = _.last(prevState)?.id;
+        const lastDetailId = _.last(conversationDetail?.data?.Messages)?.id;
+
+        if (lastPrevId !== lastDetailId) {
+          return [...conversationDetail?.data?.Messages, ...prevState];
+        }
+
+        return prevState;
+      });
+    }
+  }, [conversationDetail?.data?.Messages]);
 
   useEffect(() => {
     // Receive message from server
@@ -94,19 +153,6 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
     });
   }, [conversationId, userData.id]);
 
-  useEffect(() => {
-    if (conversationDetail?.data?.Messages) {
-      setMessageList(conversationDetail?.data?.Messages);
-    }
-  }, [conversationDetail?.data?.Messages]);
-
-  useEffect(() => {
-    if (conversationId) {
-      // Scroll to last message
-      chatRoomRef.current.scrollTop = chatRoomRef.current.scrollHeight;
-    }
-  }, [conversationId, messageList]);
-
   return (
     <Container className={classes.container}>
       <Box className={classes.wrapper_left}>
@@ -121,9 +167,13 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
               className={`${data.id === conversationId ? classes.target_item_selected : classes.target_item}`}
             >
               {data.user_id === userData?.id ? (
-                <Avatar src={data.TargetUser.image_url} alt={data.TargetUser.fullName} />
+                <Avatar src={data.TargetUser.image_url} alt={data.TargetUser.fullName}>
+                  {getInitials(data.TargetUser.fullName)}
+                </Avatar>
               ) : (
-                <Avatar src={data.User.image_url} alt={data.TargetUser.fullName} />
+                <Avatar src={data.User.image_url} alt={data.User.fullName}>
+                  {getInitials(data.User.fullName)}
+                </Avatar>
               )}
               {data.user_id === userData?.id ? (
                 <Typography variant="body1">{data.TargetUser.fullName}</Typography>

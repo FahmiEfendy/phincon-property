@@ -49,8 +49,15 @@ const userConversationList = async (req, res) => {
 const conversationDetail = async (req, res) => {
   try {
     validationHelper.idValidation(req.params);
+    validationHelper.paginationValidation(req.query);
 
-    const response = await conversationHelper.getConversationDetail(req.params);
+    const objectData = {
+      id: req.params.id,
+      page: req.query.page,
+      pageSize: req.query.pageSize,
+    };
+
+    const response = await conversationHelper.getConversationDetail(objectData);
 
     res.status(200).send({
       message: "Successfully Get Conversation Detail",

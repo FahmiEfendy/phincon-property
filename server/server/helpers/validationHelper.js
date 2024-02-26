@@ -192,6 +192,21 @@ const messageValidation = (data) => {
   }
 };
 
+const paginationValidation = (data) => {
+  const schema = Joi.object({
+    page: Joi.number()
+      .required()
+      .description("Pagination's current page, i.e. 1"),
+    pageSize: Joi.number()
+      .required()
+      .description("Pagination's row count, i.e. 10"),
+  });
+
+  if (schema.validate(data).error) {
+    throw Boom.badRequest(schema.validate(data).error);
+  }
+};
+
 module.exports = {
   registerValidation,
   loginValidation,
@@ -201,4 +216,5 @@ module.exports = {
   houseRequestValidation,
   appointmentRequestValidation,
   messageValidation,
+  paginationValidation,
 };

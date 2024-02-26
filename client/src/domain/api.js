@@ -75,5 +75,6 @@ export const getFavoriteList = () => callAPI(urls.favoriteList, 'GET');
 export const deleteFromFavorite = (id) => callAPI(`${urls.deleteFromFavorite}/${id}`, 'DELETE');
 export const postCreateConversation = (payload) => callAPI(urls.createConversation, 'POST', {}, {}, payload);
 export const getConversationList = () => callAPI(urls.conversationList, 'GET');
-export const getConversationDetail = (id) => callAPI(`${urls.conversationDetail}/${id}`, 'GET');
+export const getConversationDetail = (payload) =>
+  callAPI(`${urls.conversationDetail}/${payload.id}`, 'GET', {}, payload.query, {});
 export const postSendMessage = (payload) => callAPI(urls.sendMessage, 'POST', {}, {}, payload);

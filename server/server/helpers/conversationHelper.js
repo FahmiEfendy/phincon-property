@@ -80,8 +80,8 @@ const getUserConversationList = async (objectData) => {
   }
 };
 
-const getConversationDetail = async (params) => {
-  const { id } = params;
+const getConversationDetail = async (objectData) => {
+  const { id, page, pageSize } = objectData;
 
   try {
     const conversationDetail = await db.Conversations.findOne({
@@ -90,6 +90,8 @@ const getConversationDetail = async (params) => {
         {
           model: db.Messages,
           as: "Messages",
+          offset: (Number(page) - 1) * Number(pageSize),
+          limit: Number(pageSize),
         },
         {
           model: db.Users,
@@ -102,15 +104,15 @@ const getConversationDetail = async (params) => {
       ],
     });
 
+    if (_.isEmpty(conversationDetail)) {
+      throw Boom.notFound("No conversation detail found!");
+    }
+
     const sortedMessages = conversationDetail.Messages.sort(
       (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
     );
 
     conversationDetail.Messages = sortedMessages;
-
-    if (_.isEmpty(conversationDetail)) {
-      throw Boom.notFound("No conversation detail found!");
-    }
 
     console.log([fileName, "GET Conversation Detail", "INFO"]);
 
