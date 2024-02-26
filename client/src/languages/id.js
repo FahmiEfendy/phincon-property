@@ -13,6 +13,7 @@ export default {
   global_next: 'Selanjutnya',
   global_back: 'Kembali',
   global_confirmation_page: 'Halaman Konfirmasi',
+  global_type_something: 'Ketik sesuatu...',
 
   form_email: 'Alamat Surel',
   form_email_error_required: 'Email tidak boleh kosong!',
@@ -42,6 +43,7 @@ export default {
   app_login: 'Masuk',
   app_register: 'Daftar',
   app_favorite: 'Favorit Saya',
+  app_conversation: 'Obrolan Saya',
 
   forbidden_text: 'Kamu tidak mempunyai akses untuk membuka halaman ini!',
 
@@ -105,4 +107,8 @@ export default {
   add_favorite_success: 'Berhasil memasukkan rumah ke daftar kesukaan',
   delete_favorite_success: 'Berhasil menghapus rumah dari daftar kesukaan',
   favorite_empty: 'Kamu belum memiliki rumah favorit',
+
+  message_type: 'Ketik pesan...',
+  message_no_conversation: 'Pilih ruangan obrolan disamping untuk memulai obrolan',
+  conversation_list: 'List Obrolan',
 };

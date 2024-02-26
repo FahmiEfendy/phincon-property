@@ -142,6 +142,17 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
                   </div>
                 </div>
               </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate('/conversation/list');
+                }}
+              >
+                <div className={classes.menu}>
+                  <div className={classes.menuLang}>
+                    <FormattedMessage id="app_conversation" />
+                  </div>
+                </div>
+              </MenuItem>
               <MenuItem onClick={logoutHandler}>
                 <div className={classes.menu}>
                   <div className={classes.menuLang}>

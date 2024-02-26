@@ -2,6 +2,7 @@
 
 .input_wrapper{
     @include directionY;
+    width: 100%;
 
     .form_label{
         @include font(14px, $font-weight-light, "");

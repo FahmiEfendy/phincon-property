@@ -54,12 +54,12 @@ const getUserConversationList = async (objectData) => {
         {
           model: db.Users,
           as: "User",
-          attributes: ["id", "fullName", "email"],
+          attributes: ["id", "fullName", "image_url"],
         },
         {
           model: db.Users,
           as: "TargetUser",
-          attributes: ["id", "fullName", "email"],
+          attributes: ["id", "fullName", "image_url"],
         },
       ],
     });
@@ -90,6 +90,14 @@ const getConversationDetail = async (params) => {
         {
           model: db.Messages,
           as: "Messages",
+        },
+        {
+          model: db.Users,
+          as: "User",
+        },
+        {
+          model: db.Users,
+          as: "TargetUser",
         },
       ],
     });

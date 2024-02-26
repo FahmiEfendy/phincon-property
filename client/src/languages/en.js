@@ -13,6 +13,7 @@ export default {
   global_next: 'Next',
   global_back: 'Back',
   global_confirmation_page: 'Confirmation Page',
+  global_type_something: 'Type something...',
 
   form_email: 'Email Address',
   form_email_error_required: 'Email cannot be empty!',
@@ -42,6 +43,7 @@ export default {
   app_login: 'Login',
   app_register: 'Register',
   app_favorite: 'My Favorite',
+  app_conversation: 'My Conversation',
 
   forbidden_text: 'You have no right to access this page!',
 
@@ -105,4 +107,8 @@ export default {
   add_favorite_success: 'Successfully add house to favorite list',
   delete_favorite_success: 'Successfully delete house from favorite list',
   favorite_empty: 'You have no favorited house',
+
+  message_type: 'Type message...',
+  message_no_conversation: 'Select conversation room from left side to start chatting',
+  conversation_list: 'Conversation List',
 };
