@@ -12,6 +12,7 @@ import HouseDetail from '@pages/HouseDetail';
 import HouseForm from '@pages/HouseForm';
 import FavoriteList from '@pages/FavoriteList';
 import ConversationList from '@pages/ConversationList';
+import AppointmentList from '@pages/AppointmentList';
 
 const routes = [
   {
@@ -121,6 +122,13 @@ const routes = [
         component: ConversationList,
         layout: MainLayout,
       },
+    ],
+  },
+  {
+    path: '/appointment',
+    name: 'Appointment',
+    subRoutes: [
+      { path: '/list', name: 'Appointment List', protected: true, component: AppointmentList, layout: MainLayout },
     ],
   },
   {

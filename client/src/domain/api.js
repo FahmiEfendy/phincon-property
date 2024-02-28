@@ -29,6 +29,10 @@ const urls = {
   conversationList: '/conversation/list',
   conversationDetail: '/conversation/detail',
   sendMessage: '/message/send',
+
+  createAppointment: '/appointment/create',
+  appointmentList: '/appointment/list',
+  updateAppointment: '/appointment/update',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -78,3 +82,9 @@ export const getConversationList = () => callAPI(urls.conversationList, 'GET');
 export const getConversationDetail = (payload) =>
   callAPI(`${urls.conversationDetail}/${payload.id}`, 'GET', {}, payload.query, {});
 export const postSendMessage = (payload) => callAPI(urls.sendMessage, 'POST', {}, {}, payload);
+export const postCreateAppointment = (payload) => callAPI(urls.createAppointment, 'POST', {}, {}, payload);
+export const getAppointmentList = () => callAPI(urls.appointmentList, 'GET');
+export const patchUpdateAppointment = (object) => {
+  console.log(object);
+  return callAPI(`${urls.updateAppointment}/${object.id}`, 'PATCH', {}, {}, object.payload);
+};

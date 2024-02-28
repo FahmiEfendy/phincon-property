@@ -1,0 +1,119 @@
+@import "@styles/base";
+
+.container{
+    margin: 3rem 0 3rem;
+
+    .wrapper{
+        @include directionX;
+        background-color: var(--color-bg);
+        box-shadow: 0px 0px 5px gray;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        
+        .info_wrapper{
+            @include directionY;
+            
+            @include apply-at-md-size{
+                @include directionX;
+            }
+
+            .date_wrapper{
+                @include directionX;
+                border-radius: 10px;
+
+                @include apply-at-md-size{
+                    @include directionY;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                p {
+                    @include font(20px, $font-weight-bold, var(--color-primary));
+                    margin-bottom: .3rem;
+                    text-align: center;
+                    
+                    @include apply-at-md-size{
+                        @include font(24px, $font-weight-bold, var(--color-primary));
+                    }
+                }
+            }
+            
+            img {
+                margin: .3rem 0rem;
+                width: 12rem;
+                height: 8rem;
+                border-radius: 10px;
+                
+                @include apply-at-md-size{
+                    margin: .3rem 1rem;
+                }
+            }
+        
+            .title_wrapper {
+                .title {
+                    @include font(18px, $font-weight-medium, "");
+                    
+                    @include apply-at-md-size{
+                        @include font(22px, $font-weight-medium, "");
+                    }
+                }
+                
+                .location{
+                    @include font(10px, $font-weight-light, "");
+                    
+                    @include apply-at-md-size{
+                        @include font(12px, $font-weight-light, "");
+                    }
+                }
+
+                .message_wrapper {
+                    @include apply-at-md-size{
+                        margin-top: 1rem
+                    }
+                    .message{
+                        @include font(12px, $font-weight-medium, "");
+                        
+                        @include apply-at-md-size{
+                            @include font(14px, $font-weight-medium, "");
+                        }
+                    }
+                }
+            }
+        }
+
+        .status_wrapper {
+            margin-left: auto;
+
+            .btn_wrapper{
+                @include directionY;
+                align-items: end;
+                height: 100%;
+                
+                @include apply-at-lg-size{
+                    @include directionX;
+                    align-items: start;
+                }
+    
+                button {
+                    text-transform: capitalize;
+                    @include font(14px, $font-weight-regular, "");
+                    width: 5rem;
+                }
+
+                button:nth-of-type(2){
+                    margin-top: 1rem;
+
+                    @include apply-at-lg-size{
+                        margin: 0 0 0 1rem;
+                    }
+                }
+            }
+
+            .status     {
+                text-align: right;
+                @include font(20px, $font-weight-bold, "");
+            }
+        }
+    }   
+}

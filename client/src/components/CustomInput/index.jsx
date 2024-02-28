@@ -6,10 +6,10 @@ import { Box, FormLabel, TextField } from '@mui/material';
 import classes from './style.module.scss';
 
 const CustomInput = ({
-  label,
+  label = '',
   value,
   onChange,
-  errorLabel,
+  errorLabel = '',
   type = 'text',
   placeholder = 'global_type_something',
   onKeyDown = () => {},

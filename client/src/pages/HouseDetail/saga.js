@@ -1,11 +1,16 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { setLoading } from '@containers/App/actions';
-import { getHouseDetail, postCreateConversation } from '@domain/api';
-import { GET_HOUSE_DETAIL_REQUEST, POST_CREATE_CONVERSATION_REQUEST } from './constants';
+import { getHouseDetail, postCreateAppointment, postCreateConversation } from '@domain/api';
+import {
+  GET_HOUSE_DETAIL_REQUEST,
+  POST_CREATE_APPOINTMENT_REQUEST,
+  POST_CREATE_CONVERSATION_REQUEST,
+} from './constants';
 import {
   getHouseDetailFailed,
   getHouseDetailSuccess,
+  postCreateAppointmentFailed,
   postCreateConversationFailed,
   postCreateConversationSuccess,
 } from './actions';
@@ -38,7 +43,21 @@ function* doPostCreateConversation(action) {
   yield put(setLoading(false));
 }
 
+function* doPostCreateAppointment(action) {
+  yield put(setLoading(true));
+
+  try {
+    yield call(postCreateAppointment, action.payload);
+    action.callback && action.callback();
+  } catch (err) {
+    yield put(postCreateAppointmentFailed(err.message));
+  }
+
+  yield put(setLoading(false));
+}
+
 export default function* houseDetailSaga() {
   yield takeLatest(GET_HOUSE_DETAIL_REQUEST, doGetHouseDetail);
   yield takeLatest(POST_CREATE_CONVERSATION_REQUEST, doPostCreateConversation);
+  yield takeLatest(POST_CREATE_APPOINTMENT_REQUEST, doPostCreateAppointment);
 }

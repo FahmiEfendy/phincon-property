@@ -3,6 +3,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import App from '@containers/App';
 import Language from '@containers/Language';
 
@@ -13,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <PersistGate persistor={persistor}>
       <Language>
         <BrowserRouter>
-          <App />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <App />
+          </LocalizationProvider>
         </BrowserRouter>
       </Language>
     </PersistGate>

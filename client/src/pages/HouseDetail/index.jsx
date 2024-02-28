@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
 import { Avatar, Box, Button, Container, Typography } from '@mui/material';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 import priceFormatter from '@utils/priceFormatter';
 import { selectUserDetail } from '@pages/UserDetail/selectors';
 import { getUserDetailRequest } from '@pages/UserDetail/actions';
+import CreateAppointmentModal from './components/CreateAppointmentModal';
 import { selectCreateConversation, selectHouseDetail } from './selectors';
 import { getHouseDetailRequest, postCreateConversationRequest } from './actions';
 
@@ -23,12 +25,21 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
   const { id } = useParams();
 
   const mapRef = useRef();
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const goToChatHandler = () => {
     dispatch(postCreateConversationRequest({ target_id: houseDetail?.data?.seller_id }));
+  };
+
+  const openModalHandler = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModalHandler = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -78,9 +89,15 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
           <Box className={classes.seller_wrapper}>
             <Box className={classes.contact_wrapper}>
               <Typography variant="body1">{userDetail?.data?.fullName}</Typography>
-              <Button variant="outlined" startIcon={<EmailOutlinedIcon />} onClick={goToChatHandler}>
-                <FormattedMessage id="user_send_message" />
-              </Button>
+              {/* TOOD: Fix Button Position */}
+              <Box className={classes.btn_wrapper}>
+                <Button variant="outlined" startIcon={<AssignmentTurnedInIcon />} onClick={openModalHandler}>
+                  <FormattedMessage id="appointment_request" />
+                </Button>
+                <Button variant="contained" startIcon={<EmailOutlinedIcon />} onClick={goToChatHandler}>
+                  <FormattedMessage id="user_send_message" />
+                </Button>
+              </Box>
             </Box>
             <Avatar
               src={userDetail?.data?.image_url}
@@ -91,7 +108,12 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
         </Box>
         <Box className={classes.image_wrapper}>
           {houseDetail?.data?.images?.map((image) => (
-            <img src={image?.image_url} className={classes.image} alt={houseDetail?.data?.title} />
+            <img
+              key={image?.image_id}
+              src={image?.image_url}
+              className={classes.image}
+              alt={houseDetail?.data?.title}
+            />
           ))}
         </Box>
         <Typography variant="h5" className={classes.list_header}>
@@ -125,6 +147,8 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
         </Typography>
         <div ref={mapRef} className={classes.maps} />
       </Box>
+
+      <CreateAppointmentModal isOpen={isModalOpen} onClose={closeModalHandler} />
     </Container>
   );
 };

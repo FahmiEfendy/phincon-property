@@ -6,3 +6,4 @@ const selectHouseDetailState = (state) => state.houseDetail || initialState;
 
 export const selectHouseDetail = createSelector(selectHouseDetailState, (state) => state.houseDetail);
 export const selectCreateConversation = createSelector(selectHouseDetailState, (state) => state.createConversation);
+export const selectCreateAppointment = createSelector(selectHouseDetailState, (state) => state.createAppointment);

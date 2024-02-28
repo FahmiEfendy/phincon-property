@@ -35,7 +35,12 @@ const createAppointment = async (req, res) => {
 
 const appointmentList = async (req, res) => {
   try {
-    const response = await appointmentHelper.getAppointmentList(req.query);
+    const objectData = {
+      role: req.body.role,
+      user_id: req.body.user_id,
+    };
+
+    const response = await appointmentHelper.getAppointmentList(objectData);
 
     res
       .status(200)

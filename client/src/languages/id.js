@@ -14,6 +14,8 @@ export default {
   global_back: 'Kembali',
   global_confirmation_page: 'Halaman Konfirmasi',
   global_type_something: 'Ketik sesuatu...',
+  global_reject: 'Tolak',
+  global_accept: 'Terima',
 
   form_email: 'Alamat Surel',
   form_email_error_required: 'Email tidak boleh kosong!',
@@ -44,6 +46,7 @@ export default {
   app_register: 'Daftar',
   app_favorite: 'Favorit Saya',
   app_conversation: 'Obrolan Saya',
+  app_appointment: 'Janji Temu Saya',
 
   forbidden_text: 'Kamu tidak mempunyai akses untuk membuka halaman ini!',
 
@@ -108,7 +111,16 @@ export default {
   delete_favorite_success: 'Berhasil menghapus rumah dari daftar kesukaan',
   favorite_empty: 'Kamu belum memiliki rumah favorit',
 
+  message: 'Pesan',
   message_type: 'Ketik pesan...',
   message_no_conversation: 'Pilih ruangan obrolan disamping untuk memulai obrolan',
   conversation_list: 'List Obrolan',
+
+  appointment_create: 'Buat Janji Temu',
+  appointmnet_create_success: 'Berhasil membuat janji temu baru',
+  appointment_message: 'Pesan janji temu',
+  appointment_message_required: 'Pesan janji temu tidak boleh kosong!',
+  appointment_date: 'Tanggal janji temu',
+  appointment_date_required: 'Kamu harus memilih janji temu!',
+  appointment_request: 'Buat janji temu',
 };

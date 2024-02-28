@@ -2,6 +2,8 @@ import {
   GET_HOUSE_DETAIL_FAILED,
   GET_HOUSE_DETAIL_REQUEST,
   GET_HOUSE_DETAIL_SUCCESS,
+  POST_CREATE_APPOINTMENT_FAILED,
+  POST_CREATE_APPOINTMENT_REQUEST,
   POST_CREATE_CONVERSATION_FAILED,
   POST_CREATE_CONVERSATION_REQUEST,
   POST_CREATE_CONVERSATION_SUCCESS,
@@ -34,5 +36,16 @@ export const postCreateConversationSuccess = (data) => ({
 
 export const postCreateConversationFailed = (error) => ({
   type: POST_CREATE_CONVERSATION_FAILED,
+  error,
+});
+
+export const postCreateAppointmentRequest = (payload, callback) => ({
+  type: POST_CREATE_APPOINTMENT_REQUEST,
+  payload,
+  callback,
+});
+
+export const postCreateAppointmentFailed = (error) => ({
+  type: POST_CREATE_APPOINTMENT_FAILED,
   error,
 });

@@ -100,12 +100,14 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
 
     // Assign scroll event to chatRoomRef
     const chatRoom = chatRoomRef.current;
-    if (chatRoom) chatRoom.addEventListener('scroll', scrollHandler);
+    if (chatRoom) {
+      chatRoom.addEventListener('scroll', scrollHandler);
 
-    // Clean up the event listener
-    return () => {
-      chatRoom.removeEventListener('scroll', scrollHandler);
-    };
+      // Clean up the event listener
+      return () => {
+        chatRoom.removeEventListener('scroll', scrollHandler);
+      };
+    }
   }, []);
 
   useEffect(() => {

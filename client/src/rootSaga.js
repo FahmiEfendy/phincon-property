@@ -10,6 +10,7 @@ import houseDetailSaga from '@pages/HouseDetail/saga';
 import houseFormSaga from '@pages/HouseForm/saga';
 import favoriteListSaga from '@pages/FavoriteList/saga';
 import conversationListSaga from '@pages/ConversationList/saga';
+import appointmentListSaga from '@pages/AppointmentList/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     houseDetailSaga(),
     favoriteListSaga(),
     conversationListSaga(),
+    appointmentListSaga(),
   ]);
 }

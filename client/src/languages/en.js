@@ -14,6 +14,8 @@ export default {
   global_back: 'Back',
   global_confirmation_page: 'Confirmation Page',
   global_type_something: 'Type something...',
+  global_reject: 'Reject',
+  global_accept: 'Accept',
 
   form_email: 'Email Address',
   form_email_error_required: 'Email cannot be empty!',
@@ -44,6 +46,7 @@ export default {
   app_register: 'Register',
   app_favorite: 'My Favorite',
   app_conversation: 'My Conversation',
+  app_appointment: 'My Appointment',
 
   forbidden_text: 'You have no right to access this page!',
 
@@ -108,7 +111,16 @@ export default {
   delete_favorite_success: 'Successfully delete house from favorite list',
   favorite_empty: 'You have no favorited house',
 
+  message: 'Message',
   message_type: 'Type message...',
   message_no_conversation: 'Select conversation room from left side to start chatting',
   conversation_list: 'Conversation List',
+
+  appointment_create: 'Create Appointment',
+  appointmnet_create_success: 'Successfully create new appointment',
+  appointment_message: 'Appointment message',
+  appointment_message_required: 'Appointment message cannot be empty!',
+  appointment_date: 'Appointment date',
+  appointment_date_required: 'You must pick appointment date!',
+  appointment_request: 'Request Appointment',
 };

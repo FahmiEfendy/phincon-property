@@ -123,6 +123,7 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
               <MenuItem
                 onClick={() => {
                   navigate(`/user/detail/${userData?.id}`);
+                  closeProfileHandler();
                 }}
               >
                 <div className={classes.menu}>
@@ -134,6 +135,7 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
               <MenuItem
                 onClick={() => {
                   navigate('/favorite/list');
+                  closeProfileHandler();
                 }}
               >
                 <div className={classes.menu}>
@@ -144,7 +146,20 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
               </MenuItem>
               <MenuItem
                 onClick={() => {
+                  navigate('/appointment/list');
+                  closeProfileHandler();
+                }}
+              >
+                <div className={classes.menu}>
+                  <div className={classes.menuLang}>
+                    <FormattedMessage id="app_appointment" />
+                  </div>
+                </div>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
                   navigate('/conversation/list');
+                  closeProfileHandler();
                 }}
               >
                 <div className={classes.menu}>

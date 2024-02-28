@@ -4,6 +4,8 @@ import {
   GET_HOUSE_DETAIL_FAILED,
   GET_HOUSE_DETAIL_REQUEST,
   GET_HOUSE_DETAIL_SUCCESS,
+  POST_CREATE_APPOINTMENT_FAILED,
+  POST_CREATE_APPOINTMENT_REQUEST,
   POST_CREATE_CONVERSATION_FAILED,
   POST_CREATE_CONVERSATION_REQUEST,
   POST_CREATE_CONVERSATION_SUCCESS,
@@ -16,6 +18,9 @@ export const initialState = {
   },
   createConversation: {
     data: [],
+    error: null,
+  },
+  createAppointment: {
     error: null,
   },
 };
@@ -53,6 +58,14 @@ const houseDetailReducer = (state = initialState, action) =>
       case POST_CREATE_CONVERSATION_FAILED:
         draft.createConversation.data = [];
         draft.createConversation.error = action.error;
+        break;
+
+      case POST_CREATE_APPOINTMENT_REQUEST:
+        draft.createAppointment.error = action.error;
+        break;
+
+      case POST_CREATE_APPOINTMENT_FAILED:
+        draft.createAppointment.error = action.error;
         break;
 
       default:
