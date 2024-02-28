@@ -105,7 +105,7 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
             <Box className={classes.profile_wrapper} onClick={openProfileHandler}>
               <Avatar className={classes.avatar} src="" />
               <Typography variant="body1">{userData?.fullName}</Typography>
-              <ExpandMoreIcon />
+              {/* <ExpandMoreIcon /> */}
             </Box>
             <Menu
               open={isProfileOpen}

@@ -33,6 +33,13 @@ export default {
   form_confirm_password_error_required: 'Konfirmasi kata sandi tidak boleh kosong!',
   form_image: 'Foto profil',
 
+  home_header: 'Temukan Rumah Impian Kamu Disini',
+  home_sub_header:
+    'Jelajahi koleksi rumah pilihan yang sesuai dengan gaya hidup Anda. Temukan kenyamanan, gaya, dan tempat sempurna untuk dijadikan rumah.',
+  home_header_2: 'Jelajahi Perjalanan Rumah Anda',
+  home_sub_header_2: 'Mulailah perjalanan untuk menemukan rumah ideal Anda. Temukan dan wujudkan impian rumah Anda.',
+  home_location: 'Cari rumah di lokasi yang Anda inginkan...',
+
   app_greeting: 'Hai dari Web!',
   app_title_header: 'Phincon Property',
   app_not_found: 'Halaman tidak ditemukan',

@@ -19,6 +19,12 @@ module.exports = {
       },
       conversation_id: {
         type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Conversations",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,

@@ -8,6 +8,7 @@ import {
   POST_CREATE_APPOINTMENT_REQUEST,
   POST_CREATE_CONVERSATION_FAILED,
   POST_CREATE_CONVERSATION_REQUEST,
+  POST_CREATE_CONVERSATION_RESET,
   POST_CREATE_CONVERSATION_SUCCESS,
 } from './constants';
 
@@ -58,6 +59,11 @@ const houseDetailReducer = (state = initialState, action) =>
       case POST_CREATE_CONVERSATION_FAILED:
         draft.createConversation.data = [];
         draft.createConversation.error = action.error;
+        break;
+
+      case POST_CREATE_CONVERSATION_RESET:
+        draft.createConversation.data = [];
+        draft.createConversation.error = null;
         break;
 
       case POST_CREATE_APPOINTMENT_REQUEST:

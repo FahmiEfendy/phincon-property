@@ -140,7 +140,7 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
   useEffect(() => {
     // Receive message from server
     socket.on('receive_message', (data) => {
-      if (data.sender !== userData.id) {
+      if (data.sender !== userData.id && conversationId) {
         setMessageList((prevState) => [
           ...prevState,
           {

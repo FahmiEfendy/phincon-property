@@ -6,6 +6,7 @@ import {
   POST_CREATE_APPOINTMENT_REQUEST,
   POST_CREATE_CONVERSATION_FAILED,
   POST_CREATE_CONVERSATION_REQUEST,
+  POST_CREATE_CONVERSATION_RESET,
   POST_CREATE_CONVERSATION_SUCCESS,
 } from './constants';
 
@@ -37,6 +38,10 @@ export const postCreateConversationSuccess = (data) => ({
 export const postCreateConversationFailed = (error) => ({
   type: POST_CREATE_CONVERSATION_FAILED,
   error,
+});
+
+export const postCreateConversationReset = () => ({
+  type: POST_CREATE_CONVERSATION_RESET,
 });
 
 export const postCreateAppointmentRequest = (payload, callback) => ({

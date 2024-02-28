@@ -90,6 +90,7 @@ const getConversationDetail = async (objectData) => {
         {
           model: db.Messages,
           as: "Messages",
+          order: [["createdAt", "ASC"]],
           offset: (Number(page) - 1) * Number(pageSize),
           limit: Number(pageSize),
         },
@@ -107,12 +108,6 @@ const getConversationDetail = async (objectData) => {
     if (_.isEmpty(conversationDetail)) {
       throw Boom.notFound("No conversation detail found!");
     }
-
-    const sortedMessages = conversationDetail.Messages.sort(
-      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-    );
-
-    conversationDetail.Messages = sortedMessages;
 
     console.log([fileName, "GET Conversation Detail", "INFO"]);
 

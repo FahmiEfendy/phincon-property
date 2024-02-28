@@ -33,6 +33,14 @@ export default {
   form_confirm_password_error_required: 'Confirm Password cannot be empty!',
   form_image: 'Profile picture',
 
+  home_header: 'Discover Your Dream Home Here',
+  home_sub_header:
+    'Explore a curated collection of homes tailored to your lifestyle. Find comfort, style, and the perfect place to call home.',
+  home_header_2: 'Explore Your Home Journey',
+  home_sub_header_2:
+    'Embark on a journey to find your ideal home. Discover, dream, and make your vision of home a reality.',
+  home_location: 'Search house on location you want...',
+
   app_greeting: 'Hi from Web!',
   app_title_header: 'Phincon Property',
   app_not_found: 'Page not found',

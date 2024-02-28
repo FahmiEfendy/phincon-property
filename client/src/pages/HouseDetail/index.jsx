@@ -17,7 +17,7 @@ import { selectUserDetail } from '@pages/UserDetail/selectors';
 import { getUserDetailRequest } from '@pages/UserDetail/actions';
 import CreateAppointmentModal from './components/CreateAppointmentModal';
 import { selectCreateConversation, selectHouseDetail } from './selectors';
-import { getHouseDetailRequest, postCreateConversationRequest } from './actions';
+import { getHouseDetailRequest, postCreateConversationRequest, postCreateConversationReset } from './actions';
 
 import classes from './style.module.scss';
 
@@ -47,8 +47,11 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (createConversation?.data?.id) navigate(`/conversation/detail/${createConversation?.data?.id}`);
-  }, [createConversation?.data?.id, navigate]);
+    if (createConversation?.data?.id) {
+      navigate(`/conversation/detail/${createConversation?.data?.id}`);
+      dispatch(postCreateConversationReset());
+    }
+  }, [createConversation?.data?.id, dispatch, navigate]);
 
   useEffect(() => {
     const map = new window.google.maps.Map(mapRef.current, {
@@ -64,7 +67,9 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
   }, [houseDetail?.data?.location?.coordinates]);
 
   useEffect(() => {
-    dispatch(getUserDetailRequest(houseDetail?.data?.seller_id));
+    if (houseDetail?.data?.seller_id) {
+      dispatch(getUserDetailRequest(houseDetail?.data?.seller_id));
+    }
   }, [dispatch, houseDetail?.data?.seller_id]);
 
   return (
