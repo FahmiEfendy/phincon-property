@@ -23,7 +23,7 @@ function* doGetHouseDetail(action) {
 
     yield put(getHouseDetailSuccess(response.data));
   } catch (err) {
-    yield put(getHouseDetailFailed(err.message));
+    yield put(getHouseDetailFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -37,7 +37,7 @@ function* doPostCreateConversation(action) {
 
     yield put(postCreateConversationSuccess(response.data));
   } catch (err) {
-    yield put(postCreateConversationFailed(err.message));
+    yield put(postCreateConversationFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -50,7 +50,7 @@ function* doPostCreateAppointment(action) {
     yield call(postCreateAppointment, action.payload);
     action.callback && action.callback();
   } catch (err) {
-    yield put(postCreateAppointmentFailed(err.message));
+    yield put(postCreateAppointmentFailed(err.response.data));
   }
 
   yield put(setLoading(false));

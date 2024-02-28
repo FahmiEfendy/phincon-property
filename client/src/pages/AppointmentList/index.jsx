@@ -10,7 +10,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import { selectuserData } from '@containers/Client/selectors';
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectAppointmentList, selectUpdateAppointment } from './selectors';
-import { getAppointmentListRequest, patchUpdateAppointmentRequest } from './actions';
+import { getAppointmentListRequest, patchUpdateAppointmentRequest, patchUpdateAppointmentReset } from './actions';
 
 import classes from './style.module.scss';
 
@@ -31,8 +31,12 @@ const AppointmentList = ({ appointmentList, userData, updateAppointment }) => {
 
   useEffect(() => {
     if (updateAppointment?.error !== null) {
-      dispatch(hidePopup());
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+      dispatch(
+        showPopup('app_popup_error_title', updateAppointment?.error, null, null, () => {
+          dispatch(patchUpdateAppointmentReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [dispatch, updateAppointment?.error]);
 

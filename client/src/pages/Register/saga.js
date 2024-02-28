@@ -11,7 +11,7 @@ function* doPostRegister(action) {
     yield call(postRegister, action.payload);
     action.callback && action.callback();
   } catch (err) {
-    yield put(postRegisterFailed(err.message));
+    yield put(postRegisterFailed(err.response.data));
   }
   yield put(setLoading(false));
 }

@@ -14,8 +14,8 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 import CustomInput from '@components/CustomInput';
 import { hidePopup, showPopup } from '@containers/App/actions';
-import { postCreateAppointmentRequest } from '@pages/HouseDetail/actions';
 import { selectCreateAppointment, selectHouseDetail } from '@pages/HouseDetail/selectors';
+import { postCreateAppointmentRequest, postCreateAppointmentReset } from '@pages/HouseDetail/actions';
 
 import classes from './style.module.scss';
 
@@ -63,8 +63,12 @@ const CreateAppointmentModal = ({ isOpen, onClose, houseDetail, createAppointmen
 
   useEffect(() => {
     if (createAppointment?.error !== null) {
-      dispatch(hidePopup());
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+      dispatch(
+        showPopup('app_popup_error_title', createAppointment?.error, null, null, () => {
+          dispatch(postCreateAppointmentReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [createAppointment.error, dispatch]);
 

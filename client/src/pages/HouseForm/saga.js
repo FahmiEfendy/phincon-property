@@ -12,7 +12,7 @@ function* doCreateHouse(action) {
     yield call(postCreateHouse, action.payload);
     action.callback && action.callback();
   } catch (err) {
-    yield put(postCreateHouseFailed(err.message));
+    yield put(postCreateHouseFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -25,7 +25,7 @@ function* doUpdateHouse(action) {
     yield call(patchUpdateHouse, action.object);
     action.callback && action.callback();
   } catch (err) {
-    yield put(patchUpdateHouseFailed(err.message));
+    yield put(patchUpdateHouseFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -38,7 +38,7 @@ function* doDeleteHouseImage(action) {
     yield call(deleteHouseImage, action.object);
     action.callback && action.callback();
   } catch (err) {
-    yield put(deleteHouseImageFailed(err.message));
+    yield put(deleteHouseImageFailed(err.response.data));
   }
 
   yield put(setLoading(false));

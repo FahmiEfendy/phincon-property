@@ -6,8 +6,10 @@ import {
   GET_USER_DETAIL_SUCCESS,
   PATCH_CHANGE_PASSWORD_FAILED,
   PATCH_CHANGE_PASSWORD_REQUEST,
+  PATCH_CHANGE_PASSWORD_RESET,
   PATCH_UPDATE_USER_FAILED,
   PATCH_UPDATE_USER_REQUEST,
+  PATCH_UPDATE_USER_RESET,
 } from './constants';
 
 export const initialState = {
@@ -51,12 +53,20 @@ const userDetailReducer = (state = initialState, action) =>
         draft.updateUser.error = action.error;
         break;
 
+      case PATCH_UPDATE_USER_RESET:
+        draft.updateUser.error = action.error;
+        break;
+
       case PATCH_CHANGE_PASSWORD_REQUEST:
         draft.changePassword.error = null;
         break;
 
       case PATCH_CHANGE_PASSWORD_FAILED:
         draft.changePassword.error = action.error;
+        break;
+
+      case PATCH_CHANGE_PASSWORD_RESET:
+        draft.changePassword.error = null;
         break;
 
       default:

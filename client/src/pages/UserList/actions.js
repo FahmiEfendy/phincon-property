@@ -1,6 +1,7 @@
 import {
   DELETE_USER_FAILED,
   DELETE_USER_REQUEST,
+  DELETE_USER_RESET,
   GET_USER_LIST_FAILED,
   GET_USER_LIST_REQUEST,
   GET_USER_LIST_SUCCESS,
@@ -29,4 +30,8 @@ export const deleteUserRequest = (id, callback) => ({
 export const deleteUserFailed = (error) => ({
   type: DELETE_USER_FAILED,
   error,
+});
+
+export const deleteUserReset = () => ({
+  type: DELETE_USER_RESET,
 });

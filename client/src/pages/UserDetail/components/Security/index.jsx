@@ -10,7 +10,7 @@ import { Box, Button, FormLabel, TextField } from '@mui/material';
 import encryptPayload from '@utils/encryptPayload';
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectChangePassword } from '@pages/UserDetail/selectors';
-import { patchChangePasswordRequest } from '@pages/UserDetail/actions';
+import { patchChangePasswordRequest, patchChangePasswordReset } from '@pages/UserDetail/actions';
 
 import classes from './style.module.scss';
 
@@ -62,8 +62,12 @@ const Security = ({ changePassword }) => {
 
   useEffect(() => {
     if (changePassword?.error !== null) {
-      dispatch(hidePopup());
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+      dispatch(
+        showPopup('app_popup_error_title', changePassword?.error, null, null, () => {
+          dispatch(patchChangePasswordReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [changePassword?.error, dispatch]);
 

@@ -22,7 +22,7 @@ import {
 import sensorEmail from '@utils/sensorEmail';
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectDeleteUser, selectUserList } from './selectors';
-import { deleteUserRequest, getUserListRequest } from './actions';
+import { deleteUserRequest, deleteUserReset, getUserListRequest } from './actions';
 
 import classes from './style.module.scss';
 
@@ -47,9 +47,13 @@ const UserList = ({ userList, deleteUser }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (deleteUser.error !== null) {
-      dispatch(hidePopup());
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+    if (deleteUser?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', deleteUser?.error, null, null, () => {
+          dispatch(deleteUserReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [deleteUser.error, dispatch]);
 

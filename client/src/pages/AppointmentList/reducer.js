@@ -5,6 +5,7 @@ import {
   GET_APPOINTMENT_LIST_SUCCESS,
   PATCH_UPDATE_APPOINTMENT_FAILED,
   PATCH_UPDATE_APPOINTMENT_REQUEST,
+  PATCH_UPDATE_APPOINTMENT_RESET,
 } from './constants';
 
 export const initialState = {
@@ -43,6 +44,10 @@ const appointmentListReducer = (state = initialState, action) =>
 
       case PATCH_UPDATE_APPOINTMENT_FAILED:
         draft.updateAppointment.error = action.error;
+        break;
+
+      case PATCH_UPDATE_APPOINTMENT_RESET:
+        draft.updateAppointment.error = null;
         break;
 
       default:

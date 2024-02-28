@@ -13,7 +13,7 @@ function* doGetUserList() {
 
     yield put(getUserListSuccess(response.data));
   } catch (err) {
-    yield put(getUserListFailed(err.message));
+    yield put(getUserListFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -26,7 +26,7 @@ function* doDeleteUser(action) {
     yield call(deleteUser, action.id);
     action.callback && action.callback();
   } catch (err) {
-    yield put(deleteUserFailed(err.message));
+    yield put(deleteUserFailed(err.response.data));
   }
 
   yield put(setLoading(false));

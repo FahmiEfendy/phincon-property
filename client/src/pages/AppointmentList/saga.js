@@ -13,7 +13,7 @@ function* doGetAppointmentList() {
 
     yield put(getAppointmentListSuccess(response.data));
   } catch (err) {
-    yield put(getAppointmentListFailed(err.message));
+    yield put(getAppointmentListFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -27,7 +27,7 @@ function* doPatchUpdateAppointment(action) {
 
     action.callback && action.callback();
   } catch (err) {
-    yield put(patchUpdateAppointmentFailed(err.message));
+    yield put(patchUpdateAppointmentFailed(err.response.data));
   }
 
   yield put(setLoading(false));

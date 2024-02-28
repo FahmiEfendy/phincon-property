@@ -22,7 +22,7 @@ import {
 
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectUpdateUser, selectUserDetail } from '@pages/UserDetail/selectors';
-import { getUserDetailRequest, patchUpdateUserRequest } from '@pages/UserDetail/actions';
+import { getUserDetailRequest, patchUpdateUserRequest, patchUpdateUserReset } from '@pages/UserDetail/actions';
 
 import classes from './style.module.scss';
 
@@ -77,9 +77,13 @@ const Information = ({ userDetail, updateUser }) => {
   }, [userDetail?.data]);
 
   useEffect(() => {
-    if (updateUser.error !== null) {
-      dispatch(hidePopup());
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+    if (updateUser?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', updateUser?.error, null, null, () => {
+          dispatch(patchUpdateUserReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [dispatch, updateUser.error]);
 

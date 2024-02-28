@@ -4,3 +4,4 @@ export const GET_USER_LIST_FAILED = 'UserList/GET_USER_LIST_FAILED';
 
 export const DELETE_USER_REQUEST = 'UserList/DELETE_USER_REQUEST';
 export const DELETE_USER_FAILED = 'UserList/DELETE_USER_FAILED';
+export const DELETE_USER_RESET = 'UserList/DELETE_USER_RESET';

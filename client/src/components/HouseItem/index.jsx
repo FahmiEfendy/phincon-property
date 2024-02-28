@@ -22,9 +22,11 @@ import { getFavoriteListRequest } from '@pages/FavoriteList/actions';
 import { selectAddToFavorite, selectDeleteFromFavorite } from '../../pages/HouseList/selectors';
 import {
   deleteFromFavoriteRequest,
+  deleteFromFavoriteReset,
   deleteHouseRequest,
   getHouseListRequest,
   postAddToFavoriteRequest,
+  postAddToFavoriteReset,
 } from '../../pages/HouseList/actions';
 
 import classes from './style.module.scss';
@@ -83,9 +85,20 @@ const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFr
   };
 
   useEffect(() => {
-    if (addToFavorite?.error !== null || deleteFromFavorite?.error !== null) {
-      dispatch(hidePopup());
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+    if (addToFavorite?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', addToFavorite?.error, null, null, () => {
+          dispatch(postAddToFavoriteReset());
+          dispatch(hidePopup());
+        })
+      );
+    } else if (deleteFromFavorite?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', deleteFromFavorite?.error, null, null, () => {
+          dispatch(deleteFromFavoriteReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [addToFavorite?.error, deleteFromFavorite?.error, dispatch]);
 

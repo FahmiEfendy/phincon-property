@@ -17,7 +17,7 @@ function* doPostLogin(action) {
     yield put(setLogin(true));
     yield put(setUserData(jwtDecode(response.data.token)));
   } catch (err) {
-    yield put(postLoginFailed(err.message));
+    yield put(postLoginFailed(err.response.data));
   }
 
   yield put(setLoading(false));

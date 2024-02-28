@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
@@ -10,9 +10,9 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, Button, Container, FormLabel, TextField, Typography } from '@mui/material';
 
 import encryptPayload from '@utils/encryptPayload';
-import { showPopup } from '@containers/App/actions';
 import { selectError } from '@containers/Client/selectors';
-import { postLoginRequest } from '@containers/Client/actions';
+import { hidePopup, showPopup } from '@containers/App/actions';
+import { postLoginRequest, resetLogin } from '@containers/Client/actions';
 
 import classes from './style.module.scss';
 
@@ -50,11 +50,18 @@ const Login = ({ loginError }) => {
     };
 
     dispatch(postLoginRequest(payload, () => navigate('/')));
-
-    if (loginError !== null) {
-      dispatch(showPopup('global_error', 'login_invalid'));
-    }
   };
+
+  useEffect(() => {
+    if (loginError !== null) {
+      dispatch(
+        showPopup('global_error', loginError, null, null, () => {
+          dispatch(resetLogin());
+          dispatch(hidePopup());
+        })
+      );
+    }
+  }, [dispatch, loginError]);
 
   return (
     <Container className={classes.container}>
@@ -118,7 +125,7 @@ const Login = ({ loginError }) => {
 };
 
 Login.propTypes = {
-  loginError: PropTypes.string,
+  loginError: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

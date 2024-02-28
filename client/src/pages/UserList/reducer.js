@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import {
   DELETE_USER_FAILED,
   DELETE_USER_REQUEST,
+  DELETE_USER_RESET,
   GET_USER_LIST_FAILED,
   GET_USER_LIST_REQUEST,
   GET_USER_LIST_SUCCESS,
@@ -44,6 +45,10 @@ const userListReducer = (state = initialState, action) =>
 
       case DELETE_USER_FAILED:
         draft.deleteUser.error = action.error;
+        break;
+
+      case DELETE_USER_RESET:
+        draft.deleteUser.error = null;
         break;
 
       default:

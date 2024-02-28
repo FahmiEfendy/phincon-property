@@ -23,7 +23,7 @@ function* doGetHouseList(action) {
     const response = yield call(getHouseList, action.id);
     yield put(getHouseListSuccess(response.data));
   } catch (err) {
-    yield put(getHouseListFailed(err.message));
+    yield put(getHouseListFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -36,7 +36,7 @@ function* doDeleteHouse(action) {
     yield call(deleteHouse, action.id);
     action.callback && action.callback();
   } catch (err) {
-    yield put(deleteHouseFailed(err.message));
+    yield put(deleteHouseFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -49,7 +49,7 @@ function* doAddToFavorite(action) {
     yield call(postAddToFavorite, action.id);
     action.callback && action.callback();
   } catch (err) {
-    yield put(postAddToFavoriteFailed(err.message));
+    yield put(postAddToFavoriteFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -62,7 +62,7 @@ function* doDeleteFromFavorite(action) {
     yield call(deleteFromFavorite, action.id);
     action.callback && action.callback();
   } catch (err) {
-    yield put(deleteFromFavoriteFailed(err.message));
+    yield put(deleteFromFavoriteFailed(err.response.data));
   }
 
   yield put(setLoading(false));

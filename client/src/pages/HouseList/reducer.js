@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import {
   DELETE_FROM_FAVORITE_FAILED,
   DELETE_FROM_FAVORITE_REQUEST,
+  DELETE_FROM_FAVORITE_RESET,
   DELETE_HOUSE_FAILED,
   DELETE_HOUSE_REQUEST,
   GET_HOUSE_LIST_FAILED,
@@ -10,6 +11,7 @@ import {
   GET_HOUSE_LIST_SUCCESS,
   POST_ADD_TO_FAVORITE_FAILED,
   POST_ADD_TO_FAVORITE_REQUEST,
+  POST_ADD_TO_FAVORITE_RESET,
 } from './constants';
 
 export const initialState = {
@@ -64,12 +66,20 @@ const houseListReducer = (state = initialState, action) =>
         draft.addToFavorite.error = action.error;
         break;
 
+      case POST_ADD_TO_FAVORITE_RESET:
+        draft.addToFavorite.error = null;
+        break;
+
       case DELETE_FROM_FAVORITE_REQUEST:
         draft.deleteFromFavorite.error = null;
         break;
 
       case DELETE_FROM_FAVORITE_FAILED:
         draft.deleteFromFavorite.error = action.error;
+        break;
+
+      case DELETE_FROM_FAVORITE_RESET:
+        draft.deleteFromFavorite.error = null;
         break;
 
       default:

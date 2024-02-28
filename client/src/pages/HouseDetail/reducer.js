@@ -6,6 +6,7 @@ import {
   GET_HOUSE_DETAIL_SUCCESS,
   POST_CREATE_APPOINTMENT_FAILED,
   POST_CREATE_APPOINTMENT_REQUEST,
+  POST_CREATE_APPOINTMENT_RESET,
   POST_CREATE_CONVERSATION_FAILED,
   POST_CREATE_CONVERSATION_REQUEST,
   POST_CREATE_CONVERSATION_RESET,
@@ -67,11 +68,15 @@ const houseDetailReducer = (state = initialState, action) =>
         break;
 
       case POST_CREATE_APPOINTMENT_REQUEST:
-        draft.createAppointment.error = action.error;
+        draft.createAppointment.error = null;
         break;
 
       case POST_CREATE_APPOINTMENT_FAILED:
         draft.createAppointment.error = action.error;
+        break;
+
+      case POST_CREATE_APPOINTMENT_RESET:
+        draft.createAppointment.error = null;
         break;
 
       default:

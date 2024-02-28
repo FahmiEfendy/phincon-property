@@ -19,7 +19,7 @@ function* doGetConversationList() {
 
     yield put(getConversationListSuccess(response.data));
   } catch (err) {
-    yield put(getConversationListFailed(err.message));
+    yield put(getConversationListFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -33,7 +33,7 @@ function* doGetConversationDetail(action) {
 
     yield put(getConversationDetailSuccess(response.data));
   } catch (err) {
-    yield put(getConversationDetailFailed(err.message));
+    yield put(getConversationDetailFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -45,7 +45,7 @@ function* doPostSendMessage(action) {
   try {
     yield call(postSendMessage, action.payload);
   } catch (err) {
-    yield put(postSendMessageFailed(err.message));
+    yield put(postSendMessageFailed(err.response.data));
   }
 
   yield put(setLoading(false));

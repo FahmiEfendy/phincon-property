@@ -38,6 +38,7 @@ const App = ({ theme, popup, loading }) => {
         message={popup.message}
         btnText={popup.btnText}
         btnFunc={popup.btnFunc}
+        onReset={popup.onReset}
         onClose={closePopup}
       />
     </ThemeProvider>
@@ -49,9 +50,10 @@ App.propTypes = {
   popup: PropTypes.shape({
     open: PropTypes.bool,
     title: PropTypes.string,
-    message: PropTypes.string,
+    message: PropTypes.any,
     btnText: PropTypes.string,
     btnFunc: PropTypes.func,
+    onReset: PropTypes.func,
   }),
   loading: PropTypes.bool,
 };

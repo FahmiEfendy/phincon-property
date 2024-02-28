@@ -13,7 +13,7 @@ function* doGetUserDetail(action) {
 
     yield put(getUserDetailSuccess(response.data));
   } catch (err) {
-    yield put(getUserDetailFailed(err.message));
+    yield put(getUserDetailFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -26,7 +26,7 @@ function* doPatchUpdateUser(action) {
     yield call(patchUpdateUser, action.object);
     action.callback && action.callback();
   } catch (err) {
-    yield put(patchUpdateUserFailed(err.message));
+    yield put(patchUpdateUserFailed(err.response.data));
   }
 
   yield put(setLoading(false));
@@ -39,7 +39,7 @@ function* doPatchChangePassword(action) {
     yield call(patchChangePassword, action.object);
     action.callback && action.callback();
   } catch (err) {
-    yield put(patchChangePasswordFailed(err.message));
+    yield put(patchChangePasswordFailed(err.response.data));
   }
 
   yield put(setLoading(false));

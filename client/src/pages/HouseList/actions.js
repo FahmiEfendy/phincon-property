@@ -1,6 +1,7 @@
 import {
   DELETE_FROM_FAVORITE_FAILED,
   DELETE_FROM_FAVORITE_REQUEST,
+  DELETE_FROM_FAVORITE_RESET,
   DELETE_HOUSE_FAILED,
   DELETE_HOUSE_REQUEST,
   GET_HOUSE_LIST_FAILED,
@@ -8,6 +9,7 @@ import {
   GET_HOUSE_LIST_SUCCESS,
   POST_ADD_TO_FAVORITE_FAILED,
   POST_ADD_TO_FAVORITE_REQUEST,
+  POST_ADD_TO_FAVORITE_RESET,
 } from './constants';
 
 export const getHouseListRequest = (id) => ({
@@ -47,6 +49,10 @@ export const postAddToFavoriteFailed = (error) => ({
   error,
 });
 
+export const postAddToFavoriteReset = () => ({
+  type: POST_ADD_TO_FAVORITE_RESET,
+});
+
 export const deleteFromFavoriteRequest = (id, callback) => ({
   type: DELETE_FROM_FAVORITE_REQUEST,
   id,
@@ -56,4 +62,8 @@ export const deleteFromFavoriteRequest = (id, callback) => ({
 export const deleteFromFavoriteFailed = (error) => ({
   type: DELETE_FROM_FAVORITE_FAILED,
   error,
+});
+
+export const deleteFromFavoriteReset = () => ({
+  type: DELETE_FROM_FAVORITE_RESET,
 });

@@ -13,7 +13,7 @@ function* doGetFavoriteList() {
 
     yield put(getFavoriteListSuccess(response.data));
   } catch (err) {
-    yield put(getFavoriteListFailed(err.message));
+    yield put(getFavoriteListFailed(err.response.data));
   }
 
   yield put(setLoading(false));

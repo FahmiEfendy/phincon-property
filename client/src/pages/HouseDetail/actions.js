@@ -4,6 +4,7 @@ import {
   GET_HOUSE_DETAIL_SUCCESS,
   POST_CREATE_APPOINTMENT_FAILED,
   POST_CREATE_APPOINTMENT_REQUEST,
+  POST_CREATE_APPOINTMENT_RESET,
   POST_CREATE_CONVERSATION_FAILED,
   POST_CREATE_CONVERSATION_REQUEST,
   POST_CREATE_CONVERSATION_RESET,
@@ -53,4 +54,8 @@ export const postCreateAppointmentRequest = (payload, callback) => ({
 export const postCreateAppointmentFailed = (error) => ({
   type: POST_CREATE_APPOINTMENT_FAILED,
   error,
+});
+
+export const postCreateAppointmentReset = () => ({
+  type: POST_CREATE_APPOINTMENT_RESET,
 });
