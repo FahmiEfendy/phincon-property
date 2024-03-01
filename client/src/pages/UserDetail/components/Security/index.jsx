@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Box, Button, FormLabel, TextField } from '@mui/material';
+import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
 
 import encryptPayload from '@utils/encryptPayload';
 import { hidePopup, showPopup } from '@containers/App/actions';
@@ -20,9 +20,9 @@ const Security = ({ changePassword }) => {
   const dispatch = useDispatch();
 
   const [isOnEditPassword, setIsOnEditPassword] = useState(false);
-  const [oldPassword, setOldPassword] = useState({ value: 'fahmi123', isValid: true });
-  const [newPassword, setNewPassword] = useState({ value: 'fahmi456', isValid: true });
-  const [confirmNewPassword, setConfirmNewPassword] = useState({ value: 'fahmi456', isValid: true });
+  const [oldPassword, setOldPassword] = useState({ value: '', isValid: true });
+  const [newPassword, setNewPassword] = useState({ value: '', isValid: true });
+  const [confirmNewPassword, setConfirmNewPassword] = useState({ value: '', isValid: true });
 
   const formValidation = () => {
     let isFormValid = true;
@@ -139,9 +139,15 @@ const Security = ({ changePassword }) => {
           </Box>
         </>
       ) : (
-        <Button variant="contained" onClick={() => setIsOnEditPassword(true)} className={classes.save_btn}>
-          <FormattedMessage id="user_change_password" />
-        </Button>
+        <Box className={classes.password_wrapper}>
+          <Typography className={classes.form_header}>Password</Typography>
+          <Typography component="span" variant="body1">
+            ****************
+          </Typography>
+          <Button variant="contained" onClick={() => setIsOnEditPassword(true)} className={classes.save_btn}>
+            <FormattedMessage id="user_change_password" />
+          </Button>
+        </Box>
       )}
     </Box>
   );

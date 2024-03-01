@@ -4,6 +4,7 @@ import {
   DELETE_FROM_FAVORITE_RESET,
   DELETE_HOUSE_FAILED,
   DELETE_HOUSE_REQUEST,
+  DELETE_HOUSE_RESET,
   GET_HOUSE_LIST_FAILED,
   GET_HOUSE_LIST_REQUEST,
   GET_HOUSE_LIST_SUCCESS,
@@ -36,6 +37,10 @@ export const deleteHouseRequest = (id, callback) => ({
 export const deleteHouseFailed = (error) => ({
   type: DELETE_HOUSE_FAILED,
   error,
+});
+
+export const deleteHouseReset = () => ({
+  type: DELETE_HOUSE_RESET,
 });
 
 export const postAddToFavoriteRequest = (id, callback) => ({

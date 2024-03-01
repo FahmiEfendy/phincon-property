@@ -104,13 +104,11 @@ const Information = ({ userDetail, updateUser }) => {
           </TableRow>
           <TableRow>
             <TableCell className={classes.form_data_image}>
-              {(userDetail?.data?.image_url || image.value) && (
-                <Avatar
-                  src={image.value === '' ? userDetail?.data?.image_url : URL.createObjectURL(image.value)}
-                  alt={image.value !== '' ? fullName.value : ''}
-                  className={classes.profile_picture}
-                />
-              )}
+              <Avatar
+                src={image.value === '' ? userDetail?.data?.image_url : URL.createObjectURL(image.value)}
+                alt={image.value !== '' ? fullName.value : ''}
+                className={classes.profile_picture}
+              />
               {isEditing && (
                 <input
                   type="file"

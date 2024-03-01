@@ -21,4 +21,20 @@
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
+
+    .empty_wrapper {
+        @include directionY;
+        align-items: center;
+
+        .listing_empty{
+            @include font(30px, $font-weight-medium, "");
+        }
+        
+        .create_btn {
+            margin-top: 1rem;
+            @include font(20px, $font-weight-medium, "");
+            text-transform: capitalize;
+        }
+    }
+
 }

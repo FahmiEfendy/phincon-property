@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 
-import { POST_REGISTER_REQUEST, POST_REGISTER_FAILED } from './constants';
+import { POST_REGISTER_REQUEST, POST_REGISTER_FAILED, POST_REGISTER_RESET } from './constants';
 
 export const initialState = {
   register: {
@@ -19,6 +19,10 @@ const registerReducer = (state = initialState, action) =>
 
       case POST_REGISTER_FAILED:
         draft.register.error = action.error;
+        break;
+
+      case POST_REGISTER_RESET:
+        draft.register.error = null;
         break;
 
       default:

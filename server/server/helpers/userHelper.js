@@ -68,6 +68,7 @@ const postLogin = async (objectData) => {
       email: selectedUser.email,
       fullName: selectedUser.fullName,
       role: selectedUser.role,
+      image_url: selectedUser.image_url,
     });
 
     console.log([fileName, "POST Register", "INFO"]);
@@ -146,11 +147,17 @@ const getUserDetail = async (params) => {
 
     selectedUser = {
       ...selectedUser.dataValues,
-      favorites: selectedUser.dataValues.favorites.map((favorite) => ({
-        ...favorite.dataValues.House.dataValues,
-        location: JSON.parse(favorite.dataValues.House.dataValues.location),
-        images: JSON.parse(favorite.dataValues.House.dataValues.images),
-      })),
+      favorites: selectedUser.dataValues.favorites.map((favorite) => {
+        if (favorite?.dataValues?.House?.dataValues) {
+          return {
+            ...favorite.dataValues.House.dataValues,
+            location: JSON.parse(favorite.dataValues.House.dataValues.location),
+            images: JSON.parse(favorite.dataValues.House.dataValues.images),
+          };
+        } else {
+          return [];
+        }
+      }),
     };
 
     console.log([fileName, "GET User Detail", "INFO"]);
@@ -281,6 +288,7 @@ const deleteUser = async (params, objectData) => {
       throw Boom.badRequest(`User with id of ${id} not found!`);
     }
 
+    await cloudinaryDeleteImg(selectedUser.image_id, "image");
     await db.Users.destroy({ where: { id } });
 
     console.log([fileName, "DELETE User", "INFO"]);

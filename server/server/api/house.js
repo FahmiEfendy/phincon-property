@@ -93,7 +93,7 @@ const updateHouse = async (req, res) => {
     const objectData = {
       ...validateData,
       images: req?.files?.images,
-      role: req.body.role,
+      user_id: req.body.user_id,
     };
 
     const response = await houseHelper.patchUpdateHouse(req.params, objectData);

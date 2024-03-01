@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -32,7 +33,7 @@ import {
 import classes from './style.module.scss';
 
 const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFromFavorite }) => {
-  const { id, title, location, price, bathrooms, bedrooms, images, isFavorited } = data;
+  const { id, title, location, price, bathrooms, bedrooms, images, isFavorited, seller_id } = data;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFr
     dispatch(
       postAddToFavoriteRequest(id, () => {
         dispatch(showPopup('global_success', 'add_favorite_success'));
-        dispatch(getHouseListRequest(userData?.id));
+        dispatch(getHouseListRequest({ user_id: userData?.id }));
       })
     );
   };
@@ -65,7 +66,7 @@ const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFr
         if (onFavorite) {
           dispatch(getFavoriteListRequest());
         } else {
-          dispatch(getHouseListRequest(userData?.id));
+          dispatch(getHouseListRequest({ user_id: userData?.id }));
         }
       })
     );
@@ -77,7 +78,7 @@ const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFr
         dispatch(
           deleteHouseRequest(id, () => {
             dispatch(showPopup('global_success', 'house_delete_success'));
-            dispatch(getHouseListRequest());
+            dispatch(getHouseListRequest({ seller_id }));
           })
         );
       })
@@ -143,7 +144,7 @@ const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFr
           </Box>
         </Box>
         <Box className={classes.option}>
-          {userData.role === 'seller' ? (
+          {userData.id === seller_id ? (
             <IconButton onClick={openMenuHandler}>
               <MoreVertOutlinedIcon />
             </IconButton>

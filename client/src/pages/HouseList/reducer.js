@@ -6,6 +6,7 @@ import {
   DELETE_FROM_FAVORITE_RESET,
   DELETE_HOUSE_FAILED,
   DELETE_HOUSE_REQUEST,
+  DELETE_HOUSE_RESET,
   GET_HOUSE_LIST_FAILED,
   GET_HOUSE_LIST_REQUEST,
   GET_HOUSE_LIST_SUCCESS,
@@ -56,6 +57,10 @@ const houseListReducer = (state = initialState, action) =>
 
       case DELETE_HOUSE_FAILED:
         draft.deleteHouse.error = action.error;
+        break;
+
+      case DELETE_HOUSE_RESET:
+        draft.deleteHouse.error = null;
         break;
 
       case POST_ADD_TO_FAVORITE_REQUEST:

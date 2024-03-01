@@ -26,6 +26,7 @@ const Image = ({ step, formData, houseDetail }) => {
 
   const [files, setFiles] = useState({ value: formData.images, isValid: true });
 
+  // TODO: Fix Keep New Inputted Image When Old Image Deleted From Database
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
       setFiles((prevState) => ({ ...prevState, value: [...prevState.value, ...acceptedFiles] }));
@@ -101,8 +102,8 @@ const Image = ({ step, formData, houseDetail }) => {
           </div>
         ) : (
           <Box className={classes.image_wrapper}>
-            {files.value.map((file) => (
-              <Box className={classes.img}>
+            {files.value.map((file, i) => (
+              <Box className={classes.img} key={i}>
                 <img
                   src={file.image_url ? file.image_url : URL.createObjectURL(file)}
                   // Revoke data uri after image is loaded

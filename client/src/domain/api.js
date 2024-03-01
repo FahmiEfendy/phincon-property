@@ -67,7 +67,7 @@ export const patchChangePassword = (object) =>
 export const deleteUser = (id) => callAPI(`${urls.deleteUser}/${id}`, 'DELETE');
 export const postCreateHouse = (payload) =>
   callAPI(urls.createHouse, 'POST', { 'Content-Type': 'multipart/form-data' }, {}, payload);
-export const getHouseList = (id) => callAPI(urls.houseList, 'GET', {}, { id });
+export const getHouseList = (id) => callAPI(urls.houseList, 'GET', {}, id);
 export const getHouseDetail = (id) => callAPI(`${urls.houseDetail}/${id}`, 'GET');
 export const patchUpdateHouse = (object) =>
   callAPI(`${urls.updateHouse}/${object.id}`, 'PATCH', { 'Content-Type': 'multipart/form-data' }, {}, object.payload);
@@ -84,7 +84,5 @@ export const getConversationDetail = (payload) =>
 export const postSendMessage = (payload) => callAPI(urls.sendMessage, 'POST', {}, {}, payload);
 export const postCreateAppointment = (payload) => callAPI(urls.createAppointment, 'POST', {}, {}, payload);
 export const getAppointmentList = () => callAPI(urls.appointmentList, 'GET');
-export const patchUpdateAppointment = (object) => {
-  console.log(object);
-  return callAPI(`${urls.updateAppointment}/${object.id}`, 'PATCH', {}, {}, object.payload);
-};
+export const patchUpdateAppointment = (object) =>
+  callAPI(`${urls.updateAppointment}/${object.id}`, 'PATCH', {}, {}, object.payload);

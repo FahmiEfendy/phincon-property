@@ -20,9 +20,8 @@ const Login = ({ loginError }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // TODO: Change Default Value to Empty String Later
-  const [email, setEmail] = useState({ value: 'fahmi_customer@gmail.com', isValid: true });
-  const [password, setPassword] = useState({ value: 'fahmi123', isValid: true });
+  const [email, setEmail] = useState({ value: '', isValid: true });
+  const [password, setPassword] = useState({ value: '', isValid: true });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const formValidation = () => {
@@ -113,7 +112,7 @@ const Login = ({ loginError }) => {
             </Button>
             <Typography variant="body1">
               <FormattedMessage id="login_to_register" />
-              <a href="/register/user">
+              <a href="/register/customer">
                 <FormattedMessage id="login_to_register_action" />
               </a>
             </Typography>

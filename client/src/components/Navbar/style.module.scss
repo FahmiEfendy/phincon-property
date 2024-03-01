@@ -5,7 +5,7 @@
   box-shadow: 0 0.25rem 0.75rem rgba(25, 49, 83, 0.2) !important;
   position: sticky;
   top: 0;
-  z-index: 99999;
+  z-index: 1000;
   .contentWrapper {
     @include directionX;
 
@@ -26,6 +26,11 @@
       }
       .title {
         font-weight: 700;
+        display: none;
+
+        @include apply-at-sm-size{
+          display: inline-block;
+        }
       }
     }
 
@@ -67,6 +72,7 @@
     .profile_wrapper{
       @include directionX; 
       align-items: center;
+      cursor: pointer;
 
       .avatar {
         @extend .avatar
@@ -92,6 +98,7 @@
 .menu {
   @include directionX;
   align-items: center;
+  z-index: 2000;
 
   .menuAvatar {
     width: 1rem;

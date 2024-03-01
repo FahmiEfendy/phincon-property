@@ -49,7 +49,7 @@ const routes = [
       {
         path: '/detail/:id',
         name: 'User Detail',
-        protected: false,
+        protected: true,
         component: UserDetail,
         layout: MainLayout,
       },
@@ -60,7 +60,7 @@ const routes = [
     name: 'House',
     subRoutes: [
       {
-        path: '/list',
+        path: '/list/:id',
         name: 'House List',
         protected: false,
         component: HouseList,

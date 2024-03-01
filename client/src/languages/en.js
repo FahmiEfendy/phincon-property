@@ -46,15 +46,16 @@ export default {
   app_not_found: 'Page not found',
   app_lang_id: 'Indonesian',
   app_lang_en: 'English',
-  app_my_profile: 'My profile',
+  app_my_profile: 'Profile',
   app_popup_error_title: 'Something went wrong!',
   app_popup_error_message: 'Sorry, an error has occurred. Please try again later',
   app_popup_close_button_label: 'Close',
   app_login: 'Login',
   app_register: 'Register',
-  app_favorite: 'My Favorite',
-  app_conversation: 'My Conversation',
-  app_appointment: 'My Appointment',
+  app_favorite: 'Favorite',
+  app_conversation: 'Conversation',
+  app_appointment: 'Appointment',
+  app_my_house: 'Listings',
 
   forbidden_text: 'You have no right to access this page!',
 
@@ -78,6 +79,7 @@ export default {
   user_change_password: 'Change password',
   user_change_password_success: 'Successfully change password',
   user_send_message: 'Send message',
+  user_not_found: 'There is no user with id of ',
 
   house_browse: 'Browse house',
   house_delete_desc: 'Are you sure want to delete this house?',
@@ -111,6 +113,7 @@ export default {
   house_information: 'House Information',
   house_location: 'House Location',
   house_image: 'House Image',
+  listing_empty: 'You currently have no listing, add a house you want to sell!',
 
   dropzone_text: `Drag 'n' drop some image here, or click to select image`,
   dropzone_extra_text: 'Add other images',
@@ -131,4 +134,5 @@ export default {
   appointment_date: 'Appointment date',
   appointment_date_required: 'You must pick appointment date!',
   appointment_request: 'Request Appointment',
+  appointment_empty: 'You currently have no appointment',
 };

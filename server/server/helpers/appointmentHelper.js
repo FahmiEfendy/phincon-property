@@ -11,6 +11,12 @@ const postCreateAppointment = async (objectData) => {
   const { user_id, house_id, seller_id, date, message } = objectData;
 
   try {
+    if (house_id && user_id === seller_id) {
+      throw Boom.badRequest(
+        "You cannot request appointment for your own house!"
+      );
+    }
+
     const appointmentExist = await db.Appointments.findOne({
       where: { house_id, customer_id: user_id },
     });
@@ -115,91 +121,8 @@ const getAppointmentDetail = async (params) => {
   }
 };
 
-const patchUpdateAppointment = async (params, objectData) => {
-  const { id } = params;
-  const { user_id, role, status } = objectData;
-
-  let selectedAppointment;
-
-  try {
-    selectedAppointment = await db.Appointments.findOne({
-      where: { id },
-    });
-
-    if (_.isEmpty(selectedAppointment)) {
-      throw Boom.notFound(`Cannot find appointment with id of ${id}!`);
-    }
-
-    if (
-      role !== "seller" ||
-      selectedAppointment.dataValues.seller_id !== user_id
-    ) {
-      throw Boom.unauthorized("You have no access to update appointment!");
-    }
-
-    await db.Appointments.update(
-      {
-        status: status || selectedAppointment.dataValues.status,
-      },
-      { where: { id } }
-    );
-
-    selectedAppointment = await db.Appointments.findOne({
-      where: { id },
-    });
-
-    console.log([fileName, "PATCH Update Appointment", "INFO"]);
-
-    return Promise.resolve(selectedAppointment);
-  } catch (err) {
-    console.log([fileName, "PATCH Update Appointment", "ERROR"], {
-      message: { info: `${err}` },
-    });
-
-    return Promise.reject(generalHelper.errorResponse(err));
-  }
-};
-
-const deleteAppointment = async (params, objectData) => {
-  const { id } = params;
-  const { user_id, role } = objectData;
-
-  let selectedAppointment;
-
-  try {
-    selectedAppointment = await db.Appointments.findOne({
-      where: { id },
-    });
-
-    if (_.isEmpty(selectedAppointment)) {
-      throw Boom.notFound(`Cannot find appointment with id of ${id}!`);
-    }
-
-    if (
-      role !== "seller" ||
-      selectedAppointment.dataValues.seller_id !== user_id
-    ) {
-      throw Boom.unauthorized("You have no access to update appointment!");
-    }
-
-    await db.Appointments.destroy({ where: { id } });
-
-    console.log([fileName, "DELETE Appointment", "INFO"]);
-
-    return Promise.resolve([]);
-  } catch (err) {
-    console.log([fileName, "DELETE Appointment", "ERROR"], {
-      message: { info: `${err}` },
-    });
-
-    return Promise.reject(generalHelper.errorResponse(err));
-  }
-};
-
 module.exports = {
   postCreateAppointment,
   getAppointmentList,
   getAppointmentDetail,
-  patchUpdateAppointment,
-  deleteAppointment,
 };

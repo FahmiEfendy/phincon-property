@@ -2,6 +2,7 @@
 
 .container {
     @include directionY;
+    height: 100%;
 
     .dropzone_wrapper{
         margin-top: 1rem;

@@ -13,7 +13,9 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 import priceFormatter from '@utils/priceFormatter';
+import { selectuserData } from '@containers/Client/selectors';
 import { selectUserDetail } from '@pages/UserDetail/selectors';
+import { hidePopup, showPopup } from '@containers/App/actions';
 import { getUserDetailRequest } from '@pages/UserDetail/actions';
 import CreateAppointmentModal from './components/CreateAppointmentModal';
 import { selectCreateConversation, selectHouseDetail } from './selectors';
@@ -21,7 +23,7 @@ import { getHouseDetailRequest, postCreateConversationRequest, postCreateConvers
 
 import classes from './style.module.scss';
 
-const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
+const HouseDetail = ({ houseDetail, userDetail, createConversation, userData }) => {
   const { id } = useParams();
 
   const mapRef = useRef();
@@ -50,8 +52,15 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
     if (createConversation?.data?.id) {
       navigate(`/conversation/detail/${createConversation?.data?.id}`);
       dispatch(postCreateConversationReset());
+    } else if (createConversation?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', createConversation?.error, null, null, () => {
+          dispatch(postCreateConversationReset());
+          dispatch(hidePopup());
+        })
+      );
     }
-  }, [createConversation?.data?.id, dispatch, navigate]);
+  }, [createConversation?.data?.id, createConversation?.error, dispatch, navigate]);
 
   useEffect(() => {
     const map = new window.google.maps.Map(mapRef.current, {
@@ -93,16 +102,20 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation }) => {
           </Box>
           <Box className={classes.seller_wrapper}>
             <Box className={classes.contact_wrapper}>
-              <Typography variant="body1">{userDetail?.data?.fullName}</Typography>
+              <Typography variant="body1" onClick={() => navigate(`/house/list/${houseDetail?.data?.seller_id}`)}>
+                {userDetail?.data?.fullName}
+              </Typography>
               {/* TOOD: Fix Button Position */}
-              <Box className={classes.btn_wrapper}>
-                <Button variant="outlined" startIcon={<AssignmentTurnedInIcon />} onClick={openModalHandler}>
-                  <FormattedMessage id="appointment_request" />
-                </Button>
-                <Button variant="contained" startIcon={<EmailOutlinedIcon />} onClick={goToChatHandler}>
-                  <FormattedMessage id="user_send_message" />
-                </Button>
-              </Box>
+              {userData?.id !== houseDetail?.data?.seller_id && (
+                <Box className={classes.btn_wrapper}>
+                  <Button variant="outlined" startIcon={<AssignmentTurnedInIcon />} onClick={openModalHandler}>
+                    <FormattedMessage id="appointment_request" />
+                  </Button>
+                  <Button variant="contained" startIcon={<EmailOutlinedIcon />} onClick={goToChatHandler}>
+                    <FormattedMessage id="user_send_message" />
+                  </Button>
+                </Box>
+              )}
             </Box>
             <Avatar
               src={userDetail?.data?.image_url}
@@ -162,12 +175,14 @@ HouseDetail.propTypes = {
   houseDetail: PropTypes.object,
   userDetail: PropTypes.object,
   createConversation: PropTypes.object,
+  userData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   houseDetail: selectHouseDetail,
   userDetail: selectUserDetail,
   createConversation: selectCreateConversation,
+  userData: selectuserData,
 });
 
 export default connect(mapStateToProps)(HouseDetail);

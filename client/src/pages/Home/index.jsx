@@ -15,6 +15,7 @@ const Home = () => {
   const [search, setSearch] = useState('');
 
   return (
+    // TODO: Difference between Customer and Seller Homepage
     <Container maxWidth={false} className={classes.container}>
       <Box className={classes.one}>
         <Box className={classes.left_wrapper}>
@@ -27,7 +28,8 @@ const Home = () => {
           <Typography className={classes.sub_header}>
             <FormattedMessage id="home_sub_header" />
           </Typography>
-          <Button variant="contained" onClick={() => navigate('/house/list')}>
+          {/* TODO: Navigate to Create House if Login as Seller */}
+          <Button variant="contained" onClick={() => navigate('/house/list/all')}>
             <FormattedMessage id="house_browse" />
           </Button>
         </Box>

@@ -116,4 +116,9 @@
             }
         }
     }   
+
+    .empty{
+        @include font(30px, $font-weight-medium, "");
+        text-align: center;
+    }
 }

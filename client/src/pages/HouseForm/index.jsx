@@ -6,12 +6,13 @@ import { createStructuredSelector } from 'reselect';
 
 import { Box, Container, Typography } from '@mui/material';
 
-import { showPopup } from '@containers/App/actions';
+import { hidePopup, showPopup } from '@containers/App/actions';
 import { getHouseDetailRequest } from '@pages/HouseDetail/actions';
 import Info from './components/Info';
 import Image from './components/Image';
 import Location from './components/Location';
 import Confirmation from './components/Confirmation';
+import { deleteHouseImageReset, patchUpdateHouseReset, postCreateHouseReset } from './actions';
 import { selectCreateHouse, selectDeleteHouseImage, selectStep, selectUpdateHouse } from './selectors';
 
 import classes from './style.module.scss';
@@ -54,8 +55,27 @@ const HouseForm = ({ createHouse, deleteHouseImage, updateHouse, step }) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (createHouse?.error !== null || deleteHouseImage?.error !== null || updateHouse?.error !== null) {
-      dispatch(showPopup('app_popup_error_title', 'app_popup_error_message'));
+    if (createHouse?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', createHouse?.error, null, null, () => {
+          dispatch(postCreateHouseReset());
+          dispatch(hidePopup());
+        })
+      );
+    } else if (updateHouse?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', updateHouse?.error, null, null, () => {
+          dispatch(patchUpdateHouseReset());
+          dispatch(hidePopup());
+        })
+      );
+    } else if (deleteHouseImage?.error !== null) {
+      dispatch(
+        showPopup('app_popup_error_title', deleteHouseImage?.error, null, null, () => {
+          dispatch(deleteHouseImageReset());
+          dispatch(hidePopup());
+        })
+      );
     }
   }, [createHouse?.error, deleteHouseImage?.error, dispatch, updateHouse?.error]);
 

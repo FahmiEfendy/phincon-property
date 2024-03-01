@@ -61,4 +61,41 @@
         @include font(16px, $font-weight-regular, "");
         margin-right: auto;
     }
+
+    .password_wrapper {
+        @include directionY;
+
+        .form_header{
+            @include font(10px, $font-weight-light, "");
+            padding: .5rem 1rem;
+            
+            @include apply-at-sm-size{
+                @include font(14px, $font-weight-light, "");
+                padding: .5rem 1rem;
+            }
+            
+            @include apply-at-lg-size{
+                @include font(20px, $font-weight-light, "");
+            }
+        }
+    
+        span{
+            margin-left: 1rem;
+            @include font(12px, $font-weight-regular, "");
+            
+            @include apply-at-sm-size{
+                @include font(16px, $font-weight-regular, "");
+            }
+    
+            @include apply-at-xl-size{
+                @include font(24px, $font-weight-regular, "");
+            }
+        }
+
+        button {
+            margin-top: 1rem;
+        }
+
+    }
 }
+

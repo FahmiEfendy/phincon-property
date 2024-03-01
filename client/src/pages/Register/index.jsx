@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,9 +8,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Button, Container, FormLabel, TextField, Typography } from '@mui/material';
 
 import encryptPayload from '@utils/encryptPayload';
-import { showPopup } from '@containers/App/actions';
+import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectRegister } from './selectors';
-import { postRegisterRequest } from './actions';
+import { postRegisterRequest, postRegisterReset } from './actions';
 
 import classes from './style.module.scss';
 
@@ -20,11 +20,10 @@ const Register = ({ register }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // TODO: Change Default Value to Empty String Later
-  const [email, setEmail] = useState({ value: 'fahmi_customer@gmail.com', isValid: true });
-  const [fullName, setFullName] = useState({ value: 'Fahmi Customer', isValid: true });
-  const [password, setPassword] = useState({ value: 'fahmi123', isValid: true });
-  const [confirmPassword, setConfirmPassword] = useState({ value: 'fahmi123', isValid: true });
+  const [email, setEmail] = useState({ value: '', isValid: true });
+  const [fullName, setFullName] = useState({ value: '', isValid: true });
+  const [password, setPassword] = useState({ value: '', isValid: true });
+  const [confirmPassword, setConfirmPassword] = useState({ value: '', isValid: true });
 
   const formValidation = () => {
     let isFormValid = true;
@@ -60,11 +59,18 @@ const Register = ({ register }) => {
     };
 
     dispatch(postRegisterRequest(payload, () => navigate('/login')));
-
-    if (register.error !== null) {
-      dispatch(showPopup('global_error', 'login_invalid'));
-    }
   };
+
+  useEffect(() => {
+    if (register?.error !== null) {
+      dispatch(
+        showPopup('global_error', register?.error, null, null, () => {
+          dispatch(postRegisterReset());
+          dispatch(hidePopup());
+        })
+      );
+    }
+  }, [dispatch, register?.error]);
 
   return (
     <Container className={classes.container}>
@@ -82,6 +88,7 @@ const Register = ({ register }) => {
             <FormLabel className={classes.form_label}>
               <FormattedMessage id="form_email" />
             </FormLabel>
+            {/* TODO: Use CustomInput */}
             <TextField
               type="text"
               value={email.value}

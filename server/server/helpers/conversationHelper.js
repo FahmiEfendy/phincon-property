@@ -12,6 +12,10 @@ const postCreateConversation = async (objectData) => {
   const { user_id, target_id } = objectData;
 
   try {
+    if (user_id === target_id) {
+      throw Boom.badRequest("You cannot message yourself!");
+    }
+
     const [conversation, conversationCreated] =
       await db.Conversations.findOrCreate({
         where: { user_id, target_id },

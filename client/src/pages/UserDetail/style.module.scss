@@ -7,4 +7,10 @@
     .container_inner {
         margin-top: 3rem;
     }
+
+    .not_found {
+        margin-top: 3rem;
+        @include font(30px, $font-weight-medium, "");
+        text-align: center;
+    }
 }

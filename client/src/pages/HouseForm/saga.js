@@ -2,15 +2,22 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { setLoading } from '@containers/App/actions';
 import { deleteHouseImage, patchUpdateHouse, postCreateHouse } from '@domain/api';
-import { deleteHouseImageFailed, patchUpdateHouseFailed, postCreateHouseFailed } from './actions';
+import {
+  deleteHouseImageFailed,
+  patchUpdateHouseFailed,
+  postCreateHouseFailed,
+  postCreateHouseSuccess,
+} from './actions';
 import { DELETE_HOUSE_IMAGE_REQUEST, PATCH_UPDATE_HOUSE_REQUEST, POST_CREATE_HOUSE_REQUEST } from './constants';
 
 function* doCreateHouse(action) {
   yield put(setLoading(true));
 
   try {
-    yield call(postCreateHouse, action.payload);
+    const response = yield call(postCreateHouse, action.payload);
     action.callback && action.callback();
+
+    yield put(postCreateHouseSuccess(response.data));
   } catch (err) {
     yield put(postCreateHouseFailed(err.response.data));
   }

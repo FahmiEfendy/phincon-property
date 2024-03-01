@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
@@ -10,12 +11,18 @@ import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
 
 import { showPopup } from '@containers/App/actions';
 import { getHouseDetailRequest } from '@pages/HouseDetail/actions';
-import { selectFormData, selectStep } from '@pages/HouseForm/selectors';
-import { patchUpdateHouseRequest, postCreateHouseRequest, setStep } from '@pages/HouseForm/actions';
+import { selectCreateHouse, selectFormData, selectStep } from '@pages/HouseForm/selectors';
+import {
+  formReset,
+  patchUpdateHouseRequest,
+  postCreateHouseRequest,
+  postCreateHouseReset,
+  setStep,
+} from '@pages/HouseForm/actions';
 
 import classes from './style.module.scss';
 
-const Confirmation = ({ step, formData }) => {
+const Confirmation = ({ step, formData, createHouse }) => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -46,17 +53,25 @@ const Confirmation = ({ step, formData }) => {
           dispatch(showPopup('global_success', 'house_update_success'));
           dispatch(getHouseDetailRequest(id));
           navigate(`/house/detail/${id}`);
+          dispatch(formReset());
         })
       );
     } else {
       dispatch(
         postCreateHouseRequest(payload, () => {
           dispatch(showPopup('global_success', 'house_create_success'));
-          navigate('/house/list');
         })
       );
     }
   };
+
+  useEffect(() => {
+    if (createHouse?.data?.id) {
+      navigate(`/house/detail/${createHouse?.data?.id}`);
+      dispatch(postCreateHouseReset());
+      dispatch(formReset());
+    }
+  }, [createHouse?.data?.id, dispatch, navigate]);
 
   return (
     <Container className={classes.container}>
@@ -154,8 +169,8 @@ const Confirmation = ({ step, formData }) => {
         <FormattedMessage id="house_image" />
       </Typography>
       <Box className={classes.image_wrapper}>
-        {formData.images.map((file) => (
-          <Box className={classes.img}>
+        {formData.images.map((file, i) => (
+          <Box className={classes.img} key={i}>
             <img
               src={file?.image_url ? file.image_url : URL.createObjectURL(file)}
               // Revoke data uri after image is loaded
@@ -188,11 +203,13 @@ const Confirmation = ({ step, formData }) => {
 Confirmation.propTypes = {
   step: PropTypes.number,
   formData: PropTypes.object,
+  createHouse: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   step: selectStep,
   formData: selectFormData,
+  createHouse: selectCreateHouse,
 });
 
 export default connect(mapStateToProps)(Confirmation);

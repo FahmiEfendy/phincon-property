@@ -42,61 +42,71 @@ const AppointmentList = ({ appointmentList, userData, updateAppointment }) => {
 
   return (
     <Container className={classes.container}>
-      {appointmentList?.data?.map((data) => {
-        const formattedDate = new Date(data?.date);
-        const day = formattedDate.toLocaleDateString('en-US', { day: 'numeric' });
-        const month = formattedDate.toLocaleDateString('en-US', { month: 'short' });
-        return (
-          <Box key={data.id} className={classes.wrapper}>
-            <Box className={classes.info_wrapper}>
-              <Box className={classes.date_wrapper}>
-                <Typography variant="body1">{day}</Typography>
-                <Typography variant="body1">{month}</Typography>
-              </Box>
-              <img src={data.house.images[0].image_url} alt={data.house.title} />
-              <Box className={classes.title_wrapper}>
-                <Typography variant="body1" className={classes.title}>
-                  {data.house.title}
-                </Typography>
-                <Typography variant="body1" className={classes.location}>
-                  {data.house.location.address}
-                </Typography>
-                <Box className={classes.message_wrapper}>
-                  <Typography variant="body1" className={classes.message}>
-                    <FormattedMessage id="message" />: {data.message}
+      {appointmentList?.data?.length > 0 ? (
+        appointmentList?.data?.map((data) => {
+          const formattedDate = new Date(data?.date);
+          const day = formattedDate.toLocaleDateString('en-US', { day: 'numeric' });
+          const month = formattedDate.toLocaleDateString('en-US', { month: 'short' });
+          return (
+            <Box key={data.id} className={classes.wrapper}>
+              <Box className={classes.info_wrapper}>
+                <Box className={classes.date_wrapper}>
+                  <Typography variant="body1">{day}</Typography>
+                  <Typography variant="body1">{month}</Typography>
+                </Box>
+                <img src={data.house.images[0].image_url} alt={data.house.title} />
+                <Box className={classes.title_wrapper}>
+                  <Typography variant="body1" className={classes.title}>
+                    {data.house.title}
                   </Typography>
+                  <Typography variant="body1" className={classes.location}>
+                    {data.house.location.address}
+                  </Typography>
+                  <Box className={classes.message_wrapper}>
+                    <Typography variant="body1" className={classes.message}>
+                      <FormattedMessage id="message" />: {data.message}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-            <Box className={classes.status_wrapper}>
-              {userData?.role === 'seller' ? (
-                data.status === 'pending' ? (
-                  <Box className={classes.btn_wrapper}>
-                    <Button variant="contained" onClick={() => updateAppointmentHandler(data.id, 'accepted')}>
-                      <FormattedMessage id="global_accept" />
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => updateAppointmentHandler(data.id, 'rejected')}
+              <Box className={classes.status_wrapper}>
+                {userData?.role === 'seller' ? (
+                  data.status === 'pending' ? (
+                    <Box className={classes.btn_wrapper}>
+                      <Button variant="contained" onClick={() => updateAppointmentHandler(data.id, 'accepted')}>
+                        <FormattedMessage id="global_accept" />
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => updateAppointmentHandler(data.id, 'rejected')}
+                      >
+                        <FormattedMessage id="global_reject" />
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Typography
+                      variant="body1"
+                      className={classes.status}
+                      color={data.status === 'rejected' && 'error'}
                     >
-                      <FormattedMessage id="global_reject" />
-                    </Button>
-                  </Box>
+                      {data?.status}
+                    </Typography>
+                  )
                 ) : (
-                  <Typography variant="body1" className={classes.status} color={data.status === 'rejected' && 'error'}>
+                  <Typography variant="body1" className={classes.status}>
                     {data?.status}
                   </Typography>
-                )
-              ) : (
-                <Typography variant="body1" className={classes.status}>
-                  {data?.status}
-                </Typography>
-              )}
+                )}
+              </Box>
             </Box>
-          </Box>
-        );
-      })}
+          );
+        })
+      ) : (
+        <Typography className={classes.empty}>
+          <FormattedMessage id="appointment_empty" />
+        </Typography>
+      )}
     </Container>
   );
 };

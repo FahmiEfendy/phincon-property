@@ -32,6 +32,8 @@ module.exports = {
       seller_id: {
         type: Sequelize.STRING,
         allowNull: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         references: {
           model: "Users",
           key: "id",

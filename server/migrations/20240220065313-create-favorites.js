@@ -10,8 +10,11 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.STRING,
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         references: {
           model: "Users",
+          key: "id",
         },
       },
       house_id: {

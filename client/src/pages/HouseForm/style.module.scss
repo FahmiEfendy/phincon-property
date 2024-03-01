@@ -27,7 +27,7 @@
             @include apply-at-lg-size{
                 height: inherit;
                 width: 40%;
-                height: 30rem
+                min-height: 35rem;
             }
             
             .step_wrapper{
@@ -125,7 +125,7 @@
         .wrapper_right{
             @include directionY;
             justify-content: center;
-
+            
             @include apply-at-lg-size{
                 width: 60%;
                 padding: 0 2rem;

@@ -45,15 +45,16 @@ export default {
   app_not_found: 'Halaman tidak ditemukan',
   app_lang_id: 'Bahasa Indonesia',
   app_lang_en: 'Bahasa Inggris',
-  app_my_profile: 'Profil saya',
+  app_my_profile: 'Profil',
   app_popup_error_title: 'Terjadi kesalahan!',
   app_popup_error_message: 'Maaf, telah terjadi kesalahan. Silakan coba beberapa saat lagi',
   app_popup_close_button_label: 'Tutup',
   app_login: 'Masuk',
   app_register: 'Daftar',
-  app_favorite: 'Favorit Saya',
-  app_conversation: 'Obrolan Saya',
-  app_appointment: 'Janji Temu Saya',
+  app_favorite: 'Favorit',
+  app_conversation: 'Obrolan',
+  app_appointment: 'Janji Temu',
+  app_my_house: 'Listing',
 
   forbidden_text: 'Kamu tidak mempunyai akses untuk membuka halaman ini!',
 
@@ -77,6 +78,7 @@ export default {
   user_change_password: 'Ganti kata sandi',
   user_change_password_success: 'Berhasil mengganti kata sandi',
   user_send_message: 'Kirim pesan',
+  user_not_found: 'Tidak ditemukan pengguna dengan id ',
 
   house_browse: 'Cari rumah',
   house_delete_desc: 'Apakah kamu yakin ingin menghapus rumah ini?',
@@ -110,6 +112,7 @@ export default {
   house_information: 'Informasi Rumah',
   house_location: 'Lokasi Rumah',
   house_image: 'Gambar Rumah',
+  listing_empty: 'Kamu saat ini belum mempunyai listing rumah, silahkan masukkan rumah yang ingin kamu jual!',
 
   dropzone_text: 'Seret dan lepas gambar disini, atau klik untuk memasukkan gambar',
   dropzone_extra_text: 'Tambahkan gambar lainnya',
@@ -130,4 +133,5 @@ export default {
   appointment_date: 'Tanggal janji temu',
   appointment_date_required: 'Kamu harus memilih janji temu!',
   appointment_request: 'Buat janji temu',
+  appointment_empty: 'Kamu belum mempunyai janji temu saat ini',
 };

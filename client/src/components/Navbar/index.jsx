@@ -9,17 +9,15 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Button, Typography } from '@mui/material';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
 
+import { setLocale } from '@containers/App/actions';
 import { resetLogin } from '@containers/Client/actions';
-import { setLocale, setTheme } from '@containers/App/actions';
 import { selectLogin, selectuserData } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
 
-const Navbar = ({ title, locale, theme, isLogin, userData }) => {
+const Navbar = ({ title, locale, isLogin, userData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -45,10 +43,6 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
     setProfilePosition(null);
   };
 
-  const handleTheme = () => {
-    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
-  };
-
   const onSelectLang = (lang) => {
     if (lang !== locale) {
       dispatch(setLocale(lang));
@@ -65,7 +59,7 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
   };
 
   return (
-    // TODO: Navbar Responsiveness
+    // TODO: Update Navbar userData when Update User
     <div className={classes.headerWrapper} data-testid="navbar">
       <div className={classes.contentWrapper}>
         <div className={classes.logoImage} onClick={goHome}>
@@ -73,9 +67,6 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
           <div className={classes.title}>{title}</div>
         </div>
         <div className={classes.toolbar}>
-          <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
-            {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
-          </div>
           <div className={classes.toggle} onClick={handleClick}>
             <Avatar className={classes.avatar} src={locale === 'id' ? '/id.png' : '/en.png'} />
             <div className={classes.lang}>{locale}</div>
@@ -103,7 +94,7 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
         {isLogin ? (
           <>
             <Box className={classes.profile_wrapper} onClick={openProfileHandler}>
-              <Avatar className={classes.avatar} src="" />
+              <Avatar className={classes.avatar} src={userData?.image_url} />
               <Typography variant="body1">{userData?.fullName}</Typography>
               {/* <ExpandMoreIcon /> */}
             </Box>
@@ -129,6 +120,18 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
                 <div className={classes.menu}>
                   <div className={classes.menuLang}>
                     <FormattedMessage id="app_my_profile" />
+                  </div>
+                </div>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate(`/house/list/${userData?.id}`);
+                  closeProfileHandler();
+                }}
+              >
+                <div className={classes.menu}>
+                  <div className={classes.menuLang}>
+                    <FormattedMessage id="app_my_house" />
                   </div>
                 </div>
               </MenuItem>
@@ -179,7 +182,7 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
           </>
         ) : (
           <Box className={classes.btn_wrapper}>
-            <Button variant="outlined" onClick={() => navigate('/register/user')}>
+            <Button variant="outlined" onClick={() => navigate('/register/customer')}>
               <FormattedMessage id="app_register" />
             </Button>
             <Button variant="contained" onClick={() => navigate('/login')}>
@@ -195,7 +198,6 @@ const Navbar = ({ title, locale, theme, isLogin, userData }) => {
 Navbar.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
-  theme: PropTypes.string,
   isLogin: PropTypes.bool,
   userData: PropTypes.object,
 };

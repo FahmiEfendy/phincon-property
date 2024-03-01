@@ -91,7 +91,11 @@ const getHouseList = async (query) => {
   try {
     let houseList = [];
 
-    if (query.id) {
+    if (query?.seller_id) {
+      houseList = await db.Houses.findAll({
+        where: { seller_id: query?.seller_id },
+      });
+    } else {
       houseList = await db.Houses.findAll({
         include: [
           {
@@ -100,8 +104,6 @@ const getHouseList = async (query) => {
           },
         ],
       });
-    } else {
-      houseList = await db.Houses.findAll({});
     }
 
     if (_.isEmpty(houseList)) {
@@ -115,7 +117,7 @@ const getHouseList = async (query) => {
         images: JSON.parse(house.dataValues.images),
         isFavorited: !_.isEmpty(
           house.dataValues.favorites.find(
-            (data) => data.dataValues.user_id === query.id
+            (data) => data.dataValues.user_id === query?.user_id
           )
         ),
       };
@@ -187,8 +189,8 @@ const patchUpdateHouse = async (params, objectData) => {
     zipCode,
     bedrooms,
     bathrooms,
-    role,
     images,
+    user_id,
   } = objectData;
 
   let selectedHouse;
@@ -198,16 +200,16 @@ const patchUpdateHouse = async (params, objectData) => {
   let coordinates;
 
   try {
-    if (role === "customer") {
-      throw Boom.unauthorized("You have no access to delete house!");
-    }
-
     selectedHouse = await db.Houses.findOne({
       where: { id },
     });
 
     if (_.isEmpty(selectedHouse)) {
       throw Boom.notFound(`Cannot find house with id of ${id}!`);
+    }
+
+    if (user_id !== selectedHouse.seller_id) {
+      throw Boom.unauthorized("You have no access to update this house!");
     }
 
     if (images) {
@@ -284,27 +286,35 @@ const patchUpdateHouse = async (params, objectData) => {
 
 const deleteHouseImage = async (params, objectData) => {
   const { id } = params;
-  const { image_id, role } = objectData;
+  const { image_id, user_id } = objectData;
 
   let imageList;
 
   try {
-    if (role === "customer") {
-      throw Boom.unauthorized("You have no access to delete house!");
-    }
-
     const selectedHouse = await db.Houses.findOne({ where: { id } });
 
     if (_.isEmpty(selectedHouse)) {
       throw Boom.badRequest(`House with id of ${id} not found!`);
     }
 
-    imageList = JSON.parse(selectedHouse.dataValues.images).filter(
+    if (user_id !== selectedHouse.seller_id) {
+      throw Boom.unauthorized("You have no access to delete this image!");
+    }
+
+    imageList = JSON.parse(selectedHouse.dataValues.images);
+
+    if (_.size(imageList) === 1) {
+      throw Boom.badRequest(
+        "You need to at least have 1 image on your listing!"
+      );
+    }
+
+    const filteredImagelist = imageList.filter(
       (image) => image.image_id !== image_id
     );
 
     await cloudinaryDeleteImg(image_id, "image");
-    await db.Houses.update({ images: imageList }, { where: { id } });
+    await db.Houses.update({ images: filteredImagelist }, { where: { id } });
 
     console.log([fileName, "DELETE House Image", "INFO"]);
 
@@ -320,19 +330,19 @@ const deleteHouseImage = async (params, objectData) => {
 
 const deleteHouse = async (params, objectData) => {
   const { id } = params;
-  const { role } = objectData;
+  const { user_id } = objectData;
 
   let imageList;
 
   try {
-    if (role === "customer") {
-      throw Boom.unauthorized("You have no access to delete house!");
-    }
-
     const selectedHouse = await db.Houses.findOne({ where: { id } });
 
     if (_.isEmpty(selectedHouse)) {
       throw Boom.badRequest(`House with id of ${id} not found!`);
+    }
+
+    if (user_id !== selectedHouse.seller_id) {
+      throw Boom.unauthorized("You have no access to delete house!");
     }
 
     imageList = JSON.parse(selectedHouse.dataValues.images);

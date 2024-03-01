@@ -133,6 +133,7 @@ const Info = ({ step, formData, houseDetail }) => {
         onChange={inputChangeHandler('description')}
         errorLabel={informationData.description.isValid ? null : 'house_description_required'}
       />
+      {/* TODO: Add Currency and Remove Increase and Decrase Button */}
       <CustomInput
         label="house_price"
         value={informationData.price.value}

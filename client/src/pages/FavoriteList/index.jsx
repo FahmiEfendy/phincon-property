@@ -24,7 +24,7 @@ const FavoriteList = ({ favoriteList }) => {
   return (
     <Container maxWidth="xl" className={classes.container}>
       <Box className={classes.list_wrapper}>
-        {favoriteList?.data?.length > 1 ? (
+        {favoriteList?.data?.length > 0 ? (
           <Box className={classes.list}>
             {favoriteList?.data?.map((data) => (
               <Box key={data.id}>
@@ -37,7 +37,7 @@ const FavoriteList = ({ favoriteList }) => {
             <Typography variant="h5" className={classes.list_empty}>
               <FormattedMessage id="favorite_empty" />
             </Typography>
-            <Button variant="contained" onClick={() => navigate('/house/list')}>
+            <Button variant="contained" onClick={() => navigate('/house/list/all')}>
               <FormattedMessage id="house_browse" />
             </Button>
           </Box>
