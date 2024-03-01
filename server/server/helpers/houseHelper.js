@@ -1,9 +1,11 @@
 const _ = require("lodash");
 const Boom = require("boom");
+const Redis = require("redis");
 const { v4: uuidv4 } = require("uuid");
 
 const db = require("../../models");
 const maps = require("../../utils/maps");
+const redis = require("../services/redis");
 const generalHelper = require("../helpers/generalHelper");
 const {
   uploadToCloudinary,
@@ -92,33 +94,62 @@ const getHouseList = async (query) => {
     let houseList = [];
 
     if (query?.seller_id) {
-      houseList = await db.Houses.findAll({
-        where: { seller_id: query?.seller_id },
-      });
+      houseList = await redis.getKey({ key: `house-${query.seller_id}` });
+
+      if (houseList) {
+        console.log("Seller houseList Redis Found");
+
+        houseList = JSON.parse(houseList);
+      } else {
+        console.log("Seller houseList Redis Not Found");
+
+        houseList = await db.Houses.findAll({
+          where: { seller_id: query.seller_id },
+        });
+
+        houseList = houseList.map((data) => data.dataValues);
+
+        await redis.setKey({
+          key: `house-${query.seller_id}`,
+          value: JSON.stringify(houseList),
+        });
+      }
     } else {
-      houseList = await db.Houses.findAll({
-        include: [
-          {
-            model: db.Favorites,
-            as: "favorites",
-          },
-        ],
-      });
+      houseList = await redis.getKey({ key: "house" });
+
+      if (houseList) {
+        console.log("houseList Redis Found");
+
+        houseList = JSON.parse(houseList);
+      } else {
+        console.log("houseList Redis Not Found");
+
+        houseList = await db.Houses.findAll({
+          include: [
+            {
+              model: db.Favorites,
+              as: "favorites",
+            },
+          ],
+        });
+
+        houseList = houseList.map((data) => data.dataValues);
+
+        await redis.setKey({ key: "house", value: JSON.stringify(houseList) });
+      }
     }
 
     if (_.isEmpty(houseList)) {
       throw Boom.notFound("No house found!");
     }
 
-    const parsedHouseList = houseList.map((house) => {
+    const parsedHouseList = houseList?.map((house) => {
       return {
-        ...house.dataValues,
-        location: JSON.parse(house.dataValues.location),
-        images: JSON.parse(house.dataValues.images),
+        ...house,
+        location: JSON.parse(house.location),
+        images: JSON.parse(house.images),
         isFavorited: !_.isEmpty(
-          house.dataValues.favorites.find(
-            (data) => data.dataValues.user_id === query?.user_id
-          )
+          house?.favorites?.find((data) => data.user_id === query?.user_id)
         ),
       };
     });
