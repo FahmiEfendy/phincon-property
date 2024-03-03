@@ -121,8 +121,54 @@ const getAppointmentDetail = async (params) => {
   }
 };
 
+const patchUpdateAppointment = async (params, objectData) => {
+  const { id } = params;
+  const { user_id, role, status } = objectData;
+
+  let selectedAppointment;
+
+  try {
+    selectedAppointment = await db.Appointments.findOne({
+      where: { id },
+    });
+
+    if (_.isEmpty(selectedAppointment)) {
+      throw Boom.notFound(`Cannot find appointment with id of ${id}!`);
+    }
+
+    if (
+      role !== "seller" ||
+      selectedAppointment.dataValues.seller_id !== user_id
+    ) {
+      throw Boom.unauthorized("You have no access to update appointment!");
+    }
+
+    await db.Appointments.update(
+      {
+        status: status || selectedAppointment.dataValues.status,
+      },
+      { where: { id } }
+    );
+
+    selectedAppointment = await db.Appointments.findOne({
+      where: { id },
+    });
+
+    console.log([fileName, "PATCH Update Appointment", "INFO"]);
+
+    return Promise.resolve(selectedAppointment);
+  } catch (err) {
+    console.log([fileName, "PATCH Update Appointment", "ERROR"], {
+      message: { info: `${err}` },
+    });
+
+    return Promise.reject(generalHelper.errorResponse(err));
+  }
+};
+
 module.exports = {
   postCreateAppointment,
   getAppointmentList,
   getAppointmentDetail,
+  patchUpdateAppointment,
 };

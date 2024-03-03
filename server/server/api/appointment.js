@@ -68,8 +68,39 @@ const appointmentDetail = async (req, res) => {
   }
 };
 
+const updateAppointment = async (req, res) => {
+  try {
+    const validateData = {
+      status: req.body.status,
+    };
+
+    validationHelper.idValidation(req.params);
+    validationHelper.appointmentRequestValidation(validateData, true);
+
+    const objectData = {
+      ...validateData,
+      user_id: req.body.user_id,
+      role: req.body.role,
+    };
+
+    const response = await appointmentHelper.patchUpdateAppointment(
+      req.params,
+      objectData
+    );
+
+    res
+      .status(200)
+      .send({ message: "Successfully Update Appointment", data: response });
+  } catch (err) {
+    return res
+      .status(err.output.statusCode)
+      .send(generalHelper.errorResponse(err).output.payload);
+  }
+};
+
 router.post("/create", userMiddleware.tokenValidation, createAppointment);
 router.get("/list", userMiddleware.tokenValidation, appointmentList);
 router.get("/detail/:id", userMiddleware.tokenValidation, appointmentDetail);
+router.patch("/update/:id", userMiddleware.tokenValidation, updateAppointment);
 
 module.exports = router;
