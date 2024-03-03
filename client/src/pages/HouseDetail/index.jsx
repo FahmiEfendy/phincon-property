@@ -102,7 +102,10 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation, userData }) 
           </Box>
           <Box className={classes.seller_wrapper}>
             <Box className={classes.contact_wrapper}>
-              <Typography variant="body1" onClick={() => navigate(`/house/list/${houseDetail?.data?.seller_id}`)}>
+              <Typography
+                variant="body1"
+                onClick={() => navigate(`/house/list?sellerId=${houseDetail?.data?.seller_id}`)}
+              >
                 {userDetail?.data?.fullName}
               </Typography>
               {/* TOOD: Fix Button Position */}

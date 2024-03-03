@@ -5,8 +5,9 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Box, Button, Container, FormLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 
+import CustomInput from '@components/CustomInput';
 import encryptPayload from '@utils/encryptPayload';
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectRegister } from './selectors';
@@ -85,71 +86,40 @@ const Register = ({ register }) => {
             )}
           </Typography>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_email" />
-            </FormLabel>
-            {/* TODO: Use CustomInput */}
-            <TextField
-              type="text"
+            <CustomInput
+              label="form_email"
               value={email.value}
               onChange={(e) => setEmail({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={email.isValid ? null : 'form_email_error_required'}
             />
-            {!email.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_email_error_required" />
-              </FormLabel>
-            )}
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_full_name" />
-            </FormLabel>
-            <TextField
-              type="text"
+            <CustomInput
+              label="form_full_name"
               value={fullName.value}
               onChange={(e) => setFullName({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={fullName.isValid ? null : 'form_full_name_error_required'}
             />
-            {!fullName.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_full_name_error_required" />
-              </FormLabel>
-            )}
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_password" />
-            </FormLabel>
-            <Box className={classes.input_wrapper_password}>
-              <TextField
-                fullWidth
-                type="password"
-                value={password.value}
-                onChange={(e) => setPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
-              />
-            </Box>
-            {!password.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_password_error_required" />
-              </FormLabel>
-            )}
+            <CustomInput
+              label="form_password"
+              fullWidth
+              type="password"
+              value={password.value}
+              onChange={(e) => setPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={password.isValid ? null : 'form_password_error_required'}
+            />
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_confirm_password" />
-            </FormLabel>
-            <Box className={classes.input_wrapper_password}>
-              <TextField
-                fullWidth
-                type="password"
-                value={confirmPassword.value}
-                onChange={(e) => setConfirmPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
-              />
-            </Box>
-            {!confirmPassword.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_confirm_password_error_required" />
-              </FormLabel>
-            )}
+            <CustomInput
+              label="form_confirm_password"
+              fullWidth
+              type="password"
+              value={confirmPassword.value}
+              onChange={(e) => setConfirmPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={confirmPassword.isValid ? null : 'form_confirm_password_error_required'}
+            />
           </Box>
           <Box className={classes.btn_wrapper}>
             <Button variant="contained" onClick={registerHandler}>

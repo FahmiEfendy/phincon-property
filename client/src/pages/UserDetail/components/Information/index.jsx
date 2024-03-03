@@ -9,17 +9,16 @@ import {
   Avatar,
   Box,
   Button,
-  FormLabel,
   Table,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Typography,
   tableCellClasses,
 } from '@mui/material';
 
+import CustomInput from '@components/CustomInput';
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectUpdateUser, selectUserDetail } from '@pages/UserDetail/selectors';
 import { getUserDetailRequest, patchUpdateUserRequest, patchUpdateUserReset } from '@pages/UserDetail/actions';
@@ -32,7 +31,7 @@ const Information = ({ userDetail, updateUser }) => {
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [fullName, setFullName] = useState({ value: '' });
+  const [fullName, setFullName] = useState({ value: '', isValid: true });
   const [email, setEmail] = useState({ value: '', isValid: true });
   const [image, setImage] = useState({ value: '', isValid: true });
 
@@ -41,9 +40,6 @@ const Information = ({ userDetail, updateUser }) => {
 
     if (fullName.value === '') {
       setFullName((prevState) => ({ ...prevState, isValid: false }));
-      isFormValid = false;
-    } else if (image.value === '') {
-      setImage((prevState) => ({ ...prevState, isValid: false }));
       isFormValid = false;
     }
 
@@ -128,9 +124,8 @@ const Information = ({ userDetail, updateUser }) => {
             <TableCell className={classes.form_data}>
               {isEditing ? (
                 <Box className={classes.input_wrapper}>
-                  <TextField
+                  <CustomInput
                     fullWidth
-                    type="text"
                     disabled
                     value={email.value}
                     onChange={(e) => setEmail({ value: e.target.value, isValid: e.target.value.length > 0 })}
@@ -152,30 +147,17 @@ const Information = ({ userDetail, updateUser }) => {
             <TableCell className={classes.form_data}>
               {isEditing ? (
                 <Box className={classes.input_wrapper}>
-                  <TextField
+                  <CustomInput
                     fullWidth
-                    type="text"
                     value={fullName.value}
                     onChange={(e) => setFullName({ value: e.target.value, isValid: e.target.value.length > 0 })}
+                    errorLabel={fullName.isValid ? null : 'form_full_name_error_required'}
                   />
-                  {!fullName.isValid && (
-                    <FormLabel className={classes.form_label_error}>
-                      <FormattedMessage id="form_full_name_error_required" />
-                    </FormLabel>
-                  )}
                 </Box>
               ) : (
-                <>
-                  <Typography component="span" variant="body1">
-                    {userDetail?.data?.fullName}
-                  </Typography>
-
-                  {!fullName.isValid && (
-                    <FormLabel className={classes.form_label_error}>
-                      <FormattedMessage id="form_full_name_error_required" />
-                    </FormLabel>
-                  )}
-                </>
+                <Typography component="span" variant="body1">
+                  {userDetail?.data?.fullName}
+                </Typography>
               )}
             </TableCell>
           </TableRow>

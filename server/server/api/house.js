@@ -46,9 +46,10 @@ const houseList = async (req, res) => {
   try {
     const response = await houseHelper.getHouseList(req.query);
 
-    res
-      .status(200)
-      .send({ message: "Successfully GET All House", data: response });
+    res.status(200).send({
+      message: "Successfully GET All House",
+      data: { data: response, length: response.length },
+    });
   } catch (err) {
     return res
       .status(err.output.statusCode)

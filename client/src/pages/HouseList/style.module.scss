@@ -4,6 +4,32 @@
     margin: 4rem 0;
     @include directionY;
 
+    .search{
+        @include directionX;
+        margin-top: 2rem;
+        padding: 1rem;
+        
+        .input {
+            @include directionY;
+            border: 1px solid var(--color-bg);
+
+            div {
+                @include directionX;
+            }
+            
+            input {
+                color: var(--color-text);
+            }
+        }
+
+        .btn_wrapper {
+            border-radius: 0 10px 10px 0;
+            width: 3rem;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+        }
+    }
+
     .btn{
         margin: 0 1rem .5rem auto;
         text-transform: capitalize;
@@ -22,6 +48,11 @@
         }
     }
 
+    .result_empty {
+        @include font(30px, $font-weight-medium, "");
+        text-align: center;
+    }
+
     .empty_wrapper {
         @include directionY;
         align-items: center;
@@ -32,7 +63,7 @@
         
         .create_btn {
             margin-top: 1rem;
-            @include font(20px, $font-weight-medium, "");
+            @include font(18px, $font-weight-regular, "");
             text-transform: capitalize;
         }
     }

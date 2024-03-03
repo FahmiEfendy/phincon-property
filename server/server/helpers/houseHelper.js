@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const Boom = require("boom");
 const Redis = require("redis");
+const { Op } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
 
 const db = require("../../models");
@@ -92,8 +93,17 @@ const postCreateHouse = async (objectData) => {
 const getHouseList = async (query) => {
   try {
     let houseList = [];
+    length = 0;
 
-    if (query?.seller_id) {
+    if (query?.city) {
+      houseList = await db.Houses.findAll({
+        where: db.Sequelize.literal(
+          `JSON_UNQUOTE(JSON_EXTRACT(location, '$.city')) LIKE '%${query.city}%'`
+        ),
+      });
+
+      houseList = houseList.map((data) => data.dataValues);
+    } else if (query?.seller_id) {
       houseList = await redis.getKey({ key: `house-${query.seller_id}` });
 
       if (houseList) {
@@ -144,6 +154,7 @@ const getHouseList = async (query) => {
     }
 
     const parsedHouseList = houseList?.map((house) => {
+      length += 1;
       return {
         ...house,
         location: JSON.parse(house.location),

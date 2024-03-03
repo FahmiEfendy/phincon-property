@@ -86,7 +86,7 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
       // TODO: Don't Scroll to Bottom When Fetch Pagination
       chatRoomRef.current.scrollTop = chatRoomRef.current.scrollHeight;
     }
-  }, [conversationId, messageList]);
+  }, [conversationId]);
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -123,7 +123,7 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
   }, [conversationId, dispatch, page]);
 
   useEffect(() => {
-    if (conversationDetail?.data?.Messages) {
+    if (conversationDetail?.data?.Messages && conversationDetail?.data?.hasMoreMessage) {
       setMessageList((prevState) => {
         const lastPrevId = _.last(prevState)?.id;
         const lastDetailId = _.last(conversationDetail?.data?.Messages)?.id;
@@ -135,7 +135,7 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
         return prevState;
       });
     }
-  }, [conversationDetail?.data?.Messages]);
+  }, [conversationDetail?.data?.Messages, conversationDetail?.data?.hasMoreMessage]);
 
   useEffect(() => {
     // Receive message from server

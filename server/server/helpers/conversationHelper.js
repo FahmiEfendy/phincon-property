@@ -94,7 +94,7 @@ const getConversationDetail = async (objectData) => {
         {
           model: db.Messages,
           as: "Messages",
-          order: [["createdAt", "ASC"]],
+          order: [["createdAt", "DESC"]],
           offset: (Number(page) - 1) * Number(pageSize),
           limit: Number(pageSize),
         },
@@ -113,9 +113,15 @@ const getConversationDetail = async (objectData) => {
       throw Boom.notFound("No conversation detail found!");
     }
 
+    const sortedMessage = {
+      ...conversationDetail.dataValues,
+      Messages: conversationDetail.Messages.reverse(),
+      hasMoreMessage: conversationDetail.Messages.length > 0,
+    };
+
     console.log([fileName, "GET Conversation Detail", "INFO"]);
 
-    return Promise.resolve(conversationDetail);
+    return Promise.resolve(sortedMessage);
   } catch (err) {
     console.log([fileName, "GET Conversation Detail", "ERROR"], {
       message: { info: `${err}` },

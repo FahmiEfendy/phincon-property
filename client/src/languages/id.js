@@ -36,6 +36,9 @@ export default {
   home_header: 'Temukan Rumah Impian Kamu Disini',
   home_sub_header:
     'Jelajahi koleksi rumah pilihan yang sesuai dengan gaya hidup Anda. Temukan kenyamanan, gaya, dan tempat sempurna untuk dijadikan rumah.',
+  home_header_seller: 'Daftarkan Properti Anda di Platform Kami',
+  home_sub_header_seller:
+    'Pamerkan properti Anda kepada pembeli. Bergabunglah dengan platform kami untuk terhubung dengan pembeli yang mencari rumah impian mereka. Maksimalkan eksposur, tingkatkan peluang penjualan, dan mulailah perjalanan penjualan yang lancar.',
   home_header_2: 'Jelajahi Perjalanan Rumah Anda',
   home_sub_header_2: 'Mulailah perjalanan untuk menemukan rumah ideal Anda. Temukan dan wujudkan impian rumah Anda.',
   home_location: 'Cari rumah di lokasi yang Anda inginkan...',
@@ -112,7 +115,10 @@ export default {
   house_information: 'Informasi Rumah',
   house_location: 'Lokasi Rumah',
   house_image: 'Gambar Rumah',
+  house_empty: 'Maaf, belum ada rumah saat ini',
   listing_empty: 'Kamu saat ini belum mempunyai listing rumah, silahkan masukkan rumah yang ingin kamu jual!',
+  house_by_city_empty: 'Tidak ada hasil untuk pencarian rumah dengan kategori kota: ',
+  house_by_seller_empty: 'Tidak ada hasil pencarian rumah dari penjual dengan id: ',
 
   dropzone_text: 'Seret dan lepas gambar disini, atau klik untuk memasukkan gambar',
   dropzone_extra_text: 'Tambahkan gambar lainnya',

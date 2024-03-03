@@ -5,8 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
+import CustomInput from '@components/CustomInput';
 import encryptPayload from '@utils/encryptPayload';
 import { hidePopup, showPopup } from '@containers/App/actions';
 import { selectChangePassword } from '@pages/UserDetail/selectors';
@@ -76,58 +77,34 @@ const Security = ({ changePassword }) => {
       {isOnEditPassword ? (
         <>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_old_password" />
-            </FormLabel>
-            <Box className={classes.input_wrapper_password}>
-              <TextField
-                fullWidth
-                type="password"
-                value={oldPassword.value}
-                onChange={(e) => setOldPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
-              />
-            </Box>
-            {!oldPassword.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_old_password_error_required" />
-              </FormLabel>
-            )}
+            <CustomInput
+              label="form_old_password"
+              fullWidth
+              type="password"
+              value={oldPassword.value}
+              onChange={(e) => setOldPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={oldPassword.isValid ? null : 'form_old_password_error_required'}
+            />
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_new_password" />
-            </FormLabel>
-            <Box className={classes.input_wrapper_password}>
-              <TextField
-                fullWidth
-                type="password"
-                value={newPassword.value}
-                onChange={(e) => setNewPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
-              />
-            </Box>
-            {!newPassword.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_new_password_error_required" />
-              </FormLabel>
-            )}
+            <CustomInput
+              label="form_new_password"
+              fullWidth
+              type="password"
+              value={newPassword.value}
+              onChange={(e) => setNewPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={newPassword.isValid ? null : 'form_new_password_error_required'}
+            />
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_confirm_new_password" />
-            </FormLabel>
-            <Box className={classes.input_wrapper_password}>
-              <TextField
-                fullWidth
-                type="password"
-                value={confirmNewPassword.value}
-                onChange={(e) => setConfirmNewPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
-              />
-            </Box>
-            {!confirmNewPassword.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_confirm_new_password_error_required" />
-              </FormLabel>
-            )}
+            <CustomInput
+              label="form_confirm_new_password"
+              fullWidth
+              type="password"
+              value={confirmNewPassword.value}
+              onChange={(e) => setConfirmNewPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={confirmNewPassword.isValid ? null : 'form_confirm_new_password_error_required'}
+            />
           </Box>
           <Box className={classes.btn_wrapper}>
             <Button variant="outlined" onClick={() => setIsOnEditPassword(false)} className={classes.button}>

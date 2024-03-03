@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, InputAdornment, Typography } from '@mui/material';
 
 import CustomInput from '@components/CustomInput';
 import { setFormData, setStep } from '@pages/HouseForm/actions';
@@ -133,13 +133,27 @@ const Info = ({ step, formData, houseDetail }) => {
         onChange={inputChangeHandler('description')}
         errorLabel={informationData.description.isValid ? null : 'house_description_required'}
       />
-      {/* TODO: Add Currency and Remove Increase and Decrase Button */}
       <CustomInput
         label="house_price"
         value={informationData.price.value}
         onChange={inputChangeHandler('price')}
         errorLabel={informationData.price.isValid ? null : 'house_price_required'}
         type="number"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Typography variant="body1">Rp</Typography>
+            </InputAdornment>
+          ),
+        }}
+        sx={{
+          '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+            display: 'none',
+          },
+          '& input[type=number]': {
+            MozAppearance: 'textfield',
+          },
+        }}
       />
       <CustomInput
         label="house_bath_label"

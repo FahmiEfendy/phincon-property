@@ -60,7 +60,7 @@ const routes = [
     name: 'House',
     subRoutes: [
       {
-        path: '/list/:id',
+        path: '/list',
         name: 'House List',
         protected: false,
         component: HouseList,

@@ -36,6 +36,9 @@ export default {
   home_header: 'Discover Your Dream Home Here',
   home_sub_header:
     'Explore a curated collection of homes tailored to your lifestyle. Find comfort, style, and the perfect place to call home.',
+  home_header_seller: 'List Your Property with Us',
+  home_sub_header_seller:
+    'Showcase your property to potential buyers. Join our platform to connect with motivated individuals looking for their dream home. Maximize exposure, increase chances of a quick sale, and embark on a seamless selling journey.',
   home_header_2: 'Explore Your Home Journey',
   home_sub_header_2:
     'Embark on a journey to find your ideal home. Discover, dream, and make your vision of home a reality.',
@@ -113,7 +116,10 @@ export default {
   house_information: 'House Information',
   house_location: 'House Location',
   house_image: 'House Image',
+  house_empty: 'Sorry, Currently there is no house',
   listing_empty: 'You currently have no listing, add a house you want to sell!',
+  house_by_city_empty: 'No result found for house search with query city: ',
+  house_by_seller_empty: 'No result found for seller with id of: ',
 
   dropzone_text: `Drag 'n' drop some image here, or click to select image`,
   dropzone_extra_text: 'Add other images',

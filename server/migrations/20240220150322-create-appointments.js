@@ -10,12 +10,24 @@ module.exports = {
       },
       house_id: {
         type: Sequelize.STRING,
+        references: {
+          model: "Houses",
+          key: "id",
+        },
       },
       customer_id: {
         type: Sequelize.STRING,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       seller_id: {
         type: Sequelize.STRING,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       status: {
         type: Sequelize.STRING,

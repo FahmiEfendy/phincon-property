@@ -37,7 +37,7 @@ const FavoriteList = ({ favoriteList }) => {
             <Typography variant="h5" className={classes.list_empty}>
               <FormattedMessage id="favorite_empty" />
             </Typography>
-            <Button variant="contained" onClick={() => navigate('/house/list/all')}>
+            <Button variant="contained" onClick={() => navigate('/house/list')}>
               <FormattedMessage id="house_browse" />
             </Button>
           </Box>

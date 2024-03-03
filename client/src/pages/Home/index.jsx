@@ -1,21 +1,25 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
 
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Box, Button, Container, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, IconButton, InputAdornment, Typography } from '@mui/material';
+
+import CustomInput from '@components/CustomInput';
+import { selectuserData } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
 
-const Home = () => {
-  const intl = useIntl();
+const Home = ({ userData }) => {
   const navigate = useNavigate();
 
-  const [search, setSearch] = useState('');
+  const [city, setCity] = useState('');
 
   return (
-    // TODO: Difference between Customer and Seller Homepage
     <Container maxWidth={false} className={classes.container}>
       <Box className={classes.one}>
         <Box className={classes.left_wrapper}>
@@ -23,15 +27,20 @@ const Home = () => {
         </Box>
         <Box className={classes.right_wrapper}>
           <Typography className={classes.header}>
-            <FormattedMessage id="home_header" />
+            <FormattedMessage id={userData?.role === 'seller' ? 'home_header_seller' : 'home_header'} />
           </Typography>
           <Typography className={classes.sub_header}>
-            <FormattedMessage id="home_sub_header" />
+            <FormattedMessage id={userData?.role === 'seller' ? 'home_sub_header_seller' : 'home_sub_header'} />
           </Typography>
-          {/* TODO: Navigate to Create House if Login as Seller */}
-          <Button variant="contained" onClick={() => navigate('/house/list/all')}>
-            <FormattedMessage id="house_browse" />
-          </Button>
+          {userData?.role === 'seller' ? (
+            <Button variant="contained" onClick={() => navigate('/house/create')}>
+              <FormattedMessage id="house_create" />
+            </Button>
+          ) : (
+            <Button variant="contained" onClick={() => navigate('/house/list')}>
+              <FormattedMessage id="house_browse" />
+            </Button>
+          )}
         </Box>
       </Box>
       <Box className={classes.two}>
@@ -43,14 +52,12 @@ const Home = () => {
             <Typography className={classes.sub_header}>
               <FormattedMessage id="home_sub_header_2" />
             </Typography>
-            {/* TODO: Search Functionality */}
             <Box className={classes.search}>
-              <TextField
+              <CustomInput
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 fullWidth
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={intl.formatMessage({ id: 'home_location' })}
-                className={classes.input}
+                placeholder="home_location"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -58,8 +65,9 @@ const Home = () => {
                     </InputAdornment>
                   ),
                 }}
+                className={classes.input}
               />
-              <IconButton className={classes.btn_wrapper}>
+              <IconButton className={classes.btn_wrapper} onClick={() => navigate(`/house/list?city=${city}`)}>
                 <SearchIcon />
               </IconButton>
             </Box>
@@ -71,4 +79,12 @@ const Home = () => {
   );
 };
 
-export default Home;
+Home.propTypes = {
+  userData: PropTypes.object,
+};
+
+const mapStateToProps = createStructuredSelector({
+  userData: selectuserData,
+});
+
+export default connect(mapStateToProps)(Home);

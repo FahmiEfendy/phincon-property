@@ -10,6 +10,10 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.STRING,
+        references: {
+          model: "Users",
+          key: "id",
+        },
       },
       message: {
         type: Sequelize.STRING,

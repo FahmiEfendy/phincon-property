@@ -6,49 +6,98 @@
     width: 100vw;
 
     .one{
-        @include directionX;
-        height: 91vh;
+        @include directionY;
+        height: 93vh;
         width: 100%;
         padding: 0 !important;
+        margin-top: 2rem;
+
+        @include apply-at-lg-size{
+            @include directionX;
+            margin-top: 0rem;
+        }
 
         .left_wrapper{
             @include directionY;
             justify-content: center;
-            height: 100%;
-            width: 60%;
+
+            @include apply-at-lg-size{
+                width: 50%;
+                height: 100%;
+            }
 
             .background_image {                
                 background-image: url("../../../asset/house-5.jpg");
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
-                width: 100%;
-                height: 80%;
-                border-radius: 0 20px 20px 0;
+                height: 30vh;
+                
+                @include apply-at-lg-size{
+                    height: 50vh;
+                    border-radius: 0 20px 20px 0;
+                }
+                
+                @include apply-at-xxl-size{
+                    height: 70vh;
+                    border-radius: 0 20px 20px 0;
+                }
             }
         }
         
         .right_wrapper{
             @include directionY;
-            width: 40%;
-            padding: 1rem;
+            padding: 2rem 1rem;
+
+            @include apply-at-lg-size{
+                width: 50%;
+                justify-content: center;
+                padding: 2rem;
+            }
 
             .header{
-                @include font(60px, $font-weight-bold, "");
-                line-height: 3.5rem;
-                margin-top: 8rem;
+                @include font(26px, $font-weight-bold, "");
+                
+                @include apply-at-sm-size{
+                    @include font(38px, $font-weight-bold, "");
+                }
+                
+                @include apply-at-xxl-size{
+                    @include font(60px, $font-weight-bold, "");
+                }
+            
             }
             
             .sub_header{
                 margin-top: .5rem;
-                @include font(20px, $font-weight-light, "");
+                @include font(16px, $font-weight-light, "");
+                
+                @include apply-at-sm-size{
+                    @include font(24px, $font-weight-light, "");
+                }
+                
+                @include apply-at-lg-size{
+                    line-height: 2rem;
+                    width: 90%;
+                }
             }
 
             button {
-                margin-top: 2rem;
+                margin-top: 1rem;
                 text-transform: capitalize;
-                @include font(18px, $font-weight-regular, "");
-                width: 9rem;
+                @include font(14px, $font-weight-regular, "");
+                width: 7rem;
+                
+                @include apply-at-sm-size{
+                    @include font(16px, $font-weight-regular, "");
+                    width: 8rem;
+                }
+                
+                @include apply-at-xxl-size{
+                    @include font(20px, $font-weight-regular, "");
+                    width: 9rem;
+                    margin-top: 2rem
+                }
             }
         }
     }
@@ -67,17 +116,31 @@
             @include directionY;
             justify-content: center;
             z-index: 10;
-            height: 100%;    
+            height: 100%;   
+            padding: 1rem; 
 
             .content_inner {
                 .header {
                     text-align: center;
-                    @include font(60px, $font-weight-bold, var(--color-bg));
+                    @include font(26px, $font-weight-bold, var(--color-bg));
+
+                    @include apply-at-sm-size{
+                        @include font(38px, $font-weight-bold, "");
+                    }
+
+                    @include apply-at-xxl-size{
+                        @include font(60px, $font-weight-bold, "");
+                    }
                 }
     
                 .sub_header{
                     margin-top: 1rem;
-                    @include font(20px, $font-weight-regular, var(--color-bg));
+                    @include font(16px, $font-weight-regular, var(--color-bg));
+                    text-align: center;
+
+                    @include apply-at-sm-size{
+                        @include font(24px, $font-weight-light, "");
+                    }
                 }
                 
                 .search{

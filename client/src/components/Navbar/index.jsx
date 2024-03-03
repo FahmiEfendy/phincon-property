@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
@@ -13,11 +13,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { setLocale } from '@containers/App/actions';
 import { resetLogin } from '@containers/Client/actions';
+import { selectUserDetail } from '@pages/UserDetail/selectors';
+import { getUserDetailRequest } from '@pages/UserDetail/actions';
 import { selectLogin, selectuserData } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
 
-const Navbar = ({ title, locale, isLogin, userData }) => {
+const Navbar = ({ title, locale, isLogin, userData, userDetail }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,8 +60,11 @@ const Navbar = ({ title, locale, isLogin, userData }) => {
     dispatch(resetLogin());
   };
 
+  useEffect(() => {
+    dispatch(getUserDetailRequest(userData?.id));
+  }, [dispatch, userData?.id]);
+
   return (
-    // TODO: Update Navbar userData when Update User
     <div className={classes.headerWrapper} data-testid="navbar">
       <div className={classes.contentWrapper}>
         <div className={classes.logoImage} onClick={goHome}>
@@ -94,9 +99,8 @@ const Navbar = ({ title, locale, isLogin, userData }) => {
         {isLogin ? (
           <>
             <Box className={classes.profile_wrapper} onClick={openProfileHandler}>
-              <Avatar className={classes.avatar} src={userData?.image_url} />
-              <Typography variant="body1">{userData?.fullName}</Typography>
-              {/* <ExpandMoreIcon /> */}
+              <Avatar className={classes.avatar} src={userDetail?.data?.image_url} />
+              <Typography variant="body1">{userDetail?.data?.fullName}</Typography>
             </Box>
             <Menu
               open={isProfileOpen}
@@ -113,7 +117,7 @@ const Navbar = ({ title, locale, isLogin, userData }) => {
             >
               <MenuItem
                 onClick={() => {
-                  navigate(`/user/detail/${userData?.id}`);
+                  navigate(`/user/detail/${userDetail?.data?.id}`);
                   closeProfileHandler();
                 }}
               >
@@ -123,18 +127,20 @@ const Navbar = ({ title, locale, isLogin, userData }) => {
                   </div>
                 </div>
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  navigate(`/house/list/${userData?.id}`);
-                  closeProfileHandler();
-                }}
-              >
-                <div className={classes.menu}>
-                  <div className={classes.menuLang}>
-                    <FormattedMessage id="app_my_house" />
+              {userDetail?.data?.role === 'seller' && (
+                <MenuItem
+                  onClick={() => {
+                    navigate(`/house/list?sellerId=${userDetail?.data?.id}`);
+                    closeProfileHandler();
+                  }}
+                >
+                  <div className={classes.menu}>
+                    <div className={classes.menuLang}>
+                      <FormattedMessage id="app_my_house" />
+                    </div>
                   </div>
-                </div>
-              </MenuItem>
+                </MenuItem>
+              )}
               <MenuItem
                 onClick={() => {
                   navigate('/favorite/list');
@@ -200,11 +206,13 @@ Navbar.propTypes = {
   locale: PropTypes.string.isRequired,
   isLogin: PropTypes.bool,
   userData: PropTypes.object,
+  userDetail: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   isLogin: selectLogin,
   userData: selectuserData,
+  userDetail: selectUserDetail,
 });
 
 export default connect(mapStateToProps)(Navbar);

@@ -7,8 +7,9 @@ import { createStructuredSelector } from 'reselect';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Box, Button, Container, FormLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 
+import CustomInput from '@components/CustomInput';
 import encryptPayload from '@utils/encryptPayload';
 import { selectError } from '@containers/Client/selectors';
 import { hidePopup, showPopup } from '@containers/App/actions';
@@ -71,40 +72,27 @@ const Login = ({ loginError }) => {
             <FormattedMessage id="app_login" />
           </Typography>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_email" />
-            </FormLabel>
-            <TextField
-              type="text"
+            <CustomInput
+              label="form_email"
               value={email.value}
               onChange={(e) => setEmail({ value: e.target.value, isValid: e.target.value.length > 0 })}
+              errorLabel={email.isValid ? null : 'form_email_error_required'}
             />
-            {!email.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_email_error_required" />
-              </FormLabel>
-            )}
           </Box>
           <Box className={classes.input_wrapper}>
-            <FormLabel className={classes.form_label}>
-              <FormattedMessage id="form_password" />
-            </FormLabel>
             <Box className={classes.input_wrapper_password}>
-              <TextField
+              <CustomInput
                 fullWidth
+                label="form_password"
                 type={isPasswordVisible ? 'text' : 'password'}
                 value={password.value}
                 onChange={(e) => setPassword({ value: e.target.value, isValid: e.target.value.length > 0 })}
+                errorLabel={password.isValid ? null : 'form_password_error_required'}
               />
               <Box className={classes.icon} onClick={() => setIsPasswordVisible((prevState) => !prevState)}>
                 {isPasswordVisible ? <VisibilityIcon fontSize="small" /> : <VisibilityOffIcon fontSize="small" />}
               </Box>
             </Box>
-            {!password.isValid && (
-              <FormLabel className={classes.form_label_error}>
-                <FormattedMessage id="form_password_error_required" />
-              </FormLabel>
-            )}
           </Box>
           <Box className={classes.btn_wrapper}>
             <Button variant="contained" onClick={loginHandler}>

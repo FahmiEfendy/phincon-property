@@ -13,6 +13,7 @@ const CustomInput = ({
   type = 'text',
   placeholder = 'global_type_something',
   onKeyDown = () => {},
+  ...params
 }) => {
   const intl = useIntl();
 
@@ -29,6 +30,7 @@ const CustomInput = ({
         onChange={onChange}
         placeholder={intl.formatMessage({ id: placeholder })}
         onKeyDown={onKeyDown}
+        {...params}
       />
       {errorLabel && errorLabel !== '' && (
         <FormLabel className={classes.form_label_error}>
@@ -47,6 +49,7 @@ CustomInput.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onKeyDown: PropTypes.func,
+  params: PropTypes.object,
 };
 
 export default CustomInput;
