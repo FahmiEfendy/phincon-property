@@ -59,6 +59,7 @@ export default {
   app_conversation: 'Conversation',
   app_appointment: 'Appointment',
   app_my_house: 'Listings',
+  app_user_list: 'User List',
 
   forbidden_text: 'You have no right to access this page!',
 
@@ -139,6 +140,6 @@ export default {
   appointment_message_required: 'Appointment message cannot be empty!',
   appointment_date: 'Appointment date',
   appointment_date_required: 'You must pick appointment date!',
-  appointment_request: 'Request Appointment',
+  appointment_request: 'Appointment',
   appointment_empty: 'You currently have no appointment',
 };

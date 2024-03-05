@@ -5,9 +5,9 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import { Box, Button, Container, Typography } from '@mui/material';
-import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
 
 import { showPopup } from '@containers/App/actions';
 import { getHouseDetailRequest } from '@pages/HouseDetail/actions';
@@ -105,7 +105,7 @@ const Confirmation = ({ step, formData, createHouse }) => {
             <FormattedMessage id="house_facility" />
           </Typography>
           <Box className={classes.info_wrapper}>
-            <ShowerOutlinedIcon className={classes.info_icon} color="primary" />
+            <BathtubIcon className={classes.info_icon} color="primary" />
             <Typography variant="body1" className={classes.sub_text}>
               {formData.info.bathrooms}
             </Typography>

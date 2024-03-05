@@ -17,6 +17,14 @@ const postAddHouseToFavorite = async (user_id, house_id) => {
       throw Boom.notFound(`Cannot find house with id of ${house_id}`);
     }
 
+    const favoriteExist = await db.Favorites.findOne({
+      where: { user_id, house_id },
+    });
+
+    if (!_.isEmpty(favoriteExist)) {
+      throw Boom.badRequest("This house already favorited!");
+    }
+
     await db.Favorites.create({
       id: uuidv4(),
       user_id,

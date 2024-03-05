@@ -33,9 +33,14 @@ const Home = ({ userData }) => {
             <FormattedMessage id={userData?.role === 'seller' ? 'home_sub_header_seller' : 'home_sub_header'} />
           </Typography>
           {userData?.role === 'seller' ? (
-            <Button variant="contained" onClick={() => navigate('/house/create')}>
-              <FormattedMessage id="house_create" />
-            </Button>
+            <Box className={classes.btn_wrapper}>
+              <Button variant="outlined" onClick={() => navigate('/house/list')}>
+                <FormattedMessage id="house_browse" />
+              </Button>
+              <Button variant="contained" onClick={() => navigate('/house/create')}>
+                <FormattedMessage id="house_create" />
+              </Button>
+            </Box>
           ) : (
             <Button variant="contained" onClick={() => navigate('/house/list')}>
               <FormattedMessage id="house_browse" />

@@ -58,10 +58,13 @@ const Navbar = ({ title, locale, isLogin, userData, userDetail }) => {
 
   const logoutHandler = () => {
     dispatch(resetLogin());
+    navigate('/');
   };
 
   useEffect(() => {
-    dispatch(getUserDetailRequest(userData?.id));
+    if (userData?.id) {
+      dispatch(getUserDetailRequest(userData?.id));
+    }
   }, [dispatch, userData?.id]);
 
   return (
@@ -99,8 +102,8 @@ const Navbar = ({ title, locale, isLogin, userData, userDetail }) => {
         {isLogin ? (
           <>
             <Box className={classes.profile_wrapper} onClick={openProfileHandler}>
-              <Avatar className={classes.avatar} src={userDetail?.data?.image_url} />
-              <Typography variant="body1">{userDetail?.data?.fullName}</Typography>
+              <Avatar className={classes.avatar} src={userData?.image_url} />
+              <Typography variant="body1">{userData?.fullName}</Typography>
             </Box>
             <Menu
               open={isProfileOpen}
@@ -117,7 +120,7 @@ const Navbar = ({ title, locale, isLogin, userData, userDetail }) => {
             >
               <MenuItem
                 onClick={() => {
-                  navigate(`/user/detail/${userDetail?.data?.id}`);
+                  navigate(`/user/detail/${userData?.id}`);
                   closeProfileHandler();
                 }}
               >
@@ -127,10 +130,24 @@ const Navbar = ({ title, locale, isLogin, userData, userDetail }) => {
                   </div>
                 </div>
               </MenuItem>
-              {userDetail?.data?.role === 'seller' && (
+              {userData?.role === 'admin' && (
                 <MenuItem
                   onClick={() => {
-                    navigate(`/house/list?sellerId=${userDetail?.data?.id}`);
+                    navigate('/user/list');
+                    closeProfileHandler();
+                  }}
+                >
+                  <div className={classes.menu}>
+                    <div className={classes.menuLang}>
+                      <FormattedMessage id="app_user_list" />
+                    </div>
+                  </div>
+                </MenuItem>
+              )}
+              {userData?.role === 'seller' && (
+                <MenuItem
+                  onClick={() => {
+                    navigate(`/house/list?sellerId=${userData?.id}`);
                     closeProfileHandler();
                   }}
                 >

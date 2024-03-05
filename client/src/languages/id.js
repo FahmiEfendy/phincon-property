@@ -58,6 +58,7 @@ export default {
   app_conversation: 'Obrolan',
   app_appointment: 'Janji Temu',
   app_my_house: 'Listing',
+  app_user_list: 'List Pengguna',
 
   forbidden_text: 'Kamu tidak mempunyai akses untuk membuka halaman ini!',
 

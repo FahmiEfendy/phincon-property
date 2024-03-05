@@ -5,9 +5,9 @@ import { createStructuredSelector } from 'reselect';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
 import { Avatar, Box, Button, Container, Typography } from '@mui/material';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -97,7 +97,7 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation, userData }) 
         <Box className={classes.info_wrapper}>
           <Box className={classes.price_wrapper}>
             <Typography variant="body1" className={classes.price}>
-              {priceFormatter.format(houseDetail?.data?.price)}
+              {priceFormatter(houseDetail?.data?.price)}
             </Typography>
           </Box>
           <Box className={classes.seller_wrapper}>
@@ -108,7 +108,7 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation, userData }) 
               >
                 {userDetail?.data?.fullName}
               </Typography>
-              {/* TOOD: Fix Button Position */}
+              {/* TODO: Fix Button Position */}
               {userData?.id !== houseDetail?.data?.seller_id && (
                 <Box className={classes.btn_wrapper}>
                   <Button variant="outlined" startIcon={<AssignmentTurnedInIcon />} onClick={openModalHandler}>
@@ -148,7 +148,7 @@ const HouseDetail = ({ houseDetail, userDetail, createConversation, userData }) 
         </Typography>
         <Box className={classes.facility_wrapper}>
           <Box className={classes.facility_wrapper_inner}>
-            <ShowerOutlinedIcon className={classes.info_icon} color="primary" />
+            <BathtubIcon className={classes.info_icon} color="primary" />
             <Typography variant="body1">
               {houseDetail?.data?.bathrooms} <FormattedMessage id="house_baths" />
             </Typography>

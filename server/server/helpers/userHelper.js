@@ -8,6 +8,7 @@ const generalHelper = require("../helpers/generalHelper");
 const {
   uploadToCloudinary,
   cloudinaryDeleteImg,
+  cloudinaryDeleteFolder,
 } = require("../../utils/cloudinary");
 
 const fileName = "server/helpers/userHelper.js";
@@ -287,6 +288,22 @@ const deleteUser = async (params, objectData) => {
     if (_.isEmpty(selectedUser)) {
       throw Boom.badRequest(`User with id of ${id} not found!`);
     }
+
+    const userHouse = await db.Houses.findAll({ where: { seller_id: id } });
+
+    let imageList;
+    for (house of userHouse) {
+      imageList = JSON.parse(house.dataValues.images);
+
+      if (!_.isEmpty(imageList)) {
+        for (i in imageList) {
+          await cloudinaryDeleteImg(imageList[i].image_id, "image");
+        }
+
+        await cloudinaryDeleteFolder(`image/house/${id}`);
+      }
+    }
+    await db.Houses.destroy({ where: { seller_id: id } });
 
     await cloudinaryDeleteImg(selectedUser.image_id, "image");
     await db.Users.destroy({ where: { id } });

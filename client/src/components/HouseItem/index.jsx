@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import BathtubIcon from '@mui/icons-material/Bathtub';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShowerOutlinedIcon from '@mui/icons-material/ShowerOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
@@ -121,21 +121,23 @@ const HouseItem = ({ data, onFavorite = false, userData, addToFavorite, deleteFr
           <Box className={classes.info_wrapper}>
             <Box>
               <Box className={classes.info_wrapper_inner}>
-                <ShowerOutlinedIcon className={classes.info_icon} color="primary" />
-                <Typography variant="body1">
-                  {bathrooms} <FormattedMessage id="house_baths" />
+                <BathtubIcon className={classes.info_icon} color="primary" />
+                <Typography variant="body1">{bathrooms}</Typography>
+                <Typography variant="body1" className={classes.info_text}>
+                  <FormattedMessage id="house_baths" />
                 </Typography>
               </Box>
               <Box className={classes.info_wrapper_inner}>
                 <BedOutlinedIcon className={classes.info_icon} color="primary" />
-                <Typography variant="body1">
-                  {bedrooms} <FormattedMessage id="house_beds" />
+                <Typography variant="body1">{bedrooms}</Typography>
+                <Typography variant="body1" className={classes.info_text}>
+                  <FormattedMessage id="house_beds" />
                 </Typography>
               </Box>
             </Box>
             <Box className={classes.action}>
               <Typography variant="body1" className={classes.price}>
-                {priceFormatter.format(price)}
+                {priceFormatter(price)}
               </Typography>
               <IconButton className={classes.action_btn_wrapper} onClick={() => navigate(`/house/detail/${id}`)}>
                 <ArrowForwardOutlinedIcon className={classes.btn} />

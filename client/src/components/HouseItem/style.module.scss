@@ -94,7 +94,7 @@
                         font-size: 1.2rem;
                     }
 
-                    p{
+                    p {
                         margin-left: .1rem;
                         @include font(10px, $font-weight-light, "");
                         
@@ -105,9 +105,13 @@
                         @include apply-at-xl-size{
                             @include font(14px, $font-weight-light, "");
                         }
-                        
-                        @include apply-at-xxl-size{
-                            @include font(16px, $font-weight-light, "");
+                    }
+
+                    .info_text {
+                        display: none;
+
+                        @include apply-at-sm-size {
+                            display: inline-block;
                         }
                     }
                 }
@@ -127,10 +131,6 @@
                         
                         @include apply-at-xl-size{
                             @include font(24px, $font-weight-medium, "");
-                        }
-                        
-                        @include apply-at-xxl-size{
-                            @include font(26px, $font-weight-medium, "");
                         }
                     }
 

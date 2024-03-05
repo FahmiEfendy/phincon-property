@@ -82,8 +82,8 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
 
   useEffect(() => {
     if (conversationId) {
-      // Scroll to last message
       // TODO: Don't Scroll to Bottom When Fetch Pagination
+      // Scroll to last message
       chatRoomRef.current.scrollTop = chatRoomRef.current.scrollHeight;
     }
   }, [conversationId]);
@@ -122,6 +122,7 @@ const ConversationList = ({ conversationList, conversationDetail, userData }) =>
     }
   }, [conversationId, dispatch, page]);
 
+  // Avoid receive duplicate message
   useEffect(() => {
     if (conversationDetail?.data?.Messages && conversationDetail?.data?.hasMoreMessage) {
       setMessageList((prevState) => {

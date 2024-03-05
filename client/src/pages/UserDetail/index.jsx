@@ -39,12 +39,12 @@ const UserDetail = ({ userData, userDetail }) => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (userDetail?.data?.id && userData?.id === userDetail?.data?.id) {
+    if (userData?.id === id) {
       navigate(`/user/detail/${userData?.id}`);
-    } else if (userDetail?.data?.id && userData?.id !== userDetail?.data?.id) {
+    } else {
       navigate('/forbidden');
     }
-  }, [navigate, userData?.id, userDetail?.data?.id]);
+  }, [id, navigate, userData?.id]);
 
   return (
     <Container maxWidth="xl" className={classes.container}>
