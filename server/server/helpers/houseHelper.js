@@ -78,6 +78,27 @@ const postCreateHouse = async (objectData) => {
       seller_id: user_id,
     });
 
+    let houseList;
+
+    houseList = await db.Houses.findAll({
+      where: { seller_id: user_id },
+    });
+
+    houseList.map((data) => data.dataValues);
+
+    await redis.setKey({
+      key: `house-${user_id}`,
+      value: JSON.stringify(houseList),
+    });
+
+    let userHouseList;
+
+    userHouseList = await db.Houses.findAll();
+
+    userHouseList.map((data) => data.dataValues);
+
+    await redis.setKey({ key: "house", value: JSON.stringify(userHouseList) });
+
     console.log([fileName, "POST Create House", "INFO"]);
 
     return Promise.resolve(newHouse);
@@ -255,7 +276,7 @@ const patchUpdateHouse = async (params, objectData) => {
     }
 
     if (images) {
-      imageList = JSON.parse(selectedHouse.dataValues.images);
+      imageList = JSON.parse(selectedHouse.dataValues.images) || [];
 
       for (i in images) {
         imageResult = await uploadToCloudinary(

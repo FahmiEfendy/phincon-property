@@ -1,0 +1,667 @@
+{
+	"info": {
+		"_postman_id": "7bf690ae-4007-4821-8461-87ea27e06276",
+		"name": "Phincon Property",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21039946"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "[POST] Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"U2FsdGVkX18CD+VH0fSSdYvppQWOt8jiK9IYaFnj2E4V18pvarr6NykA6eZQr8Xb\",\r\n    \"fullName\": \"U2FsdGVkX19IZa7zJG+YyjDEpDtYa1kOytaPZCx+ACs=\",\r\n    \"password\": \"U2FsdGVkX1+0j13IYIkHAijGX+jorIMpi01SYmLVMNM=\",\r\n    \"confirmPassword\": \"U2FsdGVkX1/UHeQ9Ul4lJj9TSwtVNzYng1/YuGjzuXU=\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\": \"U2FsdGVkX1/8z4gNtS79vwIFGxhwdre5Unv9i4k227GXwlEjXwZvA+mFomGhvc0R\",\r\n        \"password\": \"U2FsdGVkX18YpkxnTic0jfN53q+AnDw2aYo4g8+MBO0=\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] User List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BACKEND_URL}}/user/list",
+							"host": [
+								"{{BACKEND_URL}}"
+							],
+							"path": [
+								"user",
+								"list"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "admin",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] User Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BACKEND_URL}}/user/detail/3798d83b-a9b5-4822-9fea-c32f97a36e09"
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Fahmi Efendy Edited",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Desktop/profile.jpg"
+								}
+							]
+						},
+						"url": "{{BACKEND_URL}}/user/update/admin-1"
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Change Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"U2FsdGVkX1/9+tqepOYh2SkPwIPgZMRXw0kF75SH/+8=\",\r\n    \"newPassword\": \"U2FsdGVkX1/mZx/G1Cw25YRyITH0BoFLWeSKJ8tCh0M=\",\r\n    \"confirmNewPassword\": \"U2FsdGVkX1/mZx/G1Cw25YRyITH0BoFLWeSKJ8tCh0M=\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/user/change-password/admin-1"
+					},
+					"response": []
+				},
+				{
+					"name": "[DELETE] Remove User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BACKEND_URL}}/user/delete/admin-1"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Encrypt Value",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fahmi_seller@gmail.com\",\r\n    \"fullName\": \"Fahmi Seller\",\r\n    \"password\": \"fahmi123\",\r\n    \"confirmPassword\": \"fahmi123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/user/encrypt"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "House",
+			"item": [
+				{
+					"name": "[POST] Create House",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Spacious Family Home ",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "House's description, i.e. A perfect home for your family with ample space and a beautiful backyard",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2500",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "789 Oak Ave, Los Angeles, CA 90001, USA",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Suburbia",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "CA",
+									"type": "text"
+								},
+								{
+									"key": "zipCode",
+									"value": "56789",
+									"type": "text"
+								},
+								{
+									"key": "bedrooms",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "bathrooms",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Desktop/house/house-3.jpg"
+								}
+							]
+						},
+						"url": "{{BACKEND_URL}}/house/create"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] House List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BACKEND_URL}}/house/list?searchAddress=a",
+							"host": [
+								"{{BACKEND_URL}}"
+							],
+							"path": [
+								"house",
+								"list"
+							],
+							"query": [
+								{
+									"key": "seller_id",
+									"value": "c87749e4-73a6-40fc-97da-6fd5342cfbce",
+									"disabled": true
+								},
+								{
+									"key": "searchAddress",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] House Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BACKEND_URL}}/house/detail/7759e4ea-6c86-46e5-9b8f-41e8f5232fdc"
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update House",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Title Edited",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description Edited",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1000",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Liberty Statue",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "New York",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Atlantic City",
+									"type": "text"
+								},
+								{
+									"key": "zipCode",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "bedrooms",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "bathrooms",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/C:/Users/ASUS/Desktop/house/house-3.jpg",
+										"/C:/Users/ASUS/Desktop/house/house-4.jpg"
+									]
+								}
+							]
+						},
+						"url": "{{BACKEND_URL}}/house/update/e5f3d02b-97de-4c2d-9e09-e712f23e30ca"
+					},
+					"response": []
+				},
+				{
+					"name": "[DELETE] House Image",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image_id\": \"image/house/e5f3d02b-97de-4c2d-9e09-e712f23e30ca/wgp02nt9bzzz188uguto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/house/delete-image/e5f3d02b-97de-4c2d-9e09-e712f23e30ca"
+					},
+					"response": []
+				},
+				{
+					"name": "[DELETE] House",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BACKEND_URL}}/house/delete/3c0a4669-5fe7-4c48-9c75-d7be4abb5d93"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Favorite",
+			"item": [
+				{
+					"name": "[POST] Add House To Favorite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{BACKEND_URL}}/favorite/add/e5f3d02b-97de-4c2d-9e09-e712f23e30ca"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] My Favorite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BACKEND_URL}}/favorite/list"
+					},
+					"response": []
+				},
+				{
+					"name": "[DELETE] House From Favorite",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BACKEND_URL}}/favorite/delete/e5f3d02b-97de-4c2d-9e09-e712f23e30ca"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "[POST] Create Appointment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"house_id\": \"7759e4ea-6c86-46e5-9b8f-41e8f5232fdc\",\r\n    \"seller_id\": \"7e721d5b-fdfb-480a-9a54-755952a4d3fd\",\r\n    \"date\": \"2024-02-23T10:00:00\",\r\n    \"message\": \"Meet me at 9am\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/appointment/create"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Appointment List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BACKEND_URL}}/appointment/list",
+							"host": [
+								"{{BACKEND_URL}}"
+							],
+							"path": [
+								"appointment",
+								"list"
+							],
+							"query": [
+								{
+									"key": "seller_id",
+									"value": "3798d83b-a9b5-4822-9fea-c32f97a36e09a",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update Appointment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"Meet me at 3pm\",\r\n    \"status\": \"accepted\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/appointment/update/ca61210a-ee0d-4dd9-b82b-ddfc98072737"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conversation",
+			"item": [
+				{
+					"name": "[POST] Create Conversation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"target_id\": \"3798d83b-a9b5-4822-9fea-c32f97a36e09\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/conversation/create"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] User Conversation List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BACKEND_URL}}/conversation/list"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Conversation Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BACKEND_URL}}/conversation/detail/22011f8b-beab-4b5d-9a01-43b0ab15d3af?page=1&pageSize=10",
+							"host": [
+								"{{BACKEND_URL}}"
+							],
+							"path": [
+								"conversation",
+								"detail",
+								"22011f8b-beab-4b5d-9a01-43b0ab15d3af"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "[POST] Send Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conversation_id\": \"99ac07f5-aa65-4387-882d-c056da892470\",\r\n    \"message\": \"Messsage sent by seller 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BACKEND_URL}}/message/send"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[GET] Test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BACKEND_URL}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{TOKEN_SELLER_2}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BACKEND_URL",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_ADMIN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_SELLER_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_SELLER_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_CUSTOMER_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_CUSTOMER_2",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -5,6 +5,7 @@ const request = require("supertest");
 const db = require("../../models");
 const userApi = require("../../server/api/user");
 const userListData = require("../fixtures/userListData.json");
+const { encryptPayload } = require("../../utils/encryptPayload");
 const userDetailData = require("../fixtures/userDetailData.json");
 const generalHelper = require("../../server/helpers/generalHelper");
 const userCustomerDetailData = require("../fixtures/userCustomerDetailData.json");
@@ -36,7 +37,7 @@ describe("List", () => {
 
     header = {
       authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluLTEiLCJlbWFpbCI6ImZhaG1pQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiRmFobWkgRWZlbmR5Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzA4MzU1ODQ2LCJleHAiOjE3MDg0NDIyNDZ9.A-vZS1iT0VRWpxeYvI-OIGrGy89sKlvZg_en_ExPwj4",
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg5ZjI2MzIwLTA4NWQtNDRlNC1iZDc0LThiMzlkNGY5ZWUwYyIsImVtYWlsIjoiZmFobWlAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJGYWhtaSBFZGl0Iiwicm9sZSI6ImN1c3RvbWVyIiwiaW1hZ2VfdXJsIjoiaHR0cDovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kZ242c3p1YngvaW1hZ2UvdXBsb2FkL3YxNzA5NjA1Nzk5L2ltYWdlL3Byb2ZpbGUvam9ib2tuaXdhYnVlcHluZG9la2suanBnIiwiaWF0IjoxNzA5NjIyNzcwfQ.mXKiusR-N-kflEAZ1fNdC4NCK_I7_R-nVH3ix2VYnvA",
     };
   });
 
@@ -46,16 +47,16 @@ describe("List", () => {
 
   describe("POST User Register", () => {
     beforeEach(() => {
-      payload = {
-        email: "U2FsdGVkX1/zkKxmGTrsZ0nFKVWrrKSN0jwcjdeGCmU=", // john123@gmail.com
-        fullName: "U2FsdGVkX1+1jXTSACFF/8Vq1cDgLKbd/IZ0/2oqI2o=", // John Doe
-        password: "U2FsdGVkX1+2c9z0bjcubCIzGsbhMqur8Wqx2sAhhyA=", // john123
-        confirmPassword: "U2FsdGVkX1+2c9z0bjcubCIzGsbhMqur8Wqx2sAhhyA=", // john123
-        role: "admin",
-      };
-
       getUserDetail = jest.spyOn(db.Users, "findOne");
       postUserRegister = jest.spyOn(db.Users, "create");
+
+      payload = {
+        email: encryptPayload("johndoe@gmail.com"),
+        fullName: encryptPayload("John Doe"),
+        password: encryptPayload("john123"),
+        confirmPassword: encryptPayload("john123"),
+        role: "admin",
+      };
     });
 
     test("Should Return 201: POST Register Success", async () => {
@@ -70,9 +71,9 @@ describe("List", () => {
 
     test("Should Return 400: POST Register Failed Because Email Exist", async () => {
       getUserDetail.mockResolvedValue({
-        email: "U2FsdGVkX1/zkKxmGTrsZ0nFKVWrrKSN0jwcjdeGCmU=",
+        email: encryptPayload("fahmi_admin@gmail.com"),
       });
-      postUserRegister.mockResolvedValue("Success");
+      postUserRegister.mockResolvedValue("Failed");
 
       await request(server)
         .post(`${apiUrl}/register`)
@@ -94,9 +95,11 @@ describe("List", () => {
 
   describe("POST User Login", () => {
     beforeEach(() => {
+      getUserDetail = jest.spyOn(db.Users, "findOne");
+
       payload = {
-        email: "U2FsdGVkX1/vLZ8sctRiqnZwhYPzSbZ1RJYpL3/4qUU=", // fahmi@gmail.com
-        password: "U2FsdGVkX19wJmBiuN/hcpO1CsGxXWs7VNfq4NdkLGI=", // fahmi123
+        email: encryptPayload("fahmi@gmail.com"),
+        password: encryptPayload("fahmi123"),
       };
     });
 
@@ -115,7 +118,7 @@ describe("List", () => {
 
       payload = {
         ...payload,
-        email: "U2FsdGVkX1/zkKxmGTrsZ0nFKVWrrKSN0jwcjdeGCmU=", // john123@gmail.com
+        email: encryptPayload("fahmi1234567890@gmail.com"),
       };
 
       await request(server)
@@ -126,11 +129,11 @@ describe("List", () => {
     });
 
     test("Should Return 400: POST Login Failed Because Invaid Password", async () => {
-      getUserDetail.mockResolvedValue(userDetailData);
+      getUserDetail.mockResolvedValue([]);
 
       payload = {
         ...payload,
-        password: "U2FsdGVkX1+2c9z0bjcubCIzGsbhMqur8Wqx2sAhhyA=", // john123
+        password: encryptPayload("fahmi1234567890"),
       };
 
       await request(server)
@@ -141,6 +144,8 @@ describe("List", () => {
     });
 
     test("Should Return 400: POST Login Failed Because Empty Payload", async () => {
+      getUserDetail.mockResolvedValue([]);
+
       await request(server)
         .post(`${apiUrl}/login`)
         .send({})
@@ -309,7 +314,7 @@ describe("List", () => {
       };
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluLTEiLCJlbWFpbCI6ImZhaG1pQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiRmFobWkgRWZlbmR5Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzA4MzU1ODQ2LCJleHAiOjE3MDg0NDIyNDZ9.A-vZS1iT0VRWpxeYvI-OIGrGy89sKlvZg_en_ExPwj4",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg5ZjI2MzIwLTA4NWQtNDRlNC1iZDc0LThiMzlkNGY5ZWUwYyIsImVtYWlsIjoiZmFobWlAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJGYWhtaSBFZGl0Iiwicm9sZSI6ImN1c3RvbWVyIiwiaW1hZ2VfdXJsIjoiaHR0cDovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kZ242c3p1YngvaW1hZ2UvdXBsb2FkL3YxNzA5NjA1Nzk5L2ltYWdlL3Byb2ZpbGUvam9ib2tuaXdhYnVlcHluZG9la2suanBnIiwiaWF0IjoxNzA5NjIyNzcwfQ.mXKiusR-N-kflEAZ1fNdC4NCK_I7_R-nVH3ix2VYnvA",
       };
 
       getUserDetail = jest.spyOn(db.Users, "findOne");
@@ -375,6 +380,11 @@ describe("List", () => {
     beforeEach(() => {
       id = "ca9ff788-cdbe-4d9a-8139-5e5308748758";
 
+      header = {
+        authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5MGJmMTQ1LTBhMTEtNGIwNS05YzY0LWQwMDVkODZlYWM2MyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiZnVsbE5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImltYWdlX3VybCI6IiIsImlhdCI6MTcwOTYyMzA5N30.bdFZoEhg6LbYKsjDtv1FbIKfOpyqYsh9GLWpM8vB1Rg",
+      };
+
       mockUserCustomerDetail = _.cloneDeep(userCustomerDetailData);
       getUserDetail = jest.spyOn(db.Users, "findOne");
       deleteUser = jest.spyOn(db.Users, "destroy");
@@ -397,7 +407,7 @@ describe("List", () => {
 
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InNlbGxlci0xIiwiZW1haWwiOiJmYWhtaV9zZWxsZXJAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJGYWhtaSBFZmVuZHkiLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNzA4MzU3NjQwLCJleHAiOjE3MDg0NDQwNDB9.JrJ3tXqekFp7Qxw3ZWfCf-tSdbrZkmP4lZN0P3cpM-A", // fahmi_seller@gmail.com
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRjMDQxOGU4LWMxNDEtNDk4Yy1iNWMzLTljNTUxYWU5NjY0YSIsImVtYWlsIjoiZmFobWlfc2VsbGVyQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiRmFobWkgU2VsbGVyIiwicm9sZSI6InNlbGxlciIsImltYWdlX3VybCI6IiIsImlhdCI6MTcwOTYyMzAwN30.mRS3FwakRbBl5tEiDGX9IdNGABSplMKyQWp3p_vFtXw", // fahmi_seller@gmail.com
       };
 
       await request(server)
@@ -414,7 +424,7 @@ describe("List", () => {
       id = "customer-1234567890";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluLTEiLCJlbWFpbCI6ImZhaG1pQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiRmFobWkgRWZlbmR5Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzA4MzU1ODQ2LCJleHAiOjE3MDg0NDIyNDZ9.A-vZS1iT0VRWpxeYvI-OIGrGy89sKlvZg_en_ExPwj4", // fahmi@gmail.com
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5MGJmMTQ1LTBhMTEtNGIwNS05YzY0LWQwMDVkODZlYWM2MyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiZnVsbE5hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbiIsImltYWdlX3VybCI6IiIsImlhdCI6MTcwOTYyMzA5N30.bdFZoEhg6LbYKsjDtv1FbIKfOpyqYsh9GLWpM8vB1Rg", // admin@gmail.com
       };
       await request(server)
         .delete(`${apiUrl}/delete/${id}`)
