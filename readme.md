@@ -63,3 +63,17 @@ Start the server
 ```bash
   npm run start
 ```
+
+## Running Tests
+
+Go to the project directory
+
+```bash
+  cd phincon-property/server
+```
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
