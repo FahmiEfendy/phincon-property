@@ -10,6 +10,8 @@ Key Features:
 
 Enhance the house-selling experience with Phincon Property!
 
+![App Screenshot](https://res.cloudinary.com/dgn6szubx/image/upload/v1709714200/ajvo2pe4k5nbvrmygto0.png)
+
 ## Run Locally
 
 Clone the project
@@ -42,6 +44,12 @@ Start the redis
 
 ```bash
   redis-server
+```
+
+Database migrations
+
+```bash
+  npx sequelize-cli db:migrate
 ```
 
 ### Front End
@@ -77,3 +85,13 @@ To run tests, run the following command
 ```bash
   npm run test
 ```
+
+## Tech Stack
+
+**Client:** React, Redux, Material UI, and React Dropzone
+
+**Server:** Node, Express, Socket.IO, and Cloudinary
+
+**Database:** MySQL and Sequelize
+
+**Data Cache:** Redis
