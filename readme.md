@@ -88,10 +88,32 @@ To run tests, run the following command
 
 ## Tech Stack
 
-**Client:** React, Redux, Material UI, and React Dropzone
+### Front End
 
-**Server:** Node, Express, Socket.IO, and Cloudinary
+- React.js - the core framework for website development
 
-**Database:** MySQL and Sequelize
+- Redux - a predictable state container for JavaScript apps. The Redux libraries in this webste are React Redux, Redux Persist and Redux Saga
 
-**Data Cache:** Redis
+- Material UI - high quality components to help this website development
+
+- React Dropzone - a simple react hook to create drag-n-drop for files
+
+### Back End
+
+- Node.js - a JavaScript runtime
+
+- Express - a Node.js framework that provide many feature for building this website
+
+- Socket.IO - a library that enable low-latency, bidirectional and event-based communication between a client and a server. Socket.IO is used to implement message feature
+
+- Cloudinary - a streamline media management platform to storing files
+
+### Database
+
+- MySQL - all data on this website is stored in MySQL
+
+- Sequelize - an easier data handler, Sequelize making it simpler to create, retrieve, update, and delete in the database
+
+### Data Cache
+
+- Redis - a memory key-value database used for caching data
